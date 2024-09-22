@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="css/login.css">
+    <title>Login Consecionaria </title>
+</head>
+<body>
+
+ <div class="contenedor">
+    <div class="caja-formulario">
+
+        <!------------------- Formulario de inicio de sesión -------------------------->
+
+        <div class="contenedor-login" id="login">
+            <div class="encabezado">
+                <span>No tienes una cuenta <a href="/registro.html" onclick="register()">Regístrate</a></span>
+                <h1 class="titulo">Inicio de Sesión</h1>
+            </div>
+            <div class="caja-entrada">
+                <input type="text" class="entrada" placeholder="Nickname o Email">
+                <i class="bx bx-user"></i>
+            </div>
+            <div class="caja-entrada">
+                <input type="password" class="entrada" placeholder="Contraseña">
+                <i class="bx bx-lock-alt"></i>
+            </div>
+            <div class="caja-entrada">
+                <input type="submit" class="boton-enviar" value="Iniciar Sesión">
+            </div>
+            <div class="dos-columnas">
+                <div class="uno">
+                    <input type="checkbox" id="login-check">
+                    <label for="login-check"> Recuérdame</label>
+                </div>
+                <div class="dos">
+                    <label><a href="#">¿Olvidaste tu Contraseña?</a></label>
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+
+</body>
+</html>
