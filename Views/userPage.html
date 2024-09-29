@@ -6,33 +6,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delicias Dulces S.A.S</title>
 
-    <link rel="stylesheet" href="css/mainPage.css"> <!-- CSS -->
+    <link rel="stylesheet" href="../public/css/mainPage.css"> <!-- CSS -->
     <!-- Iconos -->
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
 </head>
 
 <body>
-
-<header>
-    <div id="barra-menu" class="barra bar-menu menu-icon">&#9776</div>
-    <a href="#" class="logo"><img src="./Sources/img/logo.png" alt="Logo"></a>
-    
-    <div class="menu-container">
-        <div class="btn btn-menu" id="menu-iconos"><i class='bx bx-menu'></i></div>
-        <ul class="navbar">
-            <li><a href="#home">Inicio</a></li>
-            <li><a href="#service">Servicios</a></li>
-            <li><a href="#productos">Productos</a></li>
-            <li><a href="#reseñas">Reseñas</a></li>
-            <li><a href="#acerca">Acerca de</a></li>
-        </ul>
+    <header>
+    <div class="header-top">
+        <div class="logo">
+            <a href="#"><img src="./Sources/img/logo.png" alt="Logo"></a>
+        </div>
+        <div class="iconos">
+            <a href="#" class="icon"><i class="bx bx-user"></i></a>
+            <a href="#" class="icon"><i class="bx bx-search"></i></a>
+            <a href="#" class="icon"><i class="bx bx-cart"></i></a>
+        </div>
     </div>
-
-    <div class="header-btn">
-        <a href="login.html" class="btn btn-inicio">Iniciar Sesión</a>
-        <a href="registro.html" class="btn btn-registrarse">Registrarse</a>
+    
+    <div class="header-bottom">
+        <nav class="navbar">
+            <ul>
+                <li><a href="#home">Inicio</a></li>
+                <li class="dropdown-btn"><a href="#productos">Productos &#9662;</a>
+                    <ul class="dropdown">
+                        <li><a href="#">Subcategoría 1</a></li>
+                        <li><a href="#">Subcategoría 2</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown-btn"><a href="#service">Servicio Técnico &#9662;</a>
+                    <ul class="dropdown">
+                        <li><a href="#">Opción 1</a></li>
+                        <li><a href="#">Opción 2</a></li>
+                    </ul>
+                </li>
+                <li><a href="#colecciones">Colecciones</a></li>
+                <li class="dropdown-btn"><a href="#quienes-somos">Quiénes somos &#9662;</a>
+                    <ul class="dropdown">
+                        <li><a href="#">Historia</a></li>
+                        <li><a href="#">Nuestro Equipo</a></li>
+                    </ul>
+                </li>
+                <li><a href="#feria">Nuestra Feria</a></li>
+                <li><a href="#comprar">¿Qué te puedes comprar con $?</a></li>
+            </ul>
+        </nav>
     </div>
 </header>
+
 
 <!-- Sección Home -->
 <section class="home" id="home">

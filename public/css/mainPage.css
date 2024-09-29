@@ -18,8 +18,149 @@
     --gradinet: linear-gradient ( #fe5b3d, #ffac38);
 }
 
-/* Custom Scroll Bar */
+/* Estilos generales del header */
+header {
+    display: flex;
+    flex-direction: column;
+    background-color: #191919;
+    padding: 10px 50px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
 
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-bottom {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.logo img {
+    width: 150px;
+}
+
+/* Menú de navegación */
+
+/* Estilos generales del header */
+header {
+    display: flex;
+    flex-direction: column;
+    background-color: #191919;
+    padding: 10px 50px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-bottom {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.logo img {
+    width: 150px;
+}
+
+/* Menú de navegación */
+.navbar ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar li {
+    position: relative;
+    margin-left: 20px;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 10px;
+}
+
+.navbar a:hover {
+    color: #ffac38;
+}
+
+/* Dropdown por defecto está oculto */
+ul li ul.dropdown {
+    display: none;
+    position: absolute;
+    background-color: #191919;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+}
+/* Mostrar el dropdown con hover */
+.dropdown-btn:hover .dropdown {
+    display: block;
+}
+
+/* Mostrar el dropdown cuando tenga la clase active */
+.dropdown.active {
+    display: block;
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    top: 100%;
+    left: 0;
+    min-width: 150px;
+    z-index: 1000;
+}
+
+.dropdown li {
+    margin: 0;
+}
+
+.dropdown a {
+    color: #fff;
+    padding: 10px 20px;
+    display: block;
+}
+
+.dropdown a:hover {
+    background-color: #ffac38;
+    color: #fff;
+}
+
+/* Estilos de los iconos */
+.iconos {
+    display: flex;
+    gap: 20px;
+}
+
+.icon {
+    color: #fff;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.icon:hover {
+    color: #ffac38;
+}
+
+/* Custom Scroll Bar */
 html::-webkit-scrollbar {
     width: 0.5rem;
 }
@@ -33,100 +174,13 @@ html::-webkit-scrollbar-thumb {
     border-radius: 5rem;
 }
 
-section{
-    padding: 50px 100px;
-}
-
-header{
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px 100px;
-    background: #eeeff1;
-}
-
-.logo img{
-    width: 40px;
-}
-
-.navbar {
-    display: flex;
-}
-
-.navbar li{
-    position: relative;
-}
-
-.navbar a{
-    font-size: 1rem;
-    padding: 10px 20px;
-    color: var(--text-color);
-    font-weight: 500;
-}
-
-.navbar a::after {
-    content: '';
-    width: 0;
-    height:3px;
-    background: var(--main-color);
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    transition: 0.5s;
-}
-
-.navbar a:hover::after {
-    width: 100%;
-}
-
-#menu-iconos{
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 10001;
-    display: none;
-}
-
-.header-btn a {
-    padding: 10px 20px;
-    color: var(--text-color);
-    font-weight: 500;
-}
-
-.header-btn .btn-inicio{
-    background-color: #474fa0;
-    color: #fff;
-    border-radius: 0.5rem;
-}
-
-.header-btn .btn-inicio:hover{
-    background-color: var(--main-color);
-    color: #fff;
-    border-radius: 0.5rem;
-}
-
-.header-btn .btn-registrarse{
-    background-color: var(--main-color);
-    color: #fff;
-    border-radius: 0.5rem;
-}
-
-.header-btn .btn-registrarse:hover{
-    background-color: var(--main-color);
-    color: #fcfcfc;
-    border-radius: 0.5rem;
-    border: 1px solid var(--main-color);
-}
 
 /* Home Section */
 
 .home{
     width: 100%;
     min-height: 100vh;
+    padding: 7rem;
     position: relative;
     background: url(../Sources/img/Car\ Website\ –\ 1@2x.png);
     background-repeat: no-repeat;
