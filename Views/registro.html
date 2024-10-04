@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="../public/css/login.css"> <!-- Cambié el nombre del archivo CSS -->
+    <link rel="stylesheet" href="../public/css/registro.css"> <!-- Cambié el nombre del archivo CSS -->
     <title>registro</title>
 </head>
 <body>
@@ -17,27 +17,30 @@
                 <div class="encabezado">
                     <span>¿Ya tienes una cuenta?<a href="/login.html" onclick="login()">Login</a></span>
                 </div>
-                <div class="dos-forms">
+
+                    <div class="dos-forms">
                     <div class="caja-entrada">
-                        <input type="text" class="entrada" placeholder="Nombres">
+                        <input type="text" class="entrada" id="nickname" placeholder="Nombres">
                         <i class="bx bx-user"></i>
                     </div>
                     <div class="caja-entrada">
-                        <input type="text" class="entrada" placeholder="Apellidos">
+                        <input type="text" class="entrada" id="lastname" placeholder="Apellidos">
                         <i class="bx bx-user"></i>
                     </div>
                 </div>
-                <div class="caja-entrada">
-                    <input type="text" class="entrada" placeholder="Email">
-                    <i class="bx bx-envelope"></i>
-                </div>
-                <div class="caja-entrada">
-                    <input type="password" class="entrada" placeholder="Contraseña">
-                    <i class="bx bx-lock-alt"></i>
-                </div>
-                <div class="caja-entrada">
-                    <input type="submit" class="boton-enviar" value="Registrate">
-                </div>
+                    <div class="caja-entrada">
+                        <input type="email" class="entrada" id="email" placeholder="Email">
+                        <i class="bx bx-envelope"></i>
+                    </div>
+                    <div class="caja-entrada">
+                        <input type="password" class="entrada" id="password" placeholder="Contraseña">
+                        <i class="bx bx-lock-alt"></i>
+                    </div>
+                    <div class="caja-entrada">
+                        <input type="submit" class="boton-enviar" id="boton-enviar" value="Registrate">
+                    </div>
+
+
                 <div class="dos-columnas">
                     <div class="uno">
                         <input type="checkbox" id="registro-check"> <!-- Cambié el nombre del ID -->
@@ -50,5 +53,7 @@
             </div>
         </div>
     </div> 
+    <script src="../public/js/register.js"></script>
+
 </body>
 </html>
