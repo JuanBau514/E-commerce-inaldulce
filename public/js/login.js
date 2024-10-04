@@ -1,32 +1,41 @@
 document.querySelector('.boton-enviar').addEventListener('click', async function (e) {
     e.preventDefault();
 
-    const email = document.querySelector('#email').value;
-    const password = document.querySelector('#password').value;
+    // Asegúrate de que estos IDs coincidan con los del HTML
+    const emailInput = document.querySelector('#email');
+    const passwordInput = document.querySelector('#password');
 
-    if (email && password) {
-        try {
-            const response = await fetch('http://localhost:3000/api/users/login', {  // Asegúrate de usar el puerto correcto
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password }),
-            });
+    // Asegúrate de que los inputs existen antes de acceder a sus valores
+    if (emailInput && passwordInput) {
+        const email = emailInput.value;
+        const password = passwordInput.value;
 
-            const result = await response.json();
+        if (email && password) {
+            try {
+                const response = await fetch('http://localhost:3000/api/users/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password }),
+                });
 
-            if (response.ok) {
-                alert(result.message);
-                window.location.href = '/Views/dashboard.html';  // Redirigir a otra página si es necesario
-            } else {
-                alert(result.message);
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert(result.message);
+                    window.location.href = '/Views/adminPage.html';  // Redirige al dashboard o página deseada
+                } else {
+                    alert(result.message);
+                }
+            } catch (error) {
+                console.error('Error en la solicitud:', error);
+                alert('Error al iniciar sesión');
             }
-        } catch (error) {
-            console.error('Error en la solicitud:', error);
-            alert('Ocurrió un error, intenta de nuevo.');
+        } else {
+            alert('Por favor, completa todos los campos.');
         }
     } else {
-        alert('Por favor, completa todos los campos.');
+        console.error('No se pudo encontrar los campos de email o contraseña');
     }
 });

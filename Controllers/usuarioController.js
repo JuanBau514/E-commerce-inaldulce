@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const Usuario = require('../Models/modeloUsuario');  // Modelo de usuario
 const jwt = require('jsonwebtoken');
+const db = require('../Models/conection');
 
 // Registrar usuario
 exports.register = async (req, res) => {
@@ -26,30 +27,30 @@ exports.register = async (req, res) => {
     }
 };
 
-// Iniciar sesión
 exports.login = async (req, res) => {
     const { email, password } = req.body;
 
     try {
+        // Buscar al usuario en la base de datos
         const [user] = await db.query('SELECT * FROM usuarios WHERE email = ?', [email]);
-
         if (user.length === 0) {
-            return res.status(400).json({ message: 'Usuario no encontrado' });  // Respuesta JSON
+            return res.status(400).json({ message: 'Usuario no encontrado' });
         }
 
+        // Verificar contraseña
         const isMatch = await bcrypt.compare(password, user[0].password);
-
         if (!isMatch) {
-            return res.status(400).json({ message: 'Contraseña incorrecta' });  // Respuesta JSON
+            return res.status(400).json({ message: 'Contraseña incorrecta' });
         }
 
+        // Crear token JWT
         const token = jwt.sign({ id: user[0].id, nickname: user[0].nickname }, 'secreto', {
             expiresIn: '1h',
         });
 
-        return res.status(200).json({ token, message: 'Inicio de sesión exitoso' });  // Respuesta JSON
+        return res.status(200).json({ token, message: 'Inicio de sesión exitoso' });
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: 'Error del servidor' });  // Respuesta JSON en caso de error
+        return res.status(500).json({ message: 'Error del servidor' });
     }
 };
