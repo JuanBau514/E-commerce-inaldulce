@@ -1,149 +1,68 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
-
 body {
-    background: url("/Sources/img/loginRegister.jpg");
+    background: url('https://imagenes.eltiempo.com/files/image_1200_600/uploads/2023/05/13/6460609ccaa74.jpeg') no-repeat center center fixed;
     background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    overflow: hidden;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    color: #333;
 }
-
 .contenedor {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    height: 100vh;
 }
-
 .caja-formulario {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 512px;
-    height: 420px;
-    overflow: hidden;
-    z-index: 2;
-}
-
-.contenedor-login {
-    position: absolute;
-    left: 4px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    transition: .5s ease-in-out;
-    background: rgba(39, 39, 39, 0.4);
+    background: rgba(255, 255, 255, 0.9);
     padding: 20px;
     border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
 }
-
 .encabezado {
-    margin-bottom: 20px;
     text-align: center;
-    color: #fff;
+    margin-bottom: 20px;
 }
-
-.encabezado span a {
-    font-weight: 500;
-    color: #fff;
-    margin-left: 5px;
-}
-
 .titulo {
-    color: #fff;
-    font-size: 30px;
-    text-align: center;
-    margin-bottom: 20px;
+    font-size: 24px;
+    color: #ff69b4;
 }
-
 .caja-entrada {
     position: relative;
     margin-bottom: 20px;
 }
-
 .entrada {
-    font-size: 15px;
-    background: rgba(255, 255, 255, 0.2);
-    color: #fff;
-    height: 50px;
     width: 100%;
-    padding: 0 10px 0 45px;
-    border: none;
-    border-radius: 30px;
-    outline: none;
-    transition: .2s ease;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
-.entrada:hover,
 .entrada:focus {
-    background: rgba(255, 255, 255, 0.25);
+    border-color: #ff69b4;
 }
-
-.caja-entrada i {
-    position: absolute;
-    top: 50%;
-    left: 15px;
-    transform: translateY(-50%);
-    color: #fff;
-}
-
 .boton-enviar {
-    font-size: 15px;
-    font-weight: 500;
-    color: black;
-    height: 45px;
     width: 100%;
+    padding: 10px;
+    background: #ff69b4;
     border: none;
-    border-radius: 30px;
-    outline: none;
-    background: rgba(255, 255, 255, 0.7);
+    border-radius: 25px;
+    color: white;
+    font-size: 16px;
     cursor: pointer;
-    transition: .3s ease-in-out;
+    transition: background 0.3s;
 }
-
 .boton-enviar:hover {
-    background: rgba(255, 255, 255, 0.5);
-    box-shadow: 1px 5px 7px 1px rgba(0, 0, 0, 0.2);
+    background: #ff1493;
 }
-
 .dos-columnas {
     display: flex;
     justify-content: space-between;
-    color: #fff;
-    font-size: small;
-    margin-top: 10px;
+    align-items: center;
 }
-
-.dos-columnas .uno {
-    display: flex;
-    gap: 5px;
-}
-
-.dos label a {
+.dos-columnas a {
+    color: #ff69b4;
     text-decoration: none;
-    color: #fff;
 }
-
-.dos label a:hover {
+.dos-columnas a:hover {
     text-decoration: underline;
-}
-
-/* Estilos responsivos */
-@media only screen and (max-width: 286px) {
-    .caja-formulario {
-        width: 80%;
-        height: auto;
-    }
-
-    .contenedor-login {
-        padding: 10px;
-    }
 }
