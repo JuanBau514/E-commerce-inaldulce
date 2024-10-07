@@ -2,7 +2,7 @@ body {
     background: url('https://imagenes.eltiempo.com/files/image_1200_600/uploads/2023/05/13/6460609ccaa74.jpeg') no-repeat center center fixed;
     background-size: cover;
     font-family: 'Comic Sans MS', cursive, sans-serif;
-    color: #333;
+    color: #333; /* Cambia este color según sea necesario */
 }
 .contenedor {
     display: flex;
@@ -11,7 +11,7 @@ body {
     height: 100vh;
 }
 .caja-formulario {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 182, 193, 0.8);
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -24,7 +24,7 @@ body {
 }
 .titulo {
     font-size: 24px;
-    color: #ff69b4;
+    color: #ff69b4; /* Cambia este color según sea necesario */
 }
 .caja-entrada {
     position: relative;
@@ -33,17 +33,17 @@ body {
 .entrada {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #ddd; /* Cambia este color según sea necesario */
     border-radius: 25px;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .entrada:focus {
-    border-color: #ff69b4;
+    border-color: #ff69b4; /* Cambia este color según sea necesario */
 }
 .boton-enviar {
     width: 100%;
     padding: 10px;
-    background: #ff69b4;
+    background: #ff69b4; /* Cambia este color según sea necesario */
     border: none;
     border-radius: 25px;
     color: white;
@@ -52,7 +52,7 @@ body {
     transition: background 0.3s;
 }
 .boton-enviar:hover {
-    background: #ff1493;
+    background: #ff1493; /* Cambia este color según sea necesario */
 }
 .dos-columnas {
     display: flex;
@@ -60,7 +60,7 @@ body {
     align-items: center;
 }
 .dos-columnas a {
-    color: #ff69b4;
+    color: #ff69b4; /* Cambia este color según sea necesario */
     text-decoration: none;
 }
 .dos-columnas a:hover {

@@ -8,7 +8,7 @@
 }
 
 body {
-    background: url("/Sources/img/loginRegister.jpg");
+    background: url("https://imagenes.eltiempo.com/files/image_1200_600/uploads/2023/05/13/6460609ccaa74.jpeg");
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -23,7 +23,6 @@ body {
 }
 
 .form-box {
-    
     position: relative;
     display: flex;
     align-items: center;
@@ -41,7 +40,7 @@ body {
     display: flex;
     flex-direction: column;
     transition: .5s ease-in-out;
-    background: rgba(39, 39, 39, 0.4);
+    background: rgba(255, 182, 193, 0.8); /* Light pink background */
     padding: 20px;
     border-radius: 15px;
 }
@@ -73,8 +72,8 @@ body {
 
 .entrada {
     font-size: 15px;
-    background: rgba(255, 255, 255, 0.2);
-    color: #fff;
+    background: rgba(255, 255, 255, 0.8); /* White background */
+    color: #ff69b4; /* Hot pink text */
     height: 50px;
     width: 100%;
     padding: 0 10px 0 45px;
@@ -86,7 +85,7 @@ body {
 
 .entrada:hover,
 .entrada:focus {
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.9);
 }
 
 .caja-entrada i {
@@ -94,25 +93,25 @@ body {
     top: 50%;
     left: 15px;
     transform: translateY(-50%);
-    color: #fff;
+    color: #ff69b4; /* Hot pink icon */
 }
 
 .boton-enviar {
     font-size: 15px;
     font-weight: 500;
-    color: black;
+    color: #fff;
     height: 45px;
     width: 100%;
     border: none;
     border-radius: 30px;
     outline: none;
-    background: rgba(255, 255, 255, 0.7);
+    background: #ff69b4; /* Hot pink background */
     cursor: pointer;
     transition: .3s ease-in-out;
 }
 
 .boton-enviar:hover {
-    background: rgba(255, 255, 255, 0.5);
+    background: #ff1493; /* Deep pink background */
     box-shadow: 1px 5px 7px 1px rgba(0, 0, 0, 0.2);
 }
 
