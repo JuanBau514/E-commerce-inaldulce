@@ -9,6 +9,12 @@ CREATE TABLE genero (
     PRIMARY KEY(id_genero)
 );
 
+CREATE TABLE cargo (
+	id_cargo INT NOT NULL,
+	cargo VARCHAR(50),
+    PRIMARY KEY(id_cargo)
+);
+
 CREATE TABLE persona (
     id INT AUTO_INCREMENT,
     id_genero INT NOT NULL,
@@ -38,9 +44,9 @@ CREATE TABLE Producto (
 CREATE TABLE empleado (
     id INT NOT NULL,
     id_empleado INT NOT NULL,
-    cargo VARCHAR(50),
+    id_cargo INT NOT NULL,
     FOREIGN KEY (id) REFERENCES persona(id),
-    
+    FOREIGN KEY (id_cargo) REFERENCES cargo(id_cargo),
     PRIMARY KEY (id, id_empleado)
 );
 
@@ -76,8 +82,14 @@ CREATE TABLE Producto_Pedido (
 -- La redundancia se reduci, y solo salio una tabla
 INSERT INTO genero (id_genero, genero) VALUES
 (1,'Masculino'),
-(2,'Femenino')
+(2,'Femenino'),
+(3,'Helicoptero Apache')
 ;
+
+INSERT INTO cargo (id_cargo, cargo) VALUES
+(1,'Vendedor'),
+(2,'Cajero'),
+(3,'Secretario');
 
 -- Insertar personas
 INSERT INTO persona (nombre, apellido, id_genero, correo, contraseña) VALUES
@@ -94,9 +106,9 @@ INSERT INTO administrador (id, id_administrador) VALUES
 (2, 2);  -- Maria Gómez como Administradora 2
 
 -- Insertar empleados
-INSERT INTO empleado (id, id_empleado, cargo) VALUES
-(3, 1, 'Vendedor'),   -- Carlos López como Empleado 1
-(4, 2, 'Cajero');     -- Ana Martínez como Empleado 2
+INSERT INTO empleado (id, id_empleado, id_cargo) VALUES
+(3, 1, 1),   -- Carlos López como Empleado 1
+(4, 2, 2);     -- Ana Martínez como Empleado 2
 
 -- Insertar clientes
 INSERT INTO cliente (id, id_cliente,direccion) VALUES
