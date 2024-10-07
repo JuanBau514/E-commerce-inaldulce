@@ -60,6 +60,27 @@ CREATE TABLE cliente (
     
 );
 
+CREATE TABLE ciudad(
+    id_ciudad INT,
+    nombre VARCHAR(50),
+    PRIMARY KEY(id_ciudad)
+);
+
+CREATE TABLE direccion (
+    id_direccion INT NOT NULL,
+    direccion VARCHAR(255) NOT NULL,  -- VARCHAR en lugar de TEXT
+    id_persona INT NOT NULL,
+    id_cliente INT NOT NULL,
+    id_ciudad INT NOT NULL,
+    
+    FOREIGN KEY (id_ciudad) REFERENCES ciudad(id_ciudad),
+    FOREIGN KEY (id_persona, id_cliente) REFERENCES cliente(id, id_cliente),
+    PRIMARY KEY (id_direccion)  -- Clave primaria compuesta
+);
+
+
+
+
 CREATE TABLE Pedido (
     id_pedido INT AUTO_INCREMENT NOT NULL, 
     id_persona INT NOT NULL,
@@ -114,6 +135,14 @@ INSERT INTO empleado (id, id_empleado, id_cargo) VALUES
 INSERT INTO cliente (id, id_cliente,direccion) VALUES
 (5, 101,'Calle Falsa 123'),   -- Luis Fernández como Cliente 1
 (6, 102,'Avenida Siempre Viva'); -- Sofía Hernández como Cliente 2
+
+INSERT INTO ciudad (id_ciudad,nombre) VALUES
+(1,"Bogota"),
+(2,"Soacha");
+
+INSERT INTO direccion (id_direccion,direccion,id_persona,id_cliente,id_ciudad) VALUES
+(1,"Calle 7 #34 a 22",5,101,2),
+(2,"Calle 5 #12 B 27",6,102,1);
 
 -- Insertar productos
 INSERT INTO Producto (nombre, descripcion, precio) VALUES
