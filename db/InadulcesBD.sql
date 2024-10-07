@@ -76,8 +76,7 @@ CREATE TABLE Producto_Pedido (
 -- La redundancia se reduci, y solo salio una tabla
 INSERT INTO genero (id_genero, genero) VALUES
 (1,'Masculino'),
-(2,'Femenino'),
-(3,'Helicoptero Apache')
+(2,'Femenino')
 ;
 
 -- Insertar personas
