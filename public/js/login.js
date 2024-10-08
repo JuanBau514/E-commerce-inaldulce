@@ -23,11 +23,16 @@ document.querySelector('.boton-enviar').addEventListener('click', async function
                 const result = await response.json();
 
                 if (response.ok) {
-                    alert(result.message);
-                    window.location.href = '/Views/adminPage.html';  // Redirige al dashboard o página deseada
+                   if (result.role === 2 ) {
+                    window.location.href = '/Views/adminPage.html';
+                   }
+                   else{
+                    window.location.href = '/Views/userPage.html';
+                   }
                 } else {
                     alert(result.message);
                 }
+
             } catch (error) {
                 console.error('Error en la solicitud:', error);
                 alert('Error al iniciar sesión');
