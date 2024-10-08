@@ -1,28 +1,28 @@
+// usuario.js
 const db = require('./conection');
 
 class Usuario {
-    constructor(nickname, email, password) {
-        this.nickname = nickname;
-        this.email = email;
-        this.password = password;
+    constructor(nombre, apellido, correo, contraseña, id_genero, id_rol) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.correo = correo;
+        this.contraseña = contraseña;
+        this.id_genero = id_genero;
+        this.id_rol = id_rol;
     }
 
-    // Método para registrar un usuario
-    static async create({ nickname, email, password }) {
-        const query = 'INSERT INTO usuarios (nickname, email, password) VALUES (?, ?, ?)';
-        return db.query(query, [nickname, email, password]);
-    }
-
-    // Método para encontrar un usuario por email
-    static async findByEmail(email) {
-        const query = 'SELECT * FROM usuarios WHERE email = ?';
-        const [rows] = await db.query(query, [email]);
+   static async create({ nickname, lastname, email, password, id_genero }) {
+    const query = 'INSERT INTO usuario (nombre, apellido, correo, contraseña, id_genero, id_rol) VALUES (?, ?, ?, ?, ?, ?)';
+    return db.query(query, [nickname, lastname, email, password, id_genero, 1]); // Establece 1 como id de rol por defecto
+}
+    static async findByEmail(correo) {
+        const query = 'SELECT * FROM usuario WHERE correo = ?';
+        const [rows] = await db.query(query, [correo]);
         return rows.length ? rows[0] : null;
     }
 
-    // Método para encontrar un usuario por id
     static async findById(id) {
-        const query = 'SELECT * FROM usuarios WHERE id = ?';
+        const query = 'SELECT * FROM usuario WHERE id = ?';
         const [rows] = await db.query(query, [id]);
         return rows.length ? rows[0] : null;
     }
