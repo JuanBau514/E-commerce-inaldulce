@@ -119,7 +119,7 @@ INSERT INTO direccion (id_direccion, direccion,id_ciudad,id_usuario) VALUES
 (6,'Calle 4 norte #21-10',1,6);
 
 
-INSERT INTO Producto (nombre, descripcion, precio,url_imagen,cantidad_disponible) VALUES
+INSERT INTO producto (nombre, descripcion, precio,url_imagen,cantidad_disponible) VALUES
 ('Masmellow A', 'Masmellow A sabor a AA', 3200,'',20),
 ('Masmellow B', 'Masmellow A sabor a BB', 6400,'',50),
 ('Masmellow C', 'Masmellow A sabor a CC', 7600,'',30),
