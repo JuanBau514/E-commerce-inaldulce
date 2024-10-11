@@ -161,7 +161,7 @@ main {
     margin: 35px 0 0 0;
 }
 
-.header-actions button {
+.header-actions button, .listaProductos__opciones button  {
     outline: none;
     color: #fff;
     background: var(--color-main);
@@ -170,6 +170,7 @@ main {
     margin-left: 1rem;
     border-radius: 3px;
     font-weight: 600;
+    cursor: pointer;
 }
 
 .header-actions button span {
@@ -228,4 +229,26 @@ main {
 
 .card-chart.danger span {
     color: #ff0000;
+}
+
+.paginacion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.paginacion__boton {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.paginacion__paginaActual {
+    font-size: 1.2rem;
+    font-weight: bold;
 }
