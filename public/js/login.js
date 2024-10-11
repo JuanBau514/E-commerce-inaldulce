@@ -1,11 +1,9 @@
 document.querySelector('.boton-enviar').addEventListener('click', async function (e) {
     e.preventDefault();
 
-    // Asegúrate de que estos IDs coincidan con los del HTML
     const emailInput = document.querySelector('#email');
     const passwordInput = document.querySelector('#password');
 
-    // Asegúrate de que los inputs existen antes de acceder a sus valores
     if (emailInput && passwordInput) {
         const email = emailInput.value;
         const password = passwordInput.value;
@@ -23,12 +21,15 @@ document.querySelector('.boton-enviar').addEventListener('click', async function
                 const result = await response.json();
 
                 if (response.ok) {
-                   if (result.role === 2 ) {
-                    window.location.href = '/Views/adminPage.html';
-                   }
-                   else{
-                    window.location.href = '/Views/userPage.html';
-                   }
+                    // Guarda el token en sessionStorage
+                    sessionStorage.setItem('token', result.token);
+
+                    // Verifica el rol del usuario
+                    if (result.role === 1) {  // Asegúrate de que este es el rol de Administrador
+                        window.location.href = '/Views/adminPage.html';
+                    } else {
+                        window.location.href = '/Views/userPage.html';
+                    }
                 } else {
                     alert(result.message);
                 }
@@ -44,3 +45,15 @@ document.querySelector('.boton-enviar').addEventListener('click', async function
         console.error('No se pudo encontrar los campos de email o contraseña');
     }
 });
+
+if (response.ok) {
+    // Guarda el token en sessionStorage
+    sessionStorage.setItem('token', result.token);
+
+    // Verifica el rol del usuario
+    if (result.role === 1) {  // Asegúrate de que este es el rol de Administrador
+        window.location.href = '/Views/adminPage.html';
+    } else {
+        window.location.href = '/Views/userPage.html';
+    }
+}

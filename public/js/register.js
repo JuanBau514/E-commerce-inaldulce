@@ -28,3 +28,40 @@ document.querySelector('.boton-enviar').addEventListener('click', async function
         alert('Por favor, complete todos los campos.');
     }
 });
+
+//Register de Administradores
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelector('.boton-enviar').addEventListener('click', async function (e) {
+        e.preventDefault();
+
+        const nickname = document.querySelector('#first-name').value;
+        const lastname = document.querySelector('#last-name').value;
+        const email = document.querySelector('#email').value;
+        const password = document.querySelector('#password').value;
+        const gender = document.querySelector('#gender').value;
+
+        const idGenero = gender === 'male' ? 1 : gender === 'female' ? 2 : 3;
+
+        if (nickname && lastname && email && password && idGenero) {
+            const response = await fetch('http://localhost:3000/api/users/registerAdmin', { 
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ nickname, lastname, email, password, id_genero: idGenero }),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                alert(result.message);
+                window.location.href = '/Views/adminPage.html';
+            } else {
+                alert(result.message);
+            }
+        } else {
+            alert('Por favor, complete todos los campos.');
+        }
+    });
+});

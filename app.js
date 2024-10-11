@@ -15,7 +15,6 @@ app.use(cors({
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// Configura las rutas
 app.use('/api/users', userRoutes);
 
 // Inicia el servidor

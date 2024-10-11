@@ -11,9 +11,9 @@ class Usuario {
         this.id_rol = id_rol;
     }
 
-   static async create({ nickname, lastname, email, password, id_genero }) {
+   static async create({ nickname, lastname, email, password, id_genero, id_rol }) {
     const query = 'INSERT INTO usuario (nombre, apellido, correo, contraseña, id_genero, id_rol) VALUES (?, ?, ?, ?, ?, ?)';
-    return db.query(query, [nickname, lastname, email, password, id_genero, 1]); // Establece 1 como id de rol por defecto
+    return db.query(query, [nickname, lastname, email, password, id_genero, id_rol]);
 }
     static async findByEmail(correo) {
         const query = 'SELECT * FROM usuario WHERE correo = ?';
