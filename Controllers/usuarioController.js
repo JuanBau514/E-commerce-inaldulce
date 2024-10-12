@@ -79,8 +79,10 @@ exports.login = async (req, res) => {
             return res.status(500).json({ message: 'Error del servidor: Contraseña no encontrada' });
         }
 
+        console.log(password);
         // Verificar contraseña
         const isMatch = await bcrypt.compare(password, user[0].contraseña);
+        
         if (!isMatch) {
             return res.status(400).json({ message: 'Contraseña incorrecta' });
         }
@@ -96,3 +98,106 @@ exports.login = async (req, res) => {
         return res.status(500).json({ message: 'Error del servidor' });
     }
 };
+
+exports.getAdminInfo = async (req, res) => {
+    const token = req.headers['authorization'];
+
+    // Verificar si el token existe
+    if (!token) {
+        return res.status(403).json({ message: 'Token requerido' });
+    }
+
+    try {
+        const bearerToken = token.split(' ')[1];
+
+        
+        const decoded = jwt.verify(bearerToken, 'secreto'); 
+
+        const user = await Usuario.findById(decoded.id);
+
+        if (!user) {
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+
+        console.log(user);
+        return res.status(200).json({
+            id: user.id,
+            nombre: user.nombre,
+            apellido: user.apellido,
+            correo: user.correo,
+            genero: user.id_genero,
+            contraseña:user.contraseña
+        });
+
+    } catch (error) {
+        console.error('Error en la verificación del token:', error);
+        return res.status(401).json({ message: 'Token inválido o expirado' });
+    }
+};
+
+exports.eliminarUsuario = async (req, res) => {
+    const { correo } = req.body;  // Extraer el correo del cuerpo de la solicitud
+
+    try {
+        // Buscar al usuario en la base de datos por el correo
+        const user = await Usuario.findByEmail(correo);
+
+        if (!user) {
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+
+        // Eliminar al usuario de la base de datos
+        await Usuario.delete(correo);
+
+        return res.status(200).json({ message: 'Usuario eliminado con éxito' });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Error del servidor' });
+    }
+}
+
+exports.modificarUsuario = async (req, res) => {
+    const { id, nombre, apellido, correo, contrasenaAcutal, contrasenaNueva,id_genero} = req.body;  // Extraer los nuevos datos del usuario
+    
+    try {
+        // Buscar al usuario en la base de datos por su ID
+        const user = await Usuario.findById(id);
+        if (!user) {
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+
+        if(contrasenaAcutal && contrasenaNueva){
+            const isMatch = await bcrypt.compare(contrasenaAcutal, user.contraseña);
+            if (!isMatch) {
+                return res.status(400).json({ message: 'Contraseña incorrecta' });
+            }
+            
+            const nuevaContraseña = bcrypt.hash(contrasenaNueva,10);
+            console.log(`contrasena el controlador: ${nuevaContraseña}`);
+
+            await Usuario.update({
+                id:id,
+                nombre: nombre, 
+                apellido: apellido,
+                correo: correo,
+                contraseña: nuevaContraseña, 
+                id_genero:id_genero
+            });
+    
+        }
+
+        await Usuario.update({
+            id:id,
+            nombre: nombre, 
+            apellido: apellido,
+            correo: correo,
+            id_genero:id_genero
+        });
+
+        return res.status(200).json({ message: 'Usuario modificado correctamente' });
+    } catch (error) {
+        console.error(error);
+        console.error('ALGO SALIO SUPER MAL');
+        return res.status(500).json({ message: 'Error del servidor' });
+    }
+}

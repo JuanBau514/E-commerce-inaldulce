@@ -12,7 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Recuperar datos del usuario desde localStorage
-    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    const usuario = sessionStorage.getItem("token");
+    console.log(usuario);
 
     // Actualizar el nombre y el rol en la página
     if (usuario) {

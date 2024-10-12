@@ -7,5 +7,9 @@ router.post('/register', userController.register);
 router.post('/registerAdmin', userController.registerAdmin);
 // Ruta para iniciar sesión
 router.post('/login', userController.login);
+router.get('/usuario', userController.getAdminInfo);
+router.delete('/eliminarUsuario', userController.eliminarUsuario);
+router.put('/modificarUsuario', userController.modificarUsuario);
+
 
 module.exports = router;

@@ -23,7 +23,7 @@ document.querySelector('.boton-enviar').addEventListener('click', async function
                 if (response.ok) {
                     // Guarda el token en sessionStorage
                     sessionStorage.setItem('token', result.token);
-
+                    console.log(`token : ${result.token}`);
                     // Verifica el rol del usuario
                     if (result.role === 1) {  // Asegúrate de que este es el rol de Administrador
                         window.location.href = '/Views/adminPage.html';
