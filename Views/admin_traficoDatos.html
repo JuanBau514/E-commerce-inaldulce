@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/public/css/dashboard.css">
+    <link rel="stylesheet" href="/public/css/select.css">
     <title>Estudiante Dashboard</title>
     <style>
         select {
@@ -140,14 +141,49 @@ button:hover {
                     <h1>Trafico de datos</h1>
                 </div>
                 <div class="header-actions">
+                    <select id="monthSelector" style="select {
+                        padding: 10px;
+                        margin: 10px;
+                        border-radius: 5px;
+                        border: 1px solid #ddd;
+                        font-size: 16px;
+                        outline: none;
+                    }
+                    ">
+                        <option value="">Mes</option>
+                        <option value="01">Enero</option>
+                        <option value="02">Febrero</option>
+                        <option value="03">Marzo</option>
+                        <option value="04">Abril</option>
+                        <option value="05">Mayo</option>
+                        <option value="06">Junio</option>
+                        <option value="07">Julio</option>
+                        <option value="08">Agosto</option>
+                        <option value="09">Septiembre</option>
+                        <option value="10">Octubre</option>
+                        <option value="11">Noviembre</option>
+                        <option value="12">Diciembre</option>
+                    </select>
+    
+                    <!-- Selector de Año -->
+                    <select id="yearSelector" style="select {
+                        padding: 10px;
+                        margin: 10px;
+                        border-radius: 5px;
+                        border: 1px solid #ddd;
+                        font-size: 16px;
+                        outline: none;
+                    }
+                    " >
+                        <option value="">Año</option>
+                    </select>
+    
+                    <!-- Botón para generar reporte -->
+                    <button onclick="generateReport()">Generar Reporte</button>
                     <button>
                         <span class="las la-bell"></span>
                         Exportar
-                    </button>
-                    <button>
-                        <span class="las la-tools"></span>
-                        Configuración
-                    </button>
+                    </button>                    
                 </div>
             </div>
             <div class="cards">
@@ -214,30 +250,6 @@ button:hover {
                     </div>
                 </div>
 
-<!-- Selector de Mes -->
-                <select id="monthSelector">
-                    <option value="">Mes</option>
-                    <option value="01">Enero</option>
-                    <option value="02">Febrero</option>
-                    <option value="03">Marzo</option>
-                    <option value="04">Abril</option>
-                    <option value="05">Mayo</option>
-                    <option value="06">Junio</option>
-                    <option value="07">Julio</option>
-                    <option value="08">Agosto</option>
-                    <option value="09">Septiembre</option>
-                    <option value="10">Octubre</option>
-                    <option value="11">Noviembre</option>
-                    <option value="12">Diciembre</option>
-                </select>
-
-                <!-- Selector de Año -->
-                <select id="yearSelector">
-                    <option value="">Año</option>
-                </select>
-
-                <!-- Botón para generar reporte -->
-                <button onclick="generateReport()">Generar Reporte</button>
 
                 <!-- Salida del reporte generado -->
                 <div id="reportOutput"></div>
@@ -248,5 +260,6 @@ button:hover {
     </div>
     <script></script>
     <script src="../public/js/dashboard.js"></script>
+    <script src="../public/js/select.js"></script>
 </body>
 </html>
