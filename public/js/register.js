@@ -40,16 +40,27 @@ document.addEventListener('DOMContentLoaded', function () {
         const email = document.querySelector('#email').value;
         const password = document.querySelector('#password').value;
         const gender = document.querySelector('#gender').value;
+        const id_rol = document.querySelector('#rol').value;
 
         const idGenero = gender === 'male' ? 1 : gender === 'female' ? 2 : 3;
 
         if (nickname && lastname && email && password && idGenero) {
-            const response = await fetch('http://localhost:3000/api/users/registerAdmin', { 
+            let urlPeticion = ''
+            let objetoPeticion;
+            if(rol == 1){
+                 urlPeticion = 'http://localhost:3000/api/users/registerAdmin'
+                 objetoPeticion = { nickname, lastname, email, password,id_genero: idGenero }
+            }else{
+                 urlPeticion = 'http://localhost:3000/api/users/register'
+                 objetoPeticion = { nickname, lastname, email, password, id_rol,id_genero: idGenero }
+            }
+
+            const response = await fetch(urlPeticion, { 
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ nickname, lastname, email, password, id_genero: idGenero }),
+                body: JSON.stringify(objetoPeticion),
             });
 
             const result = await response.json();
