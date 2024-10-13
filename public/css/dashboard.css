@@ -258,9 +258,8 @@ main {
     border: 2px solid #ddd; /* Borde gris claro */
     border-radius: 8px; /* Esquinas redondeadas */
     padding: 1.5rem; /* Espaciado interno */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra */
-    max-width: 400px; /* Ancho máximo */
-    margin: 1rem auto; /* Centrar el contenedor */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra */ /* Ancho máximo */
+    
     transition: transform 0.3s ease; /* Suavidad en transformaciones */
 }
 
