@@ -252,3 +252,58 @@ main {
     font-size: 1.2rem;
     font-weight: bold;
 }
+
+.info-container {
+    background: #fff;
+    border: 2px solid #ddd; /* Borde gris claro */
+    border-radius: 8px; /* Esquinas redondeadas */
+    padding: 1.5rem; /* Espaciado interno */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra */
+    max-width: 400px; /* Ancho máximo */
+    margin: 1rem auto; /* Centrar el contenedor */
+    transition: transform 0.3s ease; /* Suavidad en transformaciones */
+}
+
+.info-container:hover {
+    transform: scale(1.02); /* Aumenta ligeramente al pasar el cursor */
+}
+
+.info-header {
+    margin-bottom: 1rem; /* Espaciado inferior */
+}
+
+.info-body p {
+    font-size: 1rem; /* Tamaño de texto */
+    color: #333; /* Color del texto */
+    line-height: 1.5; /* Altura de línea para mejor legibilidad */
+}
+
+.info-footer {
+    margin-top: 1.5rem; /* Espaciado superior */
+    text-align: center; /* Centrar el contenido */
+}
+
+.info-button {
+    background: #5a67d8; /* Color de fondo del botón */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Esquinas redondeadas del botón */
+    padding: 0.5rem 1rem; /* Espaciado interno del botón */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    transition: background 0.3s ease; /* Suavidad en el cambio de fondo */
+}
+
+.info-button:hover {
+    background: #434190; /* Color de fondo al pasar el cursor */
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .info-container {
+        padding: 1rem; /* Menos padding en pantallas pequeñas */
+    }
+
+    .info-body p {
+        font-size: 0.9rem; /* Tamaño de texto más pequeño en pantallas pequeñas */
+    }
+}

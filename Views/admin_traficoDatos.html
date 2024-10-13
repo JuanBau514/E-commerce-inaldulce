@@ -6,6 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/public/css/dashboard.css">
     <title>Estudiante Dashboard</title>
+    <style>
+        select {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    outline: none;
+}
+
+button {
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+#reportOutput {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+    </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/line-awesome/dist/line-awesome/css/line-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -182,6 +213,36 @@
                         </div>
                     </div>
                 </div>
+
+<!-- Selector de Mes -->
+                <select id="monthSelector">
+                    <option value="">Mes</option>
+                    <option value="01">Enero</option>
+                    <option value="02">Febrero</option>
+                    <option value="03">Marzo</option>
+                    <option value="04">Abril</option>
+                    <option value="05">Mayo</option>
+                    <option value="06">Junio</option>
+                    <option value="07">Julio</option>
+                    <option value="08">Agosto</option>
+                    <option value="09">Septiembre</option>
+                    <option value="10">Octubre</option>
+                    <option value="11">Noviembre</option>
+                    <option value="12">Diciembre</option>
+                </select>
+
+                <!-- Selector de Año -->
+                <select id="yearSelector">
+                    <option value="">Año</option>
+                </select>
+
+                <!-- Botón para generar reporte -->
+                <button onclick="generateReport()">Generar Reporte</button>
+
+                <!-- Salida del reporte generado -->
+                <div id="reportOutput"></div>
+
+
             </div>
         </main>
     </div>
