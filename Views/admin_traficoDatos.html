@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../public/css/dashboard.css">
-    <link rel="stylesheet" href="../public/css/perfil.css">
-    <title>Perfil del administrador</title>
+    <link rel="stylesheet" href="/public/css/dashboard.css">
+    <title>Estudiante Dashboard</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/line-awesome/dist/line-awesome/css/line-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 
@@ -80,7 +80,7 @@
                 </ul>
             </div>
         </div>
-    </div>  
+    </div>
     <!-- Contenido principal -->
 
     <div class="main-content">
@@ -104,55 +104,88 @@
         </header>
 
         <main>
-    <div class="page-header inicio">
-        <div>
-            <h1>Perfil</h1>
-        </div>
-    </div>
-    <div class="perfil">  
-        <div class="profile-container">
-            <h2>Editar Perfil</h2>
-            <form id="profile-form">
-                <div class="form-group">
-                    <label for="id">id:</label>
-                    <input type="text" id="id" name="id" required>
+            <div class="page-header inicio">
+                <div>
+                    <h1>Trafico de datos</h1>
                 </div>
-                <div class="form-group">
-                    <label for="first-name">Nombre:</label>
-                    <input type="text" id="first-name" name="first-name" required>
+                <div class="header-actions">
+                    <button>
+                        <span class="las la-bell"></span>
+                        Exportar
+                    </button>
+                    <button>
+                        <span class="las la-tools"></span>
+                        Configuración
+                    </button>
                 </div>
-                <div class="form-group">
-                    <label for="last-name">Apellido:</label>
-                    <input type="text" id="last-name" name="last-name" required>
+            </div>
+            <div class="cards">
+                <div class="card-single">
+                    <div class="card-flex">
+                        <div class="card-info">
+                            <div class="card-head">    
+                                <small>PRODUCTOS EN INVENTARIOS</small>
+                            </div>
+                            <h2>10</h2>
+                            <small>PRODUCTOS EN STOCK</small>
+                        </div>
+                        <div class="card-chart danger">
+                            <span class="las la-apple-alt"> </span>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="email">Correo:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="gender">Género:</label>
-                    <select id="gender" name="gender">
-                        <option value="male">Masculino</option>
-                        <option value="female">Femenino</option>
-                        <option value="other">Otro</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="currentPassword">Contraseña actual:</label>
-                    <input type="password" id="currentPassword" name="password" >
-                </div>
-                <div class="form-group">
-                    <label for="newPassword">Contraseña nueva:</label>
-                    <input type="password" id="newPassword" name="password" >
-                </div>
-                <button type="submit" id="GuardaCambiosBtn">Guardar Cambios</button>
-            </form>
-        </div>
-    </div> 
-</main>
 
+                <div class="card-single">
+                    <div class="card-flex">
+                        <div class="card-info">
+                            <div class="card-head">
+                                
+                                <small>NUMERO DE CLIENTES</small>
+                            </div>
+                            <h2>75</h2>
+                            <small>Clientes registrados</small>
+                        </div>
+                        <div class="card-chart success">
+                            <span class="las la-user-plus"> </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-single">
+                    <div class="card-flex">
+                        <div class="card-info">
+                            <div class="card-head">
+                                
+                                <small>NUMERO DE ADMINISTRADORES</small>
+                            </div>
+                            <h2>3</h2>
+                            <small>Administradores registrados en la plataforma</small>
+                        </div>
+                        <div class="card-chart success">
+                            <span class="las la-user-plus"> </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-single">
+                    <div class="card-flex">
+                        <div class="card-info">
+                            <div class="card-head">
+                                
+                                <small>PEDIDOS REALIZADOS EL ULTIMO MES</small>
+                            </div>
+                            <h2>730</h2>
+                            <small>Ventas registradas en la plataforma</small>
+                        </div>
+                        <div class="card-chart warning">
+                            <span class="las la-chart-line"> </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
+    <script></script>
     <script src="../public/js/dashboard.js"></script>
-    <script src="../public/js/perfil.js"></script>
 </body>
 </html>
