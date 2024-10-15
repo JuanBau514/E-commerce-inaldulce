@@ -46,7 +46,7 @@ const ponerInformacion = (id,nombre,apellido,email,genero) =>{
 }
 
 window.onload = function() {
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     //let contrasenaAcutal;
     if (!token) {
       alert('Debes iniciar sesión');

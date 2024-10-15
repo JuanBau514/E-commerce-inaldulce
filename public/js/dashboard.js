@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Recuperar datos del usuario desde localStorage
-    const usuario = sessionStorage.getItem("token");
+    const usuario = localStorage.getItem("token");
     console.log(usuario);
 
     // Actualizar el nombre y el rol en la página

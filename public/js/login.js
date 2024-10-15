@@ -21,8 +21,8 @@ document.querySelector('.boton-enviar').addEventListener('click', async function
                 const result = await response.json();
 
                 if (response.ok) {
-                    // Guarda el token en sessionStorage
-                    sessionStorage.setItem('token', result.token);
+                    // Guarda el token en localStorage
+                    localStorage.setItem('token', result.token);
                     console.log(`token : ${result.token}`);
                     // Verifica el rol del usuario
                     if (result.role === 1) {  // Asegúrate de que este es el rol de Administrador
@@ -47,8 +47,8 @@ document.querySelector('.boton-enviar').addEventListener('click', async function
 });
 
 if (response.ok) {
-    // Guarda el token en sessionStorage
-    sessionStorage.setItem('token', result.token);
+    // Guarda el token en localStorage
+    localStorage.setItem('token', result.token);
 
     // Verifica el rol del usuario
     if (result.role === 1) {  // Asegúrate de que este es el rol de Administrador
