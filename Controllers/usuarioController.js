@@ -201,3 +201,8 @@ exports.modificarUsuario = async (req, res) => {
         return res.status(500).json({ message: 'Error del servidor' });
     }
 }
+
+exports.obtenerTodo = async (req, res) =>{
+    const usuarios = await Usuario.getAll()
+    return res.status(200).json(usuarios);
+}

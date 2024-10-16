@@ -58,6 +58,10 @@ class Usuario {
         
     }
     
+    static async getAll(){
+        const query = 'SELECT * FROM usuario';
+        return db.query(query);
+    }
 }
 
 module.exports = Usuario;
