@@ -112,14 +112,13 @@ exports.getAdminInfo = async (req, res) => {
 
         
         const decoded = jwt.verify(bearerToken, 'secreto'); 
-
+        
         const user = await Usuario.findById(decoded.id);
 
         if (!user) {
             return res.status(404).json({ message: 'Usuario no encontrado' });
         }
 
-        console.log(user);
         return res.status(200).json({
             id: user.id,
             nombre: user.nombre,
@@ -158,7 +157,6 @@ exports.eliminarUsuario = async (req, res) => {
 
 exports.modificarUsuario = async (req, res) => {
     const { id, nombre, apellido, correo, contrasenaAcutal, contrasenaNueva,id_genero} = req.body;  // Extraer los nuevos datos del usuario
-    
     try {
         // Buscar al usuario en la base de datos por su ID
         const user = await Usuario.findById(id);
@@ -167,13 +165,14 @@ exports.modificarUsuario = async (req, res) => {
         }
 
         if(contrasenaAcutal && contrasenaNueva){
+
             const isMatch = await bcrypt.compare(contrasenaAcutal, user.contraseña);
             if (!isMatch) {
                 return res.status(400).json({ message: 'Contraseña incorrecta' });
-            }
-            
-            const nuevaContraseña = bcrypt.hash(contrasenaNueva,10);
-            console.log(`contrasena el controlador: ${nuevaContraseña}`);
+            }            
+
+            const nuevaContraseña = await bcrypt.hash(contrasenaNueva,10);
+
 
             await Usuario.update({
                 id:id,
@@ -181,9 +180,9 @@ exports.modificarUsuario = async (req, res) => {
                 apellido: apellido,
                 correo: correo,
                 contraseña: nuevaContraseña, 
-                id_genero:id_genero
+                id_genero:1
             });
-    
+            return res.status(200).json({ message: 'Usuario modificado correctamente' });
         }
 
         await Usuario.update({

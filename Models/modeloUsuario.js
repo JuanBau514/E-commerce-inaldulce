@@ -44,8 +44,6 @@ class Usuario {
         return db.query(query, email);
     }
     static async update({id, nombre, apellido,correo,contraseña,id_genero}) {
-        
-        
         let query ;
         if(contraseña){
             console.log(`contraseña en el modelo ${contraseña}`);

@@ -65,10 +65,7 @@ window.onload = function() {
           alert('No se pudo obtener la información del usuario');
         } else {
           
-          ponerInformacion(data.id,data.nombre,data.apellido,data.correo,data.genero)
-          //contrasenaAcutal = data.contraseña
-          console.log(data);
-          //console.log(contrasenaAcutal);
+          ponerInformacion(data.id,data.nombre,data.apellido,data.correo,data.genero)          
         }
       })
       .catch(error => {
@@ -89,9 +86,6 @@ window.onload = function() {
         const contrasenaAcutal = inputContrasenaActual.value;
         const contrasenaNueva = inputContrasenaNueva.value;
         
-    
-        
-    
         fetch('http://localhost:3000/api/users/modificarUsuario', {
             method: 'PUT', // Método para actualizar
             headers: {
@@ -102,7 +96,7 @@ window.onload = function() {
                 nombre: nombre,
                 apellido: apellido,
                 correo: correo,
-                id_genero: 1,
+                id_genero: 2,
                 contrasenaAcutal: contrasenaAcutal,
                 contrasenaNueva: contrasenaNueva
                 
