@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Producto E-commerce</title>
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="../../public/css/mainPage.css">
+    <link rel="stylesheet" href="../../public/css/productoPage.css">
+</head>
+<body>
+    
+<header>
+    <div class="header-top">
+        <div class="logo">
+            <a href="#"><img src="./Sources/img/logo.png" alt="Logo"></a>
+        </div>
+        <div class="iconos">
+            <a href="../Views/login.html" class="icon"><i class="bx bx-user"></i></a>
+            <a href="#" class="icon"><i class="bx bx-search"></i></a>
+            <a href="#" class="icon"><i class="bx bx-cart"></i></a>
+        </div>
+    </div>
+    
+    <div class="header-bottom">
+        <nav class="navbar">
+            <ul>
+                <li><a href="../userPage.html">Inicio</a></li>
+                <li class="dropdown-btn"><a href="../userPage.html #productos">Productos &#9662;</a>
+                    <ul class="dropdown">
+                        <li><a href="#">Subcategoría 1</a></li>
+                        <li><a href="#">Subcategoría 2</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown-btn"><a href="#service">Servicio Técnico &#9662;</a>
+                    <ul class="dropdown">
+                        <li><a href="#">Opción 1</a></li>
+                        <li><a href="#">Opción 2</a></li>
+                    </ul>
+                </li>
+                <li><a href="#colecciones">Colecciones</a></li>
+                <li class="dropdown-btn"><a href="#quienes-somos">Quiénes somos &#9662;</a>
+                    <ul class="dropdown">
+                        <li><a href="#">Historia</a></li>
+                        <li><a href="#">Nuestro Equipo</a></li>
+                    </ul>
+                </li>
+                <li><a href="#feria">Nuestra Feria</a></li>
+                <li><a href="#comprar">¿Qué te puedes comprar con $?</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+    
+    <main>
+        <div class="product-container">
+            <div class="product-images">
+                <img src="https://via.placeholder.com/500x300" alt="Imagen del producto principal" class="main-image">
+                <div class="thumbnail-images">
+                    <img src="https://via.placeholder.com/100x100" alt="Miniatura 1">
+                    <img src="https://via.placeholder.com/100x100" alt="Miniatura 2">
+                    <img src="https://via.placeholder.com/100x100" alt="Miniatura 3">
+                </div>
+            </div>
+            
+            <div class="product-details">
+                <h2>Alfombrilla de Escritorio Impermeable</h2>
+                <p class="price">$11.99 <span class="discount">(29% de descuento)</span></p>
+                <p class="description">
+                    Alfombrilla de escritorio, para mouse, impermeable, ideal para oficina y hogar, de cuero sintético.
+                    Tamaño: 31.5 x 15.7 pulgadas.
+                </p>
+                <div class="color-options">
+                    <h4>Color: Verde</h4>
+                    <div class="colors">
+                        <span class="color-box" style="background-color: #009688;"></span>
+                        <span class="color-box" style="background-color: #FFC107;"></span>
+                        <span class="color-box" style="background-color: #03A9F4;"></span>
+                    </div>
+                </div>
+                <div class="size-options">
+                    <h4>Tamaño:</h4>
+                    <select>
+                        <option>31.5" x 15.7"</option>
+                        <option>35.4" x 17"</option>
+                        <option>47.2" x 23.6"</option>
+                    </select>
+                </div>
+                
+                <div class="purchase-options">
+                    <button class="btn-add-to-cart">Agregar al carrito</button>
+                    <button class="btn-buy-now">Comprar ahora</button>
+                </div>
+            </div>
+            <div class="productos comparison-section">
+            <h2>Compre otros productos</h2>
+            <div class="comparison-products">
+                <!-- Producto 1 -->
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/200x200" alt="Producto similar 1">
+                    <p>Producto similar 1</p>
+                    <p class="price">$11.99 <span class="discount">29% de descuento</span></p>
+                    <button class="btn-add-to-cart">Agregar al carrito</button>
+                </div>
+                <!-- Producto 2 -->
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/200x200" alt="Producto similar 2">
+                    <p>Producto similar 2</p>
+                    <p class="price">$14.99 <span class="discount">25% de descuento</span></p>
+                    <button class="btn-add-to-cart">Agregar al carrito</button>
+                </div>
+                <!-- Producto 3 -->
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/200x200" alt="Producto similar 3">
+                    <p>Producto similar 3</p>
+                    <p class="price">$7.99 <span class="discount">20% de descuento</span></p>
+                    <button class="btn-add-to-cart">Agregar al carrito</button>
+                </div>
+            </div>
+
+            <!-- Tabla comparativa de detalles -->
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Características</th>
+                        <th>Producto 1</th>
+                        <th>Producto 2</th>
+                        <th>Producto 3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Precio</td>
+                        <td>$11.99</td>
+                        <td>$14.99</td>
+                        <td>$7.99</td>
+                    </tr>
+                    <tr>
+                        <td>Entrega</td>
+                        <td>26 de octubre</td>
+                        <td>26 de octubre</td>
+                        <td>26 de octubre</td>
+                    </tr>
+                    <tr>
+                        <td>Calificaciones</td>
+                        <td>4.7 ★</td>
+                        <td>4.7 ★</td>
+                        <td>4.7 ★</td>
+                    </tr>
+                    <tr>
+                        <td>Material</td>
+                        <td>Cuero sintético</td>
+                        <td>Cuero sintético</td>
+                        <td>Cuero sintético ante</td>
+                    </tr>
+                    <tr>
+                        <td>Forma</td>
+                        <td>Rectangular</td>
+                        <td>Rectangular</td>
+                        <td>Rectangular</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+            
+        </div>
+
+         
+    </main>
+    
+    <footer>
+        <p>Copyright © 2024 - Mi E-commerce</p>
+    </footer>
+</body>
+</html>
