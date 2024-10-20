@@ -5,7 +5,7 @@ const db = require('../Models/conection');
 
 // Código en tu controlador para registrar administradores
 exports.registerAdmin = async (req, res) => {
-    const { nickname, lastname, email, password, id_genero } = req.body;
+    const { cedula,nickname, lastname, email, password, id_genero } = req.body;
 
     try {
         // Verificar si el usuario ya existe
@@ -19,6 +19,7 @@ exports.registerAdmin = async (req, res) => {
 
         // Asegúrate de asignar el rol correcto aquí
         await Usuario.create({
+            cedula,
             nickname,
             lastname,
             email,
@@ -35,7 +36,7 @@ exports.registerAdmin = async (req, res) => {
 };
 
 exports.register = async (req, res) => {
-    const { nickname, lastname, email, password, id_genero } = req.body;
+    const { cedula,nickname, lastname, email, password, id_genero } = req.body;
 
     try {
         // Verificar si el usuario ya existe
@@ -49,6 +50,7 @@ exports.register = async (req, res) => {
 
         // Insertar el nuevo usuario con el rol de Cliente
         await Usuario.create({ 
+            cedula,
             nickname,               
             lastname,              
             email,                  
@@ -88,7 +90,7 @@ exports.login = async (req, res) => {
         }
 
         // Crear token JWT
-        const token = jwt.sign({ id: user[0].id, nickname: user[0].nombre, role: user[0].id_rol }, 'secreto', {
+        const token = jwt.sign({ cedula: user[0].cedula, nickname: user[0].nombre, role: user[0].id_rol }, 'secreto', {
             expiresIn: '1h',
         });
 
@@ -113,14 +115,14 @@ exports.getAdminInfo = async (req, res) => {
         
         const decoded = jwt.verify(bearerToken, 'secreto'); 
         
-        const user = await Usuario.findById(decoded.id);
+        const user = await Usuario.findById(decoded.cedula);
 
         if (!user) {
             return res.status(404).json({ message: 'Usuario no encontrado' });
         }
 
         return res.status(200).json({
-            id: user.id,
+            cedula: user.cedula,
             nombre: user.nombre,
             apellido: user.apellido,
             correo: user.correo,
@@ -156,10 +158,10 @@ exports.eliminarUsuario = async (req, res) => {
 }
 
 exports.modificarUsuario = async (req, res) => {
-    const { id, nombre, apellido, correo, contrasenaAcutal, contrasenaNueva,id_genero} = req.body;  // Extraer los nuevos datos del usuario
+    const { cedula, nombre, apellido, correo, contrasenaAcutal, contrasenaNueva,id_genero} = req.body;  // Extraer los nuevos datos del usuario
     try {
         // Buscar al usuario en la base de datos por su ID
-        const user = await Usuario.findById(id);
+        const user = await Usuario.findById(cedula);
         if (!user) {
             return res.status(404).json({ message: 'Usuario no encontrado' });
         }
@@ -175,7 +177,7 @@ exports.modificarUsuario = async (req, res) => {
 
 
             await Usuario.update({
-                id:id,
+                cedula:cedula,
                 nombre: nombre, 
                 apellido: apellido,
                 correo: correo,
@@ -186,7 +188,7 @@ exports.modificarUsuario = async (req, res) => {
         }
 
         await Usuario.update({
-            id:id,
+            cedula:cedula,
             nombre: nombre, 
             apellido: apellido,
             correo: correo,
