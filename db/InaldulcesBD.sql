@@ -94,7 +94,7 @@ CREATE TABLE pedido_producto (
     precio_total_por_producto INT,
     PRIMARY KEY (codigo_producto, id_pedido),
     FOREIGN KEY (id_pedido) REFERENCES pedido(id_pedido),
-    FOREIGN KEY (codigo_producto) REFERENCES producto(codigo_producto)
+    FOREIGN KEY (codigo_producto) REFERENCES Producto(codigo_producto)
 );
 
 
