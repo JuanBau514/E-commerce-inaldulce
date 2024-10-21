@@ -12,7 +12,7 @@ const botonCambios = document.getElementById('GuardaCambiosBtn');
 
 
 
-const ponerInformacion = (id,nombre,apellido,email,genero) =>{
+const ponerInformacion = (cedula,nombre,apellido,email,genero) =>{
 
   const perfil_nombre = document.getElementById('profile-name');
   const perfil_apellido = document.getElementById('profile-lastName');
@@ -22,14 +22,14 @@ const ponerInformacion = (id,nombre,apellido,email,genero) =>{
   const perfil_rol = document.getElementById('profile-role');
   
 
-    inputid.value = id;
+    inputid.value = cedula;
     inputNombre.value = nombre;
     inputApellido.value = apellido;
     inputCorreo.value = email;
 
     perfil_nombre.innerText = nombre
     perfil_apellido.innerText = apellido
-    perfil_id.innerText = id
+    perfil_id.innerText = cedula
     perfil_correo.innerText = email
     perfil_rol.innerText = 'Administrador'
 
@@ -65,7 +65,7 @@ window.onload = function() {
           alert('No se pudo obtener la información del usuario');
         } else {
           
-          ponerInformacion(data.id,data.nombre,data.apellido,data.correo,data.genero)          
+          ponerInformacion(data.cedula,data.nombre,data.apellido,data.correo,data.genero)          
         }
       })
       .catch(error => {
@@ -77,7 +77,7 @@ window.onload = function() {
     form.addEventListener('submit', function(event) {
         event.preventDefault(); // Evita el envío del formulario
     
-        const id = inputid.value
+        const cedula = inputid.value
         const nombre = inputNombre.value
         const apellido = inputApellido.value
         const correo = inputCorreo.value
@@ -92,7 +92,7 @@ window.onload = function() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                id: id,
+                cedula: cedula,
                 nombre: nombre,
                 apellido: apellido,
                 correo: correo,

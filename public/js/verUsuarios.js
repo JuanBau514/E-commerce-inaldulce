@@ -34,7 +34,7 @@ const agregarUsuariosTabla = (usuarios)=>{
     usuarios.forEach((usuario)=>{
         
         const nuevaFila = creaFila(
-         usuario.id,
+         usuario.cedula,
          usuario.nombre,
          usuario.apellido,
          usuario.correo,
