@@ -1,3 +1,34 @@
+document.getElementById('btnAddUsuarios').addEventListener('click', function() {
+            document.getElementById('camposUsuariosAdicionales').style.display = 'block';
+        });
+
+        function mostrarCampos() {
+            const tipoUsuario = document.getElementById('tipoUsuario').value;
+            const camposNatural = document.getElementById('camposNatural');
+            const camposEmpresa = document.getElementById('camposEmpresa');
+            camposNatural.style.display = tipoUsuario === 'natural' ? 'block' : 'none';
+            camposEmpresa.style.display = tipoUsuario === 'empresa' ? 'block' : 'none';
+        }
+
+        function mostrarRegistroUsuarios() {
+            const checkBox = document.getElementById('registrar_usuarios');
+            const camposUsuariosAdicionales = document.getElementById('camposUsuariosAdicionales');
+            const representante = document.getElementById('representante').value;
+            const cedulaRepresentante = document.getElementById('cedula_representante').value;
+
+            if (checkBox.checked) {
+                if (representante.trim() !== "" && cedulaRepresentante.trim() !== "") {
+                    camposUsuariosAdicionales.style.display = 'block';
+                } else {
+                    alert("Por favor, ingrese los datos del representante legal antes de registrar más usuarios.");
+                    checkBox.checked = false;  // Desmarca el checkbox si faltan datos
+                }
+            } else {
+                camposUsuariosAdicionales.style.display = 'none';
+            }
+        }
+/*
+
 document.querySelector('.boton-enviar').addEventListener('click', async function (e) {
     e.preventDefault();
 
@@ -78,3 +109,5 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+*/

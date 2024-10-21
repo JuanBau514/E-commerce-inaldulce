@@ -3,6 +3,77 @@ const Usuario = require('../Models/modeloUsuario');  // Modelo de usuario
 const jwt = require('jsonwebtoken');
 const db = require('../Models/conection');
 
+require('dotenv').config();
+const nodemailer = require('nodemailer');
+const fs = require('fs');
+const { createObjectCsvWriter } = require('csv-writer');
+
+// Configuración del escritor de CSV
+const csvWriter = createObjectCsvWriter({
+    path: './usuarios_registrados.csv',
+    header: [
+        { id: 'cedula', title: 'Cédula' },
+        { id: 'nickname', title: 'Nombre' },
+        { id: 'lastname', title: 'Apellido' },
+        { id: 'email', title: 'Correo Electrónico' },
+        { id: 'id_genero', title: 'Género' },
+        { id: 'id_rol', title: 'Rol' }
+    ],
+    append: true
+});
+
+// Función para guardar en CSV
+const guardarEnCSV = async (usuario) => {
+    try {
+        await csvWriter.writeRecords([usuario]);
+        console.log('Datos guardados en CSV exitosamente');
+    } catch (error) {
+        console.error('Error al escribir en CSV:', error);
+    }
+};
+
+// Configuración de Nodemailer para enviar correo
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL_USER, 
+        pass: process.env.EMAIL_PASS
+    }
+});
+
+// Función para enviar correo
+const enviarCorreo = (email, nickname) => {
+    const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: email,
+        subject: 'Registro exitoso - Verificación rápida',
+        text: `Hola ${nickname},\n\nTu registro ha sido exitoso. Para hacer la verificación más rápida, por favor adjunta los documentos necesarios respondiendo a este correo.\n\nGracias.\nEquipo de soporte`
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.log('Error al enviar correo:', error);
+        } else {
+            console.log('Correo enviado: ' + info.response);
+        }
+    });
+};
+
+// Controlador de registro
+exports.registrarUsuario = async (req, res) => {
+    const { cedula, nickname, lastname, email, password, id_genero, id_rol } = req.body;
+
+    // Guardar en la base de datos o realizar alguna validación
+
+    // Guardar en CSV
+    await guardarEnCSV({ cedula, nickname, lastname, email, id_genero, id_rol });
+
+    // Enviar correo
+    enviarCorreo(email, nickname);
+
+    res.status(201).json({ message: 'Usuario registrado, guardado en CSV y correo enviado' });
+};
+
 // Código en tu controlador para registrar administradores
 exports.registerAdmin = async (req, res) => {
     const { cedula,nickname, lastname, email, password, id_genero } = req.body;

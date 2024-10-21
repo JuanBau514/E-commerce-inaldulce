@@ -30,19 +30,6 @@
                 <!-- Campos para Persona Natural -->
                 <div id="camposNatural" style="display: none;">
                     <div class="dos-forms">
-                    <div class="caja-entrada">
-                        <input type="number" class="entrada" id="cedula" placeholder="cedula">
-                        <i class="bx bx-user"></i>
-                    </div>                    
-                    <div class="caja-entrada">
-                        <input type="text" class="entrada" id="nickname" placeholder="Nombres">
-                        <i class="bx bx-user"></i>
-                    </div>
-                    <div class="caja-entrada">
-                        <input type="text" class="entrada" id="lastname" placeholder="Apellidos">
-                        <i class="bx bx-user"></i>
-                    </div>
-                </div>
                         <div class="caja-entrada">
                             <input type="text" class="entrada" id="nickname" placeholder="Nombres">
                             <i class="bx bx-user"></i>
@@ -59,19 +46,9 @@
                     </div>
 
                     <div class="caja-entrada">
-                        <input type="file" class="entrada" id="rut" placeholder="Subir RUT">
                         <label for="rut">Subir RUT (PDF)</label>
+                        <input type="file" class="entrada" id="rut" placeholder="Subir RUT">
                     </div>
-
-
-                <!-- Campos comunes -->
-                <div class="caja-entrada">
-                    <select id="genero" class="entrada">
-                        <option value="">Seleccione su género</option>
-                        <option value="1">Masculino</option>
-                        <option value="2">Femenino</option>
-                    </select>
-                </div>
                 </div>
 
                 <!-- Campos para Empresa -->
@@ -130,6 +107,7 @@
                    
                 </div>
 
+
                 <div class="caja-entrada">
                     <input type="password" class="entrada" id="password" placeholder="Contraseña">
                     <i class="bx bx-lock-alt"></i>
@@ -154,36 +132,7 @@
         </div>
     </div>
 
-    <script>
-        document.getElementById('btnAddUsuarios').addEventListener('click', function() {
-            document.getElementById('camposUsuariosAdicionales').style.display = 'block';
-        });
+    <script src="../public/js/register.js"></script>
 
-        function mostrarCampos() {
-            const tipoUsuario = document.getElementById('tipoUsuario').value;
-            const camposNatural = document.getElementById('camposNatural');
-            const camposEmpresa = document.getElementById('camposEmpresa');
-            camposNatural.style.display = tipoUsuario === 'natural' ? 'block' : 'none';
-            camposEmpresa.style.display = tipoUsuario === 'empresa' ? 'block' : 'none';
-        }
-
-        function mostrarRegistroUsuarios() {
-            const checkBox = document.getElementById('registrar_usuarios');
-            const camposUsuariosAdicionales = document.getElementById('camposUsuariosAdicionales');
-            const representante = document.getElementById('representante').value;
-            const cedulaRepresentante = document.getElementById('cedula_representante').value;
-
-            if (checkBox.checked) {
-                if (representante.trim() !== "" && cedulaRepresentante.trim() !== "") {
-                    camposUsuariosAdicionales.style.display = 'block';
-                } else {
-                    alert("Por favor, ingrese los datos del representante legal antes de registrar más usuarios.");
-                    checkBox.checked = false;  // Desmarca el checkbox si faltan datos
-                }
-            } else {
-                camposUsuariosAdicionales.style.display = 'none';
-            }
-        }
-    </script>
 </body>
 </html>
