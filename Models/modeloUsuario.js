@@ -10,19 +10,6 @@ class Usuario {
         this.id_genero = id_genero;
         this.id_rol = id_rol;
     }
-
-    /*
-    constructor(id,nombre, apellido, correo, contraseña, id_genero, id_rol) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.correo = correo;
-        this.contraseña = contraseña;
-        this.id_genero = id_genero;
-        this.id_rol = id_rol;
-    }
-    */
-
    static async create({ cedula,nickname, lastname, email, password, id_genero, id_rol }) {
     const query = 'INSERT INTO usuario (cedula,nombre, apellido, correo, contraseña, id_genero, id_rol) VALUES (?,?, ?, ?, ?, ?, ?)';
     return db.query(query, [cedula,nickname, lastname, email, password, id_genero, id_rol]);

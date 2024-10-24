@@ -11,6 +11,15 @@ app.use(cors({
   origin: 'http://127.0.0.1:5501'  // Permitir solicitudes solo desde este origen
 }));
 
+app.use(function (req, res, next) {
+    res.setHeader(
+        'Content-Security-Policy',
+        "default-src 'self'; font-src 'self' data:;"
+    );
+    next();
+});
+
+
 // Middleware para parsear el cuerpo de las solicitudes
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
