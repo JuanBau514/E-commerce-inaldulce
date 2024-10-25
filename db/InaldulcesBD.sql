@@ -140,9 +140,13 @@ INSERT INTO ciudad (id_ciudad, nombre) VALUES
 (1, 'Bogota'),
 (2, 'Soacha');
 
-INSERT INTO empresa (nit, razon_social, correo, telefono, rubro, cedula_representante_legal) VALUES
-(1001, 'Dulces SAS', 'contacto@dulcessas.com', '3001234567', 'Alimentos', 11111),
-(1002, 'Chocolates XYZ', 'info@chocolatesxyz.com', '3017654321', 'Confitería', 11112);
+INSERT INTO rubro (id_rubro,rubro) VALUES 
+(1,'Alimentos'),
+(2,'Confiteria');
+
+INSERT INTO empresa (nit, razon_social, correo, telefono, id_rubro, cedula_representante_legal) VALUES
+(1001, 'Dulces SAS', 'contacto@dulcessas.com', '3001234567', 1, 11111),
+(1002, 'Chocolates XYZ', 'info@chocolatesxyz.com', '3017654321', 2, 11112);
 
 INSERT INTO direccion (id_direccion, direccion, codigo_postal, id_ciudad, cedula_usuario) VALUES
 (1, 'Calle 123 #45-67', '110111', 1, 11111),
