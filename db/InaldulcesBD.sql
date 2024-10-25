@@ -15,6 +15,12 @@ CREATE TABLE rol (
     PRIMARY KEY(id_rol)
 );
 
+CREATE TABLE rubro(
+    id_rubro INT NOT NULL,
+    rubro VARCHAR(100),
+    PRIMARY KEY(id_rubro)
+);
+
 CREATE TABLE usuario (
     cedula INT NOT NULL,
     nombre VARCHAR(100) NOT NULL,
@@ -34,10 +40,11 @@ CREATE TABLE empresa (
     razon_social VARCHAR(100),
     correo VARCHAR(100) NOT NULL,
     telefono VARCHAR(20),
-    rubro VARCHAR(100),
+    id_rubro INT,
     cedula_representante_legal INT NOT NULL,
     
     PRIMARY KEY (nit),
+    FOREIGN KEY(id_rubro) REFERENCES rubro(id_rubro),
     FOREIGN KEY(cedula_representante_legal) REFERENCES usuario(cedula)
 );
 
