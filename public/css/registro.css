@@ -28,9 +28,9 @@ body {
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 622px;
+    max-width: 602px;
     height: auto; 
-    max-height: 90vh;
+    max-height: 100vh;
     overflow: hidden;
     padding: 20px;
     border-radius: 15px;
@@ -45,7 +45,7 @@ body {
 }
 
 .encabezado {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     text-align: center;
     color: #fff;
 }
@@ -61,12 +61,42 @@ body {
     font-weight: 700;
     font-size: 2rem; /* Tamaño de fuente relativo */
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .caja-entrada {
     position: relative;
     margin-bottom: 20px;
+}
+
+.caja-entrada select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: rgba(255, 255, 255, 0.8); /* Fondo blanco */
+    color: #ff69b4; /* Texto rosa fuerte */
+    height: 50px; /* Altura del select */
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    padding: 0 10px 0 20px; /* Espaciado interno */
+    border: none;
+    border-radius: 30px;
+    outline: none;
+    font-size: 1rem; /* Tamaño de fuente */
+    transition: .2s ease;
+}
+
+.caja-entrada select:hover,
+.caja-entrada select:focus {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.caja-entrada i {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    color: #777;
+    pointer-events: none;
 }
 
 .entrada {
@@ -81,6 +111,20 @@ body {
     outline: none;
     transition: .2s ease;
 }
+
+.caja-entrada label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.bx-store-alt {
+    position: absolute;
+    right: 10px;
+    top: 35px;
+    color: #777;
+}
+
 
 .entrada:hover,
 .entrada:focus {
@@ -150,6 +194,11 @@ body {
 }
 
 @media only screen and (max-width: 480px) {
+
+     .caja-entrada select {
+        height: 45px; /* Reducir altura en pantallas pequeñas */
+    }
+
     .form-box {
         width: 95%; /* Ampliar en dispositivos muy pequeños */
         padding: 10px;

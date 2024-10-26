@@ -5,59 +5,76 @@ function mostrarCampos() {
     camposNatural.style.display = tipoUsuario === 'natural' ? 'block' : 'none';
     camposEmpresa.style.display = tipoUsuario === 'empresa' ? 'block' : 'none';
 }
-    document.getElementById('boton-enviar').addEventListener('click', async (e) => {
-        e.preventDefault();
-        console.log('Botón enviar presionado');
 
-        const tipoUsuario = document.getElementById('tipoUsuario').value;
-        const nickname = document.getElementById('nickname').value;
-        const lastname = document.getElementById('lastname').value;
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
+document.addEventListener('DOMContentLoaded', cargarRubros);
 
-        const razon_social = document.getElementById('razon_social') ? document.getElementById('razon_social').value : '';
-        const nit = document.getElementById('nit') ? document.getElementById('nit').value : '';
-        const telefono_empresa = document.getElementById('telefono_empresa') ? document.getElementById('telefono_empresa').value : '';
-        const correo_empresa = document.getElementById('correo_empresa') ? document.getElementById('correo_empresa').value : '';
-        const representante = document.getElementById('representante') ? document.getElementById('representante').value : '';
-        const cedula_representante = document.getElementById('cedula_representante') ? document.getElementById('cedula_representante').value : '';
+async function cargarRubros() {
+    try {
+        const response = await fetch('http://127.0.0.1:3000/api/users/rubros'); // URL de tu API para obtener los rubros
+        const rubros = await response.json();
 
-        const usuario_nuevo = document.getElementById('usuario_nuevo') ? document.getElementById('usuario_nuevo').value : '';
-        const rol_usuario = document.getElementById('rol_usuario') ? document.getElementById('rol_usuario').value : '';
+        // Accede al primer array que contiene los rubros
+        const rubrosArray = rubros[0];
 
-        const registroData = {
-            tipoUsuario,
-            nickname,
-            lastname,
-            email,
-            password,
-            razon_social,
-            nit,
-            telefono_empresa,
-            correo_empresa,
-            representante,
-            cedula_representante,
-            usuario_nuevo,
-            rol_usuario,
-            id_genero: 1, // Puedes ajustar este valor según el formulario
-            id_rol: tipoUsuario === 'empresa' ? 2 : 1 // Rol de Empresa o Persona Natural
+        const rubroSelect = document.getElementById('rubro');
+        rubroSelect.innerHTML = ''; // Limpia opciones anteriores
+
+        // Agrega la opción de selección predeterminada
+        const defaultOption = document.createElement('option');
+        defaultOption.value = "";
+        defaultOption.textContent = "Seleccione el Rubro";
+        rubroSelect.appendChild(defaultOption);
+
+        // Agrega las opciones de rubro dinámicamente
+        rubrosArray.forEach(rubro => {
+            const option = document.createElement('option');
+            option.value = rubro.id_rubro; // ID del rubro en la base de datos
+            option.textContent = rubro.rubro; // Nombre del rubro
+            rubroSelect.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Error al cargar los rubros:', error);
+    }
+}
+
+
+document.getElementById("boton-enviar").addEventListener("click", async (event) => {
+    event.preventDefault();
+
+    const tipoUsuario = document.getElementById("tipoUsuario").value;
+
+    if (tipoUsuario === "natural") {
+        // Captura los datos de la persona natural
+        const data = {
+            cedula: document.getElementById("cedula").value,
+            nombre: document.getElementById("nickname").value,
+            apellido: document.getElementById("lastname").value,
+            correo: document.getElementById("email").value,
+            contraseña: "Contraseña", // Reemplaza por una contraseña segura
+            id_genero: 1, // Ajusta según el valor seleccionado
+            id_rol: 1, // Cliente por defecto
         };
-
-        try {
-            const response = await fetch('http://localhost:3000/api/users/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(registroData)
-            });
-
-            const data = await response.text();
-            console.log(data);
-            alert(data);
-        } catch (error) {
-            console.error('Error al registrar:', error);
-            alert('Error en el registro');
-        }
-    });
-
+        
+        await fetch("http://127.0.0.1:3000/api/users/usuarios", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+        });
+    } else if (tipoUsuario === "empresa") {
+        // Captura los datos de la empresa
+        const data = {
+            nit: document.getElementById("nit").value,
+            razon_social: document.getElementById("razon_social").value,
+            correo: document.getElementById("correo_empresa").value,
+            telefono: document.getElementById("telefono_empresa").value,
+            id_rubro: 1, // Ajusta según el valor
+            cedula_representante_legal: document.getElementById("cedula_representante").value,
+        };
+        
+        await fetch("http://127.0.0.1:3000/api/users/empresas", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+        });
+    }
+});

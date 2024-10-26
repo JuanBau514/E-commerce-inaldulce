@@ -1,17 +1,25 @@
 const express = require('express');
+const usuarioController = require('../Controllers/usuarioController');
+const empresaController = require('../Controllers/empresaController');
+const rubroController = require('../Controllers/rubroController');
+
 const router = express.Router();
-const userController = require('../Controllers/registroController');
 
-// Ruta para registrar usuarios (empresa o persona natural)
-router.post('/register', userController.registerUser);
+// Rutas de usuarios
+router.post('/empresas', usuarioController.registerEmpresa );
+router.post('/usuarios', usuarioController.createUsuario);
+router.get('/usuarios', usuarioController.getUsuarios);
+router.put('/usuarios', usuarioController.updateUsuario);
+router.delete('/usuarios/:id', usuarioController.deleteUsuario);
 
-// Ruta para obtener todos los usuarios registrados
-//router.get('/users', userController.getAllUsers);
+// Rutas de empresas
+router.post('/empresas', empresaController.registerEmpresa);
+router.post('/empresas', empresaController.createEmpresa);
+router.get('/empresas', empresaController.getEmpresas);
+router.put('/empresas', empresaController.updateEmpresa);
+router.delete('/empresas/:id', empresaController.deleteEmpresa);
 
-// Ruta para eliminar un usuario por correo
-//router.delete('/users/:email', userController.deleteUser);
-
-// Ruta para obtener un usuario por correo
-//router.get('/users/:email', userController.getUserByEmail);
+// Ruta para obtener todos los rubros
+router.get('/rubros', rubroController.getRubros);
 
 module.exports = router;

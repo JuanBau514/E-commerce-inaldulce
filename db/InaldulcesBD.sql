@@ -55,7 +55,7 @@ ALTER TABLE usuario
 ADD CONSTRAINT fk_empresa_usuario
 FOREIGN KEY (nit_empresa) REFERENCES empresa(nit);
 
-CREATE TABLE Producto (
+CREATE TABLE producto (
     codigo_producto INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nombre VARCHAR(100) NOT NULL,
     descripcion TEXT,
@@ -96,7 +96,7 @@ CREATE TABLE pedido_producto (
     precio_total_por_producto INT,
     PRIMARY KEY (codigo_producto, id_pedido),
     FOREIGN KEY (id_pedido) REFERENCES pedido(id_pedido),
-    FOREIGN KEY (codigo_producto) REFERENCES Producto(codigo_producto)
+    FOREIGN KEY (codigo_producto) REFERENCES producto(codigo_producto)
 );
 
 CREATE TABLE factura (
@@ -187,3 +187,26 @@ WHERE cedula = 11117;
 UPDATE usuario
 SET nit_empresa = 1002
 WHERE cedula = 11118;
+
+INSERT INTO rubro (id, rubro)
+VALUES
+  (3, 'Comercio al por menor de productos de panadería'),
+  (4, 'Fabricación de helados y otros productos lácteos congelados'),
+  (5, 'Distribución de bebidas'),
+  (6, 'Mayoristas de productos lácteos'),
+  (7, 'Comercio electrónico de alimentos y bebidas'),
+  (8, 'Empresas de catering para eventos'),
+  (9, 'Cafeterías y servicios de comida'),
+  (10, 'Vendedores ambulantes de alimentos'),
+  (11, 'Tiendas de conveniencia especializadas en productos orgánicos'),
+  (12, 'Restaurantes de comida rápida'),
+  (13, 'Fabricación de productos dietéticos'),
+  (14, 'Comercio al por menor de productos dietéticos'),
+  (15, 'Supermercados especializados en productos gourmet'),
+  (16, 'Distribuidores de productos de alimentación para mascotas'),
+  (17, 'Fabricantes de snacks saludables'),
+  (18, 'Restaurantes de comida étnica'),
+  (19, 'Tiendas de productos naturales'),
+  (20, 'Fabricación de productos de chocolate'),
+  (21, 'Mayoristas de productos de chocolate'),
+  (22, 'Distribuidores de productos de chocolate');
