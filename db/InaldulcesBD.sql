@@ -210,3 +210,25 @@ VALUES
   (20, 'Fabricación de productos de chocolate'),
   (21, 'Mayoristas de productos de chocolate'),
   (22, 'Distribuidores de productos de chocolate');
+
+  INSERT INTO rol (id_rol, rol)
+VALUES
+  (3, 'Representante Legal'),
+  (4, 'Gerente General'),
+  (5, 'Jefe de Contabilidad'),
+  (6, 'Jefe de Recursos Humanos'),
+  (7, 'Jefe de Producción'),
+  (8, 'Jefe de Ventas'),
+  (9, 'Jefe de Marketing'),
+  (10, 'Contador'),
+  (11, 'Analista de Recursos Humanos'),
+  (12, 'Operario de Producción'),
+  (13, 'Vendedor'),
+  (14, 'Analista de Marketing'),
+  (15, 'Asistente Administrativo'),
+  (16, 'Supervisor de Almacén'),
+  (17, 'Desarrollador de Software');
+
+
+ALTER TABLE usuario
+ADD COLUMN telefono VARCHAR(20) NULL;

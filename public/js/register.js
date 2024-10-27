@@ -1,3 +1,7 @@
+const nombreRepresentante = document.getElementById('nombre_representante').value;
+const apellidoRepresentante = document.getElementById('apellido_representante').value;
+const cedulaRepresentante = document.getElementById('cedula_representante').value;
+
 function mostrarCampos() {
     const tipoUsuario = document.getElementById('tipoUsuario').value;
     const camposNatural = document.getElementById('camposNatural'); 
@@ -37,44 +41,49 @@ async function cargarRubros() {
     }
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("boton-enviar").addEventListener("click", async (event) => {
+        event.preventDefault();
 
-document.getElementById("boton-enviar").addEventListener("click", async (event) => {
-    event.preventDefault();
+        const tipoUsuario = document.getElementById("tipoUsuario").value;
 
-    const tipoUsuario = document.getElementById("tipoUsuario").value;
+        if (tipoUsuario === "empresa") {
+            const empresaData = {
+                razon_social: document.getElementById('razon_social').value,
+                nit: document.getElementById('nit').value,
+                telefono_empresa: document.getElementById('telefono_empresa').value,
+                correo: document.getElementById('email_empresa').value,
+                id_rubro: document.getElementById('rubro').value,
+                representante: {
+                    nombre: document.getElementById('nombre_representante').value,
+                    apellido: document.getElementById('apellido_representante').value,
+                    cedula: document.getElementById('cedula_representante').value,
+                }
+            };
 
-    if (tipoUsuario === "natural") {
-        // Captura los datos de la persona natural
-        const data = {
-            cedula: document.getElementById("cedula").value,
-            nombre: document.getElementById("nickname").value,
-            apellido: document.getElementById("lastname").value,
-            correo: document.getElementById("email").value,
-            contraseña: "Contraseña", // Reemplaza por una contraseña segura
-            id_genero: 1, // Ajusta según el valor seleccionado
-            id_rol: 1, // Cliente por defecto
-        };
-        
-        await fetch("http://127.0.0.1:3000/api/users/usuarios", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
-        });
-    } else if (tipoUsuario === "empresa") {
-        // Captura los datos de la empresa
-        const data = {
-            nit: document.getElementById("nit").value,
-            razon_social: document.getElementById("razon_social").value,
-            correo: document.getElementById("correo_empresa").value,
-            telefono: document.getElementById("telefono_empresa").value,
-            id_rubro: 1, // Ajusta según el valor
-            cedula_representante_legal: document.getElementById("cedula_representante").value,
-        };
-        
-        await fetch("http://127.0.0.1:3000/api/users/empresas", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
-        });
-    }
+            // Validar campos de la empresa
+            if (!empresaData.razon_social || !empresaData.nit || !empresaData.correo) {
+                alert("Por favor, complete todos los campos de la empresa.");
+                return;
+            }
+
+            try {
+                const response = await fetch("http://127.0.0.1:3000/api/users/empresas", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(empresaData),
+                });
+
+                if (!response.ok) {
+                    const errorResponse = await response.json();
+                    throw new Error(errorResponse.message || "Error al registrar la empresa");
+                }
+
+                console.log("Empresa registrada:", await response.json());
+            } catch (error) {
+                console.error("Error al registrar la empresa:", error.message);
+            }
+        }
+    });
 });
+

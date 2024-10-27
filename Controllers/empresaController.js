@@ -1,31 +1,56 @@
 // Importa el modelo Empresa
 const Empresa = require('../Models/modeloEmpresa');
-
+const db = require('../Models/conection');
 
 exports.registerEmpresa = async (req, res) => {
+    console.log('Datos de registro:', req.body);
+    const { razon_social, nit, id_rubro, correo, representante } = req.body;
+
+    // Asegúrate de que el representante tenga un teléfono definido
+    const telefono = representante && representante.telefono ? representante.telefono : null; 
+
+    // Verifica que correo no sea null o undefined
+    if (!correo) {
+        return res.status(400).json({ message: "El correo es obligatorio." });
+    }
+
+    const usuarioQuery = `
+        INSERT INTO usuario (cedula, nombre, apellido, correo, telefono, id_rol)
+        VALUES (?, ?, ?, ?, ?, ?)
+    `;
+
+    const usuarioValues = [
+        representante.cedula,
+        representante.nombre,
+        representante.apellido,
+        correo, // Asegúrate de usar el correo correcto
+        telefono,
+        3
+    ];
+
     try {
-        const { nit, razon_social, correo, telefono, id_rubro, cedula_representante_legal, representante } = req.body;
+        const [usuarioResult] = await db.query(usuarioQuery, usuarioValues);
+        const userId = usuarioResult.insertId;
 
-        // Crear instancia de la empresa y guardar
-        const empresa = new Empresa(nit, razon_social, correo, telefono, id_rubro, cedula_representante_legal);
-        await empresa.save();
+        const empresaQuery = `
+            INSERT INTO empresa (razon_social, nit, telefono_empresa, correo, id_rubro, id_representante)
+            VALUES (?, ?, ?, ?, ?, ?)
+        `;
 
-        // Registrar representante legal como usuario
-        const usuarioRepresentante = {
-            cedula: cedula_representante_legal,
-            nombre: representante.nombre,
-            apellido: representante.apellido,
-            correo: representante.correo,
-            id_genero: representante.id_genero,
-            id_rol: 2, // Asumimos que el rol 2 es representante
-            nit_empresa: nit
-        };
-        await Usuario.saveRepresentanteLegal(usuarioRepresentante);
+        const empresaValues = [
+            razon_social,
+            nit,
+            telefono,
+            correo, // Asegúrate de que se guarde correctamente
+            id_rubro,
+            userId
+        ];
 
-        res.status(201).json({ message: 'Empresa y representante registrados con éxito' });
+        await db.query(empresaQuery, empresaValues);
+        res.status(201).json({ message: "Empresa registrada con éxito", userId });
     } catch (error) {
-        console.error('Error al registrar empresa:', error.message);
-        res.status(500).json({ message: 'Error interno al registrar empresa' });
+        console.error("Error al registrar la empresa:", error);
+        res.status(500).json({ message: "Error al registrar la empresa", error });
     }
 };
 
