@@ -1,57 +1,9 @@
-const Empresa = require('../Models/modeloEmpresa'); // Importa el modelo Empresa
 const Usuario = require('../Models/modeloUsuario'); // Importa el modelo Usuario
 const db = require('../Models/conection'); // Importa la conexión a la base de datos
-
-exports.registerEmpresa = async (req, res) => {
-    console.log('Datos de registro:', req.body);
-
-    const { razon_social, nit, id_rubro, correo, representante, telefono_empresa } = req.body;
-
-    // Verifica que correo y teléfono no sean null o undefined
-    if (!correo) {
-        return res.status(400).json({ message: "El correo es obligatorio." });
-    }
-
-    const usuarioQuery = `
-        INSERT INTO usuario (cedula, nombre, apellido, correo, telefono, id_rol)
-        VALUES (?, ?, ?, ?, ?, ?)
-    `;
-
-    const usuarioValues = [
-        representante.cedula,
-        representante.nombre,
-        representante.apellido,
-        correo,
-        representante.telefono, // Asegúrate de usar el teléfono del representante
-        3
-    ];
-
-    try {
-        const [usuarioResult] = await db.query(usuarioQuery, usuarioValues);
-        const userId = usuarioResult.insertId;
-
-        const empresaQuery = `
-            INSERT INTO empresa (razon_social, nit, telefono_empresa, correo, id_rubro, cedula_representante_legal)
-            VALUES (?, ?, ?, ?, ?, ?)
-        `;
-
-        const empresaValues = [
-            razon_social,
-            nit,
-            telefono_empresa, // Usa el teléfono de la empresa
-            correo,
-            id_rubro,
-            representante.cedula // Usa la cédula del representante
-        ];
-
-        await db.query(empresaQuery, empresaValues);
-        res.status(201).json({ message: "Empresa registrada con éxito", userId });
-    } catch (error) {
-        console.error("Error al registrar la empresa:", error);
-        res.status(500).json({ message: "Error al registrar la empresa", error });
-    }
-};
-
+const xlsx = require('xlsx');
+const fs = require('fs');
+const path = require('path');
+const nodemailer = require('nodemailer');
 
 // Crear usuario
 exports.createUsuario = async (req, res) => {
