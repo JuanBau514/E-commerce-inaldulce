@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-10-2024 a las 02:04:55
+-- Tiempo de generación: 30-10-2024 a las 00:30:06
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Versión de PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -77,7 +77,7 @@ CREATE TABLE `empresa` (
   `razon_social` varchar(100) DEFAULT NULL,
   `correo` varchar(100) NOT NULL,
   `telefono` varchar(20) DEFAULT NULL,
-  `rubro` varchar(100) DEFAULT NULL,
+  `id_rubro` int(11) DEFAULT NULL,
   `cedula_representante_legal` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -85,9 +85,9 @@ CREATE TABLE `empresa` (
 -- Volcado de datos para la tabla `empresa`
 --
 
-INSERT INTO `empresa` (`nit`, `razon_social`, `correo`, `telefono`, `rubro`, `cedula_representante_legal`) VALUES
-(1001, 'Dulces SAS', 'contacto@dulcessas.com', '3001234567', 'Alimentos', 11111),
-(1002, 'Chocolates XYZ', 'info@chocolatesxyz.com', '3017654321', 'Confitería', 11112);
+INSERT INTO `empresa` (`nit`, `razon_social`, `correo`, `telefono`, `id_rubro`, `cedula_representante_legal`) VALUES
+(1001, 'Dulces SAS', 'contacto@dulcessas.com', '3001234567', 1, 11111),
+(1002, 'Chocolates XYZ', 'info@chocolatesxyz.com', '3017654321', 2, 11112);
 
 -- --------------------------------------------------------
 
@@ -217,7 +217,61 @@ CREATE TABLE `rol` (
 
 INSERT INTO `rol` (`id_rol`, `rol`) VALUES
 (1, 'Administrador'),
-(2, 'Cliente');
+(2, 'Cliente'),
+(3, 'Representante Legal'),
+(4, 'Gerente General'),
+(5, 'Jefe de Contabilidad'),
+(6, 'Jefe de Recursos Humanos'),
+(7, 'Jefe de Producción'),
+(8, 'Jefe de Ventas'),
+(9, 'Jefe de Marketing'),
+(10, 'Contador'),
+(11, 'Analista de Recursos Humanos'),
+(12, 'Operario de Producción'),
+(13, 'Vendedor'),
+(14, 'Analista de Marketing'),
+(15, 'Asistente Administrativo'),
+(16, 'Supervisor de Almacén'),
+(17, 'Desarrollador de Software');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `rubro`
+--
+
+CREATE TABLE `rubro` (
+  `id_rubro` int(11) NOT NULL,
+  `rubro` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `rubro`
+--
+
+INSERT INTO `rubro` (`id_rubro`, `rubro`) VALUES
+(1, 'Alimentos'),
+(2, 'Confiteria'),
+(3, 'Comercio al por menor de productos de panadería'),
+(4, 'Fabricación de helados y otros productos lácteos congelados'),
+(5, 'Distribución de bebidas'),
+(6, 'Mayoristas de productos lácteos'),
+(7, 'Comercio electrónico de alimentos y bebidas'),
+(8, 'Empresas de catering para eventos'),
+(9, 'Cafeterías y servicios de comida'),
+(10, 'Vendedores ambulantes de alimentos'),
+(11, 'Tiendas de conveniencia especializadas en productos orgánicos'),
+(12, 'Restaurantes de comida rápida'),
+(13, 'Fabricación de productos dietéticos'),
+(14, 'Comercio al por menor de productos dietéticos'),
+(15, 'Supermercados especializados en productos gourmet'),
+(16, 'Distribuidores de productos de alimentación para mascotas'),
+(17, 'Fabricantes de snacks saludables'),
+(18, 'Restaurantes de comida étnica'),
+(19, 'Tiendas de productos naturales'),
+(20, 'Fabricación de productos de chocolate'),
+(21, 'Mayoristas de productos de chocolate'),
+(22, 'Distribuidores de productos de chocolate');
 
 -- --------------------------------------------------------
 
@@ -231,24 +285,25 @@ CREATE TABLE `usuario` (
   `apellido` varchar(100) NOT NULL,
   `correo` varchar(100) NOT NULL,
   `contraseña` varchar(255) NOT NULL,
-  `id_genero` int(11) NOT NULL,
+  `id_genero` int(11) DEFAULT NULL,
   `id_rol` int(11) NOT NULL,
-  `nit_empresa` int(11) DEFAULT NULL
+  `nit_empresa` int(11) DEFAULT NULL,
+  `telefono` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`cedula`, `nombre`, `apellido`, `correo`, `contraseña`, `id_genero`, `id_rol`, `nit_empresa`) VALUES
-(11111, 'erika', 'Martinez', 'erica@inaldulces.com.co', '$2a$10$h9zkFGzcZBVk/onv4Yfj.unVN51RD4lRXoycT7FdylapbIrCegkC6', 2, 1, NULL),
-(11112, 'Dylan', 'ruge', 'dylanruge8@gmail.com', 'Dylan123', 1, 1, NULL),
-(11113, 'Carlos', 'López', 'carlos.lopez@dminExample.com', 'contraseña3', 1, 1, NULL),
-(11114, 'Ana', 'Martínez', 'ana.martinez@dminExample.com', 'contraseña4', 2, 1, NULL),
-(11115, 'Luis', 'Fernández', 'luis.fernandez@example.com', 'contraseña5', 1, 2, 1001),
-(11116, 'Sofía', 'Hernández', 'sofia.hernandez@example.com', 'contraseña6', 2, 2, 1001),
-(11117, 'Pancracia', 'Fernández', 'pancri@example.com', 'contraseña5', 1, 2, 1002),
-(11118, 'Anacleta', 'Hernández', 'anacleta@example.com', 'contraseña6', 2, 2, 1002);
+INSERT INTO `usuario` (`cedula`, `nombre`, `apellido`, `correo`, `contraseña`, `id_genero`, `id_rol`, `nit_empresa`, `telefono`) VALUES
+(11111, 'erika', 'Martinez', 'erica@inaldulces.com.co', '$2a$10$h9zkFGzcZBVk/onv4Yfj.unVN51RD4lRXoycT7FdylapbIrCegkC6', 2, 1, NULL, NULL),
+(11112, 'Maria', 'Gómez', 'maria.gomez@adminExample.com', 'contraseña2', 2, 1, NULL, NULL),
+(11113, 'Carlos', 'López', 'carlos.lopez@dminExample.com', 'contraseña3', 1, 1, NULL, NULL),
+(11114, 'Ana', 'Martínez', 'ana.martinez@dminExample.com', 'contraseña4', 2, 1, NULL, NULL),
+(11115, 'Luis', 'Fernández', 'luis.fernandez@example.com', 'contraseña5', 1, 2, 1001, NULL),
+(11116, 'Sofía', 'Hernández', 'sofia.hernandez@example.com', 'contraseña6', 2, 2, 1001, NULL),
+(11117, 'Pancracia', 'Fernández', 'pancri@example.com', 'contraseña5', 1, 2, 1002, NULL),
+(11118, 'Anacleta', 'Hernández', 'anacleta@example.com', 'contraseña6', 2, 2, 1002, NULL);
 
 --
 -- Índices para tablas volcadas
@@ -273,6 +328,7 @@ ALTER TABLE `direccion`
 --
 ALTER TABLE `empresa`
   ADD PRIMARY KEY (`nit`),
+  ADD KEY `id_rubro` (`id_rubro`),
   ADD KEY `cedula_representante_legal` (`cedula_representante_legal`);
 
 --
@@ -313,6 +369,12 @@ ALTER TABLE `producto`
 --
 ALTER TABLE `rol`
   ADD PRIMARY KEY (`id_rol`);
+
+--
+-- Indices de la tabla `rubro`
+--
+ALTER TABLE `rubro`
+  ADD PRIMARY KEY (`id_rubro`);
 
 --
 -- Indices de la tabla `usuario`
@@ -361,7 +423,8 @@ ALTER TABLE `direccion`
 -- Filtros para la tabla `empresa`
 --
 ALTER TABLE `empresa`
-  ADD CONSTRAINT `empresa_ibfk_1` FOREIGN KEY (`cedula_representante_legal`) REFERENCES `usuario` (`cedula`);
+  ADD CONSTRAINT `empresa_ibfk_1` FOREIGN KEY (`id_rubro`) REFERENCES `rubro` (`id_rubro`),
+  ADD CONSTRAINT `empresa_ibfk_2` FOREIGN KEY (`cedula_representante_legal`) REFERENCES `usuario` (`cedula`);
 
 --
 -- Filtros para la tabla `factura`
