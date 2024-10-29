@@ -17,6 +17,9 @@ router.get('/empresas', empresaController.getEmpresas);
 router.put('/empresas', empresaController.updateEmpresa);
 router.delete('/empresas/:id', empresaController.deleteEmpresa);
 
+//Ruta para manejo del login
+router.post('/login', usuarioController.login);
+
 // Ruta para obtener todos los rubros
 router.get('/rubros', rubroController.getRubros);
 

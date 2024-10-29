@@ -5,6 +5,27 @@ const fs = require('fs');
 const path = require('path');
 const nodemailer = require('nodemailer');
 
+exports.login = async (req, res) => {
+    try {
+        const { correo, contraseña } = req.body;
+        const usuario = await Usuario.login(correo, contraseña);
+
+        if (usuario.length > 0) {
+            res.status(200).json({
+                id: usuario[0].id,
+                nombre: usuario[0].nombre,
+                id_rol: usuario[0].id_rol,
+            });
+        } else {
+            res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al iniciar sesión' });
+    }
+};
+
+
 // Crear usuario
 exports.createUsuario = async (req, res) => {
     try {
