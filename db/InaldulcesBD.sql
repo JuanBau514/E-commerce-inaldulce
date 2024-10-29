@@ -27,7 +27,7 @@ CREATE TABLE usuario (
     apellido VARCHAR(100) NOT NULL,
     correo VARCHAR(100) NOT NULL UNIQUE,
     contraseña VARCHAR(255) NOT NULL,
-    id_genero INT NOT NULL,
+    id_genero INT,
     id_rol INT NOT NULL,
     
     PRIMARY KEY (cedula),
@@ -188,7 +188,7 @@ UPDATE usuario
 SET nit_empresa = 1002
 WHERE cedula = 11118;
 
-INSERT INTO rubro (id, rubro)
+INSERT INTO rubro (id_rubro, rubro)
 VALUES
   (3, 'Comercio al por menor de productos de panadería'),
   (4, 'Fabricación de helados y otros productos lácteos congelados'),
