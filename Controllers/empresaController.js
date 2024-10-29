@@ -204,6 +204,44 @@ exports.registerEmpresa = async (req, res) => {
     }
 };
 
+exports.getEmpresas = async (req, res) => {
+    let connection;
+    try {
+        connection = await db.getConnection();
+        const query = `
+            SELECT e.*, u.nombre as nombre_representante, u.apellido as apellido_representante 
+            FROM empresa e 
+            LEFT JOIN usuario u ON e.cedula_representante_legal = u.cedula
+        `;
+        const [empresas] = await connection.query(query);
+        
+        if (!empresas || empresas.length === 0) {
+            return res.status(200).json({ 
+                status: 'success',
+                data: [],
+                message: 'No hay empresas registradas'
+            });
+        }
+
+        res.status(200).json({
+            status: 'success',
+            data: empresas,
+            message: 'Empresas recuperadas exitosamente'
+        });
+    } catch (error) {
+        console.error('Error al obtener empresas:', error);
+        res.status(500).json({
+            status: 'error',
+            message: 'Error al obtener las empresas',
+            error: process.env.NODE_ENV === 'development' ? error.message : 'Error interno del servidor'
+        });
+    } finally {
+        if (connection) {
+            connection.release();
+        }
+    }
+};
+
 // Crear empresa
 exports.createEmpresa = async (req, res) => {
     try {
@@ -216,15 +254,6 @@ exports.createEmpresa = async (req, res) => {
     }
 };
 
-// Obtener todas las empresas
-exports.getEmpresas = async (req, res) => {
-    try {
-        const empresas = await Empresa.getAll();
-        res.status(200).json(empresas);
-    } catch (error) {
-        res.status(500).json({ error: 'Error al obtener empresas' });
-    }
-};
 
 // Actualizar empresa
 exports.updateEmpresa = async (req, res) => {

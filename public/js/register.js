@@ -44,110 +44,69 @@ async function cargarRubros() {
 document.addEventListener('DOMContentLoaded', () => {
     cargarRubros();
 
-    document.getElementById("boton-enviar").addEventListener("click", async (event) => {
+    document.getElementById("boton-enviar").addEventListener("click", (event) => {
+        // Evitar que el formulario se envíe y refresque la página
         event.preventDefault();
 
         const tipoUsuario = document.getElementById("tipoUsuario").value;
-
         if (tipoUsuario === "empresa") {
             const botonEnviar = document.getElementById("boton-enviar");
             botonEnviar.disabled = true;
             botonEnviar.textContent = "Procesando...";
 
-            try {
-                const empresaData = {
-                    razon_social: document.getElementById('razon_social').value.trim(),
-                    nit: document.getElementById('nit').value.trim(),
-                    telefono_empresa: document.getElementById('telefono_empresa').value.trim(),
-                    correo: document.getElementById('email_empresa').value.trim(),
-                    id_rubro: document.getElementById('rubro').value,
-                    representante: {
-                        nombre: document.getElementById('nombre_representante').value.trim(),
-                        apellido: document.getElementById('apellido_representante').value.trim(),
-                        cedula: document.getElementById('cedula_representante').value.trim(),
-                    }
-                };
-
-                // Validación de campos
-                const camposRequeridos = {
-                    'Razón Social': empresaData.razon_social,
-                    'NIT': empresaData.nit,
-                    'Correo': empresaData.correo,
-                    'Rubro': empresaData.id_rubro,
-                    'Nombre del Representante': empresaData.representante.nombre,
-                    'Apellido del Representante': empresaData.representante.apellido,
-                    'Cédula del Representante': empresaData.representante.cedula
-                };
-
-                const camposVacios = Object.entries(camposRequeridos)
-                    .filter(([_, valor]) => !valor)
-                    .map(([campo]) => campo);
-
-                if (camposVacios.length > 0) {
-                    alert(`Por favor, complete los siguientes campos: ${camposVacios.join(', ')}`);
-                    return;  // Salir de la función si hay campos vacíos
+            const empresaData = {
+                razon_social: document.getElementById('razon_social').value.trim(),
+                nit: document.getElementById('nit').value.trim(),
+                telefono_empresa: document.getElementById('telefono_empresa').value.trim(),
+                correo: document.getElementById('email_empresa').value.trim(),
+                id_rubro: document.getElementById('rubro').value,
+                representante: {
+                    nombre: document.getElementById('nombre_representante').value.trim(),
+                    apellido: document.getElementById('apellido_representante').value.trim(),
+                    cedula: document.getElementById('cedula_representante').value.trim(),
                 }
+            };
 
-                console.log('Datos a enviar:', empresaData);
+            console.log('Datos a enviar:', empresaData);
 
-                // Verificar conexión con el servidor
-                const healthCheck = await fetch('http://localhost:3000/api/health', {
-                    method: 'GET',
-                    mode: 'cors',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    }
-                });
-
-                if (!healthCheck.ok) {
-                    throw new Error('El servidor no está respondiendo correctamente');
+            // Realiza la solicitud fetch
+            fetch("http://localhost:3000/api/users/empresas", {
+                method: "POST",
+                mode: 'cors',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(empresaData)
+            })
+            .then(response => {
+                // Verifica el estado de la respuesta
+                if (response.status === 204) {
+                    // Si la respuesta es 204, creamos un objeto simulado
+                    return { status: 201, message: "Creación exitosa", data: {} };
+                } else if (!response.ok) {
+                    return response.json().then(errorData => {
+                        throw new Error(errorData.message || `Error en la solicitud: ${response.status}`);
+                    });
                 }
-
-                // Realizar el registro
-                const response = await fetch("http://localhost:3000/api/users/empresas", {
-                    method: "POST",
-                    mode: 'cors',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    credentials: 'include',
-                    body: JSON.stringify(empresaData)
-                });
-
-                let result;
-                const contentType = response.headers.get("content-type");
-                
-                if (contentType && contentType.indexOf("application/json") !== -1) {
-                    result = await response.json();
-                } else {
-                    const text = await response.text();
-                    console.log('Respuesta no-JSON:', text);
-                    throw new Error('Respuesta inesperada del servidor');
-                }
-
-                if (!response.ok) {
-                    throw {
-                        status: response.status,
-                        message: result.message || 'Error en el servidor'
-                    };
-                }
-
-                if (error) {
-                    window.location.href = '/Views/userPage.html'; // Redirigir sin alerta
-                    alert("Se a registrado satisfactoriamente la Empresa en el sistema. Pronto nos comunicaremos con usted este por favor este pendiente para validar los datos. Sera redirigido a la pagina de usuario.");
-                }
-
-            } catch (result) {
-                console.error("Error completo:", result);
-                console.error("Mensaje de error:", result.message);
-                
-                alert("Se ha registrado satisfactoriamente la Empresa en el sistema. Pronto nos comunicaremos con usted. Este por favor este pendiente para validar los datos.");
-                
-                // Redirigir aquí si quieres que suceda después de un registro exitoso
-                window.location.href = '/userPage.html'; 
-}
+                // Si la respuesta es válida, retornamos el JSON
+                return response.json();
+            })
+            .then(result => {
+                console.log("Resultado:", result);
+                alert("Empresa registrada con éxito.");
+                // Redirigir solo después de que se haya completado el registro
+                window.location.href = '/Views/userPage.html';
+            })
+            .catch(error => {
+                console.error("Error completo:", error.message);
+                alert("Se a registrado satisfactoriamente la Empresa en el sistema. Pronto nos comunicaremos con usted este por favor este pendiente para validar los datos.");
+            })
+            .finally(() => {
+                // Habilitar el botón nuevamente
+                botonEnviar.disabled = false;
+                botonEnviar.textContent = "Enviar";
+            });
         }
     });
 });

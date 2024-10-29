@@ -6,27 +6,13 @@ const userRoutes = require('./Routes/userRuta');
 const app = express();
 const port = 3000;
 
-// Configurar CORS para permitir solicitudes desde orígenes específicos
 const corsOptions = {
-    origin: ['http://127.0.0.1:5501', 'http://localhost:5501', 'http://localhost:3000'],
+    origin: '*',  // Permitir todos los orígenes para pruebas
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
-    credentials: true,  // Permitir credenciales (cookies, etc.)
-    optionsSuccessStatus: 200  // Para navegadores antiguos
+    optionsSuccessStatus: 200
 };
-
-// Aplicar el middleware CORS
 app.use(cors(corsOptions));
-
-// Middleware para logging de solicitudes
-app.use((req, res, next) => {
-    console.log(`${req.method} ${req.path} - ${new Date().toISOString()}`);
-    next();
-});
-
-// Aumentar el límite del tamaño del payload
-app.use(bodyParser.json({ limit: '10mb' }));
-app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
@@ -37,7 +23,7 @@ app.get('/api/health', (req, res) => {
     });
 });
 
-// Middleware para manejar errores
+// Middleware para manejar errores al final de las rutas
 app.use((err, req, res, next) => {
     console.error('Error:', err);
     res.status(err.status || 500).json({
