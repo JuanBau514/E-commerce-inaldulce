@@ -1,7 +1,3 @@
-const nombreRepresentante = document.getElementById('nombre_representante').value;
-const apellidoRepresentante = document.getElementById('apellido_representante').value;
-const cedulaRepresentante = document.getElementById('cedula_representante').value;
-
 function mostrarCampos() {
     const tipoUsuario = document.getElementById('tipoUsuario').value;
     const camposNatural = document.getElementById('camposNatural'); 
@@ -40,20 +36,19 @@ async function cargarRubros() {
         console.error('Error al cargar los rubros:', error);
     }
 }
-
 document.addEventListener('DOMContentLoaded', () => {
     cargarRubros();
 
-    document.getElementById("boton-enviar").addEventListener("click", (event) => {
+    document.getElementById("boton-enviar").addEventListener("click", async (event) => { // Declara la función como async
         // Evitar que el formulario se envíe y refresque la página
         event.preventDefault();
 
         const tipoUsuario = document.getElementById("tipoUsuario").value;
-        if (tipoUsuario === "empresa") {
-            const botonEnviar = document.getElementById("boton-enviar");
-            botonEnviar.disabled = true;
-            botonEnviar.textContent = "Procesando...";
+        const botonEnviar = document.getElementById("boton-enviar"); // Define el botón aquí para ambas condiciones
+        botonEnviar.disabled = true;
+        botonEnviar.textContent = "Procesando...";
 
+        if (tipoUsuario === "empresa") {
             const empresaData = {
                 razon_social: document.getElementById('razon_social').value.trim(),
                 nit: document.getElementById('nit').value.trim(),
@@ -107,6 +102,49 @@ document.addEventListener('DOMContentLoaded', () => {
                 botonEnviar.disabled = false;
                 botonEnviar.textContent = "Enviar";
             });
+        } else if (tipoUsuario === "natural") {
+            const nickname = document.getElementById('nickname').value.trim();
+            const lastname = document.getElementById('lastname').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const rut = document.getElementById('rut').files[0];
+
+            // Validación de campos requeridos
+            if (!nickname || !lastname || !email || !rut) {
+                alert('Todos los campos son obligatorios.');
+                botonEnviar.disabled = false;
+                botonEnviar.textContent = "Enviar";
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('nickname', nickname);
+            formData.append('lastname', lastname);
+            formData.append('email', email);
+            formData.append('rut', rut);  // Agrega el archivo
+
+            try {
+                const response = await fetch("http://localhost:3000/api/users/persona-natural", {
+                    method: "POST",
+                    mode: 'cors',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Error en el servidor');
+                }
+
+                const result = await response.json();
+                console.log("Resultado:", result);
+                alert("Registro de persona natural exitoso.");
+                window.location.href = '/Views/userPage.html';
+            } catch (error) {
+                console.error("Error completo:", error);
+                alert(error.message || 'Error al procesar la solicitud');
+            } finally {
+                botonEnviar.disabled = false;
+                botonEnviar.textContent = "Enviar";
+            }
         }
     });
 });
