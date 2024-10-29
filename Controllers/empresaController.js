@@ -90,14 +90,14 @@ exports.registerEmpresa = async (req, res) => {
                 representante.apellido,
                 correo, 
                 telefono,
-                3
+                3,
             ];
 
             await connection.query(usuarioQuery, usuarioValues);
 
             // Insertar empresa
             const empresaQuery = `
-                INSERT INTO empresa (razon_social, nit, telefono_empresa, correo, id_rubro, cedula_representante_legal)
+                INSERT INTO empresa (razon_social, nit, telefono, correo, id_rubro, cedula_representante_legal)
                 VALUES (?, ?, ?, ?, ?, ?)
             `;
             const empresaValues = [
