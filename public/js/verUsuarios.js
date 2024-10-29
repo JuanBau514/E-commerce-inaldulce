@@ -1,17 +1,9 @@
-//const { createServer } = require("mysql2");
-
-const creaFila = (id,nombre,apellido,correo,id_genero,id_rol) =>{
+const creaFila = (id,nombre,apellido,correo,genero,id_rol,nit_empresa,razon_social) =>{
     
-    if(id_genero == 1){
-        id_genero = 'Masculino';
-    }else{
-        id_genero = 'Femenino';
-    }
-
-    if(id_rol == 1){
-        id_rol = 'Administrador'
-    }else{
-        id_rol = 'Cliente';
+    if(!nit_empresa || !razon_social){
+        nit_empresa = 'No registra'
+        razon_social= 'No registra'
+        
     }
 
     const fila = document.createElement('tr')
@@ -21,8 +13,10 @@ const creaFila = (id,nombre,apellido,correo,id_genero,id_rol) =>{
         <td>${nombre}</td>
         <td>${apellido}</td>
         <td>${correo}</td>
-        <td>${id_genero}</td>
+        <td>${genero}</td>
         <td>${id_rol}</td>
+        <td>${nit_empresa}</td>
+        <td>${razon_social}</td>
     </tr>    
     `
     return fila;
@@ -38,8 +32,10 @@ const agregarUsuariosTabla = (usuarios)=>{
          usuario.nombre,
          usuario.apellido,
          usuario.correo,
-         usuario.id_genero,
-         usuario.id_rol
+         usuario.genero,
+         usuario.rol,
+         usuario.nit_empresa,
+         usuario.razon_social
         )
         tablaUsuarios.appendChild(nuevaFila)
     })
@@ -48,19 +44,12 @@ const agregarUsuariosTabla = (usuarios)=>{
 
 
 window.onload = function() {
-    const token = localStorage.getItem('token')
-    if (!token) {
-        alert('Debes iniciar sesión');
-        window.location.href = '/Views/login.html';
-      } else {
-        fetch('http://localhost:3000/api/users/usuarios',{
-            method:'GET'
-        }).then((data)=>{
-            data.json().then((usuarios)=>{            
-                agregarUsuariosTabla(usuarios[0])
-                
-            });
-        })
-      }
-   
+    fetch('http://localhost:3000/api/users/usuarios',{
+        method:'GET'
+    }).then((data)=>{
+        data.json().then((usuarios)=>{            
+            agregarUsuariosTabla(usuarios[0])
+            
+        });
+    })
 }
