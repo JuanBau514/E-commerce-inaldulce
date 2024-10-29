@@ -11,14 +11,14 @@ router.get('/usuarios', usuarioController.getUsuarios);
 router.put('/usuarios', usuarioController.updateUsuario);
 router.delete('/usuarios/:id', usuarioController.deleteUsuario);
 
+// Ruta de login
+router.post('/login', usuarioController.login);
+
 // Rutas de empresas
 router.post('/empresas', empresaController.registerEmpresa);
 router.get('/empresas', empresaController.getEmpresas);
 router.put('/empresas', empresaController.updateEmpresa);
 router.delete('/empresas/:id', empresaController.deleteEmpresa);
-
-//Ruta para manejo del login
-router.post('/login', usuarioController.login);
 
 // Ruta para obtener todos los rubros
 router.get('/rubros', rubroController.getRubros);
