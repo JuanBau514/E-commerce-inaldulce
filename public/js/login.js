@@ -4,31 +4,34 @@ document.querySelector('.boton-enviar').addEventListener('click', async function
     const emailInput = document.querySelector('#email');
     const passwordInput = document.querySelector('#password');
 
-    if (emailInput && passwordInput) { 
+    if (emailInput && passwordInput) {
         const email = emailInput.value;
         const password = passwordInput.value;
 
         if (email && password) {
             try {
-                const response = await fetch('http://localhost:3000/api/login', {
+                const response = await fetch('http://localhost:3000/api/users/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ correo: email, contraseña: password }),  // Asegúrate de usar las propiedades correctas
+                    body: JSON.stringify({ email, password }),
                 });
 
                 const result = await response.json();
 
                 if (response.ok) {
-                    // Redirige al usuario basado en su rol
-                    if (result.id_rol === 1) {  // Rol de Administrador
+                    // Guarda el token en localStorage
+                    //localStorage.setItem('token', result.token);
+                    //console.log(`token : ${result.token}`);
+                    // Verifica el rol del usuario
+                    if (result.role === 1) {  // Asegúrate de que este es el rol de Administrador
                         window.location.href = '/Views/adminPage.html';
                     } else {
                         window.location.href = '/Views/userPage.html';
                     }
                 } else {
-                    alert(result.message || 'Error en las credenciales');
+                    alert(result.message);
                 }
 
             } catch (error) {
@@ -42,3 +45,15 @@ document.querySelector('.boton-enviar').addEventListener('click', async function
         console.error('No se pudo encontrar los campos de email o contraseña');
     }
 });
+
+if (response.ok) {
+    // Guarda el token en localStorage
+    //localStorage.setItem('token', result.token);
+
+    // Verifica el rol del usuario
+    if (result.role === 1) {  // Asegúrate de que este es el rol de Administrador
+        window.location.href = '/Views/adminPage.html';
+    } else {
+        window.location.href = '/Views/userPage.html';
+    }
+}
