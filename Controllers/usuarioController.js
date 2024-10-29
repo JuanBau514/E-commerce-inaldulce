@@ -1,29 +1,10 @@
+const bcrypt = require('bcryptjs');
 const Usuario = require('../Models/modeloUsuario'); // Importa el modelo Usuario
 const db = require('../Models/conection'); // Importa la conexión a la base de datos
 const xlsx = require('xlsx');
 const fs = require('fs');
 const path = require('path');
 const nodemailer = require('nodemailer');
-
-exports.login = async (req, res) => {
-    try {
-        const { correo, contraseña } = req.body;
-        const usuario = await Usuario.login(correo, contraseña);
-
-        if (usuario.length > 0) {
-            res.status(200).json({
-                id: usuario[0].id,
-                nombre: usuario[0].nombre,
-                id_rol: usuario[0].id_rol,
-            });
-        } else {
-            res.status(404).json({ message: 'Usuario no encontrado' });
-        }
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Error al iniciar sesión' });
-    }
-};
 
 
 // Crear usuario
@@ -69,5 +50,40 @@ exports.deleteUsuario = async (req, res) => {
         res.status(200).json({ message: 'Usuario eliminado con éxito' });
     } catch (error) {
         res.status(500).json({ error: 'Error al eliminar usuario' });
+    }
+};
+
+exports.login = async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        // Buscar al usuario en la base de datos
+        const [user] = await db.query('SELECT * FROM usuario WHERE correo = ?', [email]);
+        if (!user || user.length === 0) {
+            return res.status(400).json({ message: 'Usuario no encontrado' });
+        }
+
+        // Verificar si la contraseña está definida
+        if (!user[0].contraseña) {
+            return res.status(500).json({ message: 'Error del servidor: Contraseña no encontrada' });
+        }
+
+        console.log(password);
+        // Verificar contraseña
+        const isMatch = await bcrypt.compare(password, user[0].contraseña);
+        
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Contraseña incorrecta' });
+        }
+        /* 
+        // Crear token JWT
+        const token = jwt.sign({ cedula: user[0].cedula, nickname: user[0].nombre, role: user[0].id_rol }, 'secreto', {
+            expiresIn: '1h',
+        });*/
+        
+        return res.status(200).json({ role: user[0].id_rol, message: 'Inicio de sesión exitoso' });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Error del servidor' });
     }
 };
