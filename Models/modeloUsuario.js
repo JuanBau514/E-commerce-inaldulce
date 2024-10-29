@@ -20,6 +20,50 @@ class Usuario {
         `;
         return await db.query(query);
     }
+
+    static async create({ cedula,nickname, lastname, email, password, id_genero, id_rol }) {
+        const query = 'INSERT INTO usuario (cedula,nombre, apellido, correo, contraseña, id_genero, id_rol) VALUES (?,?, ?, ?, ?, ?, ?)';
+        return db.query(query, [cedula,nickname, lastname, email, password, id_genero, id_rol]);
+    }
+    
+        static async findByEmail(correo) {
+            const query = 'SELECT * FROM usuario WHERE correo = ?';
+            const [rows] = await db.query(query, [correo]);
+            return rows.length ? rows[0] : null;
+        }
+    
+        static async findByCedula(cedula) {
+            const query = 'SELECT * FROM usuario WHERE cedula = ?';
+            const [rows] = await db.query(query, [cedula]);
+            return rows.length ? rows[0] : null;
+        }
+        static async delete(cedula) {
+            const query = 'DELETE FROM usuario WHERE cedula = ?';
+            return db.query(query, cedula);
+        }
+        async update({cedula, nombre, apellido,correo,contraseña,id_genero}) {
+            let query ;
+            if(contraseña){
+                console.log(`contraseña en el modelo ${contraseña}`);
+                query  = 'UPDATE usuario SET nombre = ?, apellido = ?, correo = ?, contraseña = ? ,id_genero = ? WHERE cedula = ?';
+                return db.query(query, [nombre, apellido, correo, contraseña,id_genero, cedula]);
+            }else{
+                query  = 'UPDATE usuario SET nombre = ?, apellido = ?, correo = ? ,id_genero = ? WHERE cedula = ?';
+                return db.query(query, [nombre, apellido, correo,id_genero, cedula]);
+            }
+            
+        } 
+        static async getAll(){
+            const query = `SELECT cedula,nombre,apellido,g.genero,u.correo,rol,u.nit_empresa, e.razon_social
+FROM usuario u LEFT JOIN empresa e
+				ON (u.nit_empresa = e.nit)
+	INNER JOIN rol r
+		ON (u.id_rol = r.id_rol)
+	LEFT JOIN genero g
+    ON u.id_genero = g.id_genero; `
+            return db.query(query);
+        }
+
 }
 
 
