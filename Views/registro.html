@@ -11,133 +11,104 @@
 <body>
     <div class="wrapper">
         <div class="form-box">
-            
-
             <div class="contenedor-registro app" id="registro">
-            <form name="fetch">
-                <div class="tituloR">Regístrate</div>
-                <div class="encabezado">
-                    <span>¿Ya tienes una cuenta? <a href="../Views/login.html" onclick="login()">Login</a></span>
-                </div>
-
-                <div class="caja-entrada">
-                    <label for="tipoUsuario">Seleccione el tipo de registro:</label>
-                    <select id="tipoUsuario" class="entrada" onchange="mostrarCampos()">
-                        <option value="">Seleccione</option>
-                        <option value="natural">Persona Natural</option>
-                        <option value="empresa">Empresa</option>
-                    </select>
-                </div>
-
-                <!-- Campos para Persona Natural -->
-                <div id="camposNatural" style="display: none;">
-                    <div class="dos-forms">
-                        <div class="caja-entrada">
-                            <input type="text" class="entrada" id="nickname" placeholder="Nombres">
-                            <i class="bx bx-user"></i>
-                        </div>
-                        <div class="caja-entrada">
-                            <input type="text" class="entrada" id="lastname" placeholder="Apellidos">
-                            <i class="bx bx-user"></i>
-                        </div>
+                <form name="fetch">
+                    <div class="tituloR">Regístrate</div>
+                    <div class="encabezado">
+                        <span>¿Ya tienes una cuenta? <a href="../Views/login.html" onclick="login()">Login</a></span>
                     </div>
 
                     <div class="caja-entrada">
-                        <input type="email" class="entrada" id="email" placeholder="Correo Electrónico">
-                        <i class="bx bx-envelope"></i>
-                    </div>
-
-                    <div class="caja-entrada">
-                        <label for="rut">Subir RUT (PDF)</label>
-                        <input type="file" class="entrada" id="rut" placeholder="Subir RUT">
-                    </div>
-                </div>
-
-                <!-- Campos para Empresa -->
-                <div id="camposEmpresa" style="display: none;">
-                    <div class="caja-entrada">
-                        <input type="text" class="entrada" id="razon_social" placeholder="Razón Social">
-                        <i class="bx bx-buildings"></i>
-                    </div>
-
-                    <div class="caja-entrada">
-                        <input type="text" class="entrada" id="nit" placeholder="NIT">
-                        <i class="bx bx-id-card"></i>
-                    </div>
-
-                    <div class="caja-entrada">
-                        <input type="text" class="entrada" id="telefono_empresa" placeholder="Teléfono">
-                        <i class="bx bx-phone"></i>
-                    </div>
-
-                      <div class="caja-entrada">
-                        <input type="email" class="entrada" id="email_empresa" placeholder="Correo Empresa">
-                        <i class="bx bx-envelope"></i>
-                    </div>
-
-
-                    <div class="caja-entrada">
-                        <label for="rubro">Seleccione el Rubro</label>
-                        <select id="rubro" class="entrada" name="id_rubro" required>
-                            <!-- Opciones cargadas dinámicamente -->
+                        <label for="tipoUsuario">Seleccione el tipo de registro:</label>
+                        <select id="tipoUsuario" class="entrada" onchange="mostrarCampos()">
+                            <option value="">Seleccione</option>
+                            <option value="natural">Persona Natural</option>
+                            <option value="empresa">Empresa</option>
                         </select>
-                        <i class="bx bx-store-alt"></i>
                     </div>
 
-
-                    <!-- Campos del representante legal -->
-                    <div class="caja-entrada">
-                        <input type="text" class="entrada" id="nombre_representante" placeholder="Nombres Representante Legal">
-                        <i class="bx bx-user"></i>
-                    </div>
-                     <div class="caja-entrada">
-                        <input type="text" class="entrada" id="apellido_representante" placeholder="Apellidos Representante Legal">
-                        <i class="bx bx-user"></i>
-                    </div>
-                    <div class="caja-entrada">
-                        <input type="text" class="entrada" id="cedula_representante" placeholder="Cédula Representante Legal">
-                        <i class="bx bx-id-card"></i>
-                    </div>
-                
-                    <!-- Opción para registrar más usuarios -->
-                     <div class="caja-entrada">
-                        <label for="registrar_usuarios">¿Nesesita Registrar más usuarios de su organizacion?</label>
-                        <input type="checkbox" id="registrar_usuarios" onchange="mostrarRegistroUsuarios()">
-                    </div>
-
-                    <!-- Agregar el botón para mostrar usuarios adicionales -->
-
-                    <!-- Campos adicionales para registrar usuarios (si el representante está presente) -->
-                    <div id="camposUsuariosAdicionales" style="display: none;">
-                        <div class="caja-entrada">
-                            <input type="text" class="entrada" id="usuario_nuevo" placeholder="Nombre de Usuario Adicional">
-                            <i class="bx bx-user"></i>
+                    <!-- Campos para Persona Natural -->
+                    <div id="camposNatural" style="display: none;">
+                        <!-- Campos específicos para persona natural -->
+                        <div class="dos-forms">
+                            <div class="caja-entrada">
+                                <input type="text" class="entrada" id="nickname" placeholder="Nombres">
+                                <i class="bx bx-user"></i>
+                            </div>
+                            <div class="caja-entrada">
+                                <input type="text" class="entrada" id="lastname" placeholder="Apellidos">
+                                <i class="bx bx-user"></i>
+                            </div>
                         </div>
-
                         <div class="caja-entrada">
-                            <input type="text" class="entrada" id="rol_usuario" placeholder="Digite el rol asignado por su organización">
-                            <i class="bx bx-user"></i>
+                            <input type="email" class="entrada" id="email" placeholder="Correo Electrónico">
+                            <i class="bx bx-envelope"></i>
+                        </div>
+                        <div class="caja-entrada">
+                            <label for="rut">Subir RUT (PDF)</label>
+                            <input type="file" class="entrada" id="rut" placeholder="Subir RUT">
+                        </div>
+                          <div class="caja-entrada" id="botonesRegistro">
+                            <button type="button" class="boton-enviar" id="boton-natural" onclick="registrarPersonaNatural()" >Registrarse como Persona Natural</button>
                         </div>
                     </div>
-                   
-                </div>
 
-                <!-- Botón para enviar -->
-                <div class="caja-entrada">
-                    <button type="button" class="boton-enviar" id="boton-enviar"> Registrarse </button>
-                </div>
+                    <!-- Campos para Empresa -->
+                    <div id="camposEmpresa" style="display: none;">
+                        <!-- Campos específicos para empresa -->
+                        <div class="caja-entrada">
+                            <input type="text" class="entrada" id="razon_social" placeholder="Razón Social">
+                            <i class="bx bx-buildings"></i>
+                        </div>
+                        <div class="caja-entrada">
+                            <input type="text" class="entrada" id="nit" placeholder="NIT">
+                            <i class="bx bx-id-card"></i>
+                        </div>
+                        <div class="caja-entrada">
+                            <input type="text" class="entrada" id="telefono_empresa" placeholder="Teléfono">
+                            <i class="bx bx-phone"></i>
+                        </div>
+                        <div class="caja-entrada">
+                            <input type="email" class="entrada" id="email_empresa" placeholder="Correo Empresa">
+                            <i class="bx bx-envelope"></i>
+                        </div>
+                        <div class="caja-entrada">
+                            <label for="rubro">Seleccione el Rubro</label>
+                            <select id="rubro" class="entrada" name="id_rubro" required>
+                                <!-- Opciones cargadas dinámicamente -->
+                            </select>
+                            <i class="bx bx-store-alt"></i>
+                        </div>
+                        <div class="caja-entrada">
+                            <input type="text" class="entrada" id="nombre_representante" placeholder="Nombres Representante Legal">
+                            <i class="bx bx-user"></i>
+                        </div>
+                        <div class="caja-entrada">
+                            <input type="text" class="entrada" id="apellido_representante" placeholder="Apellidos Representante Legal">
+                            <i class="bx bx-user"></i>
+                        </div>
+                        <div class="caja-entrada">
+                            <input type="text" class="entrada" id="cedula_representante" placeholder="Cédula Representante Legal">
+                            <i class="bx bx-id-card"></i>
+                        </div>
 
-                <div class="dos-columnas">
-                    <div class="dos">
-                        <label><a href="#">Términos & condiciones</a></label>
+                    <!-- Botones separados para enviar -->
+                    <div class="caja-entrada" id="botonesRegistro">
+                        <button type="button" class="boton-enviar" id="boton-empresa" onclick="registrarEmpresa()" >Registrarse como Empresa</button>
                     </div>
-                </div>
-            </form>
+                    </div>
+
+
+                    <div class="dos-columnas">
+                        <div class="dos">
+                            <label><a href="#">Términos & condiciones</a></label>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
     <script src="../public/js/register.js"></script>
-
 </body>
 </html>

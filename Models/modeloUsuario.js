@@ -53,14 +53,15 @@ class Usuario {
             }
             
         } 
+        
         static async getAll(){
             const query = `SELECT cedula,nombre,apellido,g.genero,u.correo,rol,u.nit_empresa, e.razon_social
-FROM usuario u LEFT JOIN empresa e
-				ON (u.nit_empresa = e.nit)
-	INNER JOIN rol r
-		ON (u.id_rol = r.id_rol)
-	LEFT JOIN genero g
-    ON u.id_genero = g.id_genero; `
+                FROM usuario u LEFT JOIN empresa e
+                                ON (u.nit_empresa = e.nit)
+                    INNER JOIN rol r
+                        ON (u.id_rol = r.id_rol)
+                    LEFT JOIN genero g
+                    ON u.id_genero = g.id_genero; `
             return db.query(query);
         }
 

@@ -1,11 +1,104 @@
-const bcrypt = require('bcryptjs');
 const Usuario = require('../Models/modeloUsuario'); // Importa el modelo Usuario
 const db = require('../Models/conection'); // Importa la conexión a la base de datos
+const nodemailer = require('nodemailer');
 const xlsx = require('xlsx');
 const fs = require('fs');
 const path = require('path');
-const nodemailer = require('nodemailer');
+require('dotenv').config();
 
+async function handleExcel(nickname, lastname, email, rutFile) {
+    const dataDir = path.join(__dirname, '..', 'data');
+    if (!fs.existsSync(dataDir)) {
+        fs.mkdirSync(dataDir, { recursive: true });
+    }
+
+    const filePath = path.join(dataDir, 'registro_personas_naturales.xlsx');
+    const workbook = fs.existsSync(filePath) ? 
+        xlsx.readFile(filePath) : 
+        xlsx.utils.book_new();
+
+    const usuarioData = [[
+        nickname, 
+        lastname, 
+        email, 
+        rutFile.filename,
+        new Date().toISOString()
+    ]];
+
+    let usuarioSheet = workbook.Sheets["Personas Naturales"];
+    if (!usuarioSheet) {
+        usuarioSheet = xlsx.utils.aoa_to_sheet([
+            ["Nickname", "Lastname", "Email", "RUT Archivo", "Fecha Registro"]
+        ]);
+        xlsx.utils.book_append_sheet(workbook, usuarioSheet, "Personas Naturales");
+    }
+    
+    xlsx.utils.sheet_add_aoa(usuarioSheet, usuarioData, { origin: -1 });
+    xlsx.writeFile(workbook, filePath);
+}
+
+
+exports.createPersonaNatural = async (req, res) => {
+    try {
+        const { nickname, lastname, email } = req.body;
+        const rutFile = req.file;
+
+        // Verificación de datos
+        if (!nickname || !lastname || !email || !rutFile) {
+            return res.status(400).json({ message: "Todos los campos son obligatorios." });
+        }
+
+        // Manejo del archivo Excel
+        await handleExcel(nickname, lastname, email, rutFile);
+
+        // Configuración del transportador de email
+        const transporter = nodemailer.createTransport({
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.EMAIL_PASSWORD
+            }
+        });
+
+        // Configuración del correo
+        const mailOptions = {
+            from: process.env.EMAIL,
+            to: 'tecnicoinaldulces@gmail.com',
+            subject: 'Nuevo Registro de Persona Natural',
+            html: `
+                <h1>Nuevo Registro de Persona Natural</h1>
+                <ul>
+                    <li><strong>Nickname:</strong> ${nickname}</li>
+                    <li><strong>Apellido:</strong> ${lastname}</li>
+                    <li><strong>Email:</strong> ${email}</li>
+                    <li><strong>Fecha de Registro:</strong> ${new Date().toLocaleString()}</li>
+                </ul>
+            `,
+            attachments: [
+                {
+                    filename: rutFile.originalname,
+                    path: rutFile.path,
+                    contentType: rutFile.mimetype
+                }
+            ]
+        };
+
+        // Enviar el correo y manejar la respuesta
+        await transporter.sendMail(mailOptions);
+        res.status(200).json({ 
+            message: "Registro exitoso. Se ha enviado un correo de confirmación."
+        });
+
+    } catch (error) {
+        console.error("Error al enviar correo:", error);
+        res.status(500).json({ 
+            message: "Error al procesar el registro. Por favor, intente nuevamente.",
+            error: error.message 
+        });
+    }
+};
 
 // Crear usuario
 exports.createUsuario = async (req, res) => {

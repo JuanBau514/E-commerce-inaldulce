@@ -8,6 +8,7 @@ const fs = require('fs');
 const xlsx = require('xlsx'); 
 const app = express();
 const port = 3000;
+
 const corsOptions = {
     origin: '*',  // Permitir todos los orígenes para pruebas
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],

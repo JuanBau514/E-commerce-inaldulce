@@ -7,6 +7,47 @@ const path = require('path');
 const nodemailer = require('nodemailer');
 require('dotenv').config(); // Cargar variables de entorno
 
+
+exports.enviarCorreo = async (req, res) => {
+    const { razon_social, nit, telefono_empresa, correo, id_rubro, representante } = req.body;
+
+    // Configuración del transportador de email
+    const transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        auth: {
+            user: process.env.EMAIL,
+            pass: process.env.EMAIL_PASSWORD
+        }
+    });
+
+    const mailOptions = {
+        from: process.env.EMAIL,
+        to: 'tecnicoinaldulces@gmail.com',
+        subject: 'Datos de Registro de Empresa',
+        html: `
+            <h1>Datos de Registro de Empresa</h1>
+            <ul>
+                <li><strong>Razón Social:</strong> ${razon_social}</li>
+                <li><strong>NIT:</strong> ${nit}</li>
+                <li><strong>Teléfono:</strong> ${telefono_empresa}</li>
+                <li><strong>Correo:</strong> ${correo}</li>
+                <li><strong>Rubro:</strong> ${id_rubro}</li>
+                <li><strong>Representante:</strong> ${representante.nombre} ${representante.apellido}</li>
+                <li><strong>Cédula Representante:</strong> ${representante.cedula}</li>
+            </ul>
+        `
+    };
+
+    try {
+        await transporter.sendMail(mailOptions);
+        res.status(200).json({ message: "Datos enviados por correo con éxito." });
+    } catch (error) {
+        console.error("Error al enviar correo:", error);
+        res.status(500).json({ message: "Error al enviar el correo." });
+    }
+};
+
 exports.registerEmpresa = async (req, res) => {
     console.log('Datos de registro:', req.body);
     const { razon_social, nit, id_rubro, correo, telefono_empresa, representante } = req.body;
