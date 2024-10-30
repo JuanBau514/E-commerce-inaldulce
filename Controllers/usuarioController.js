@@ -1,4 +1,5 @@
 const Usuario = require('../Models/modeloUsuario'); // Importa el modelo Usuario
+const bcrypt = require('bcryptjs');
 const db = require('../Models/conection'); // Importa la conexión a la base de datos
 const nodemailer = require('nodemailer');
 const xlsx = require('xlsx');
@@ -151,18 +152,17 @@ exports.login = async (req, res) => {
             return res.status(500).json({ message: 'Error del servidor: Contraseña no encontrada' });
         }
 
-        console.log(password);
         // Verificar contraseña
         const isMatch = await bcrypt.compare(password, user[0].contraseña);
         
         if (!isMatch) {
             return res.status(400).json({ message: 'Contraseña incorrecta' });
         }
-        /* 
-        // Crear token JWT
-        const token = jwt.sign({ cedula: user[0].cedula, nickname: user[0].nombre, role: user[0].id_rol }, 'secreto', {
-            expiresIn: '1h',
-        });*/
+
+        // Crear token JWT (descomentar si es necesario)
+        // const token = jwt.sign({ cedula: user[0].cedula, nickname: user[0].nombre, role: user[0].id_rol }, 'secreto', {
+        //     expiresIn: '1h',
+        // });
         
         return res.status(200).json({ role: user[0].id_rol, message: 'Inicio de sesión exitoso' });
     } catch (error) {

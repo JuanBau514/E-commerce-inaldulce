@@ -35,8 +35,10 @@ document.querySelector('.boton-enviar').addEventListener('click', async function
                 }
 
             } catch (error) {
-                console.error('Error en la solicitud:', error);
-                alert('Error al iniciar sesión');
+                console.error('Error en la solicitud:', error.message);
+
+                alert('Error al iniciar sesión', error.message);
+
             }
         } else {
             alert('Por favor, completa todos los campos.');
@@ -45,15 +47,3 @@ document.querySelector('.boton-enviar').addEventListener('click', async function
         console.error('No se pudo encontrar los campos de email o contraseña');
     }
 });
-
-if (response.ok) {
-    // Guarda el token en localStorage
-    //localStorage.setItem('token', result.token);
-
-    // Verifica el rol del usuario
-    if (result.role === 1) {  // Asegúrate de que este es el rol de Administrador
-        window.location.href = '/Views/adminPage.html';
-    } else {
-        window.location.href = '/Views/userPage.html';
-    }
-}
