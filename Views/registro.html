@@ -20,42 +20,15 @@
 
                     <div class="caja-entrada">
                         <label for="tipoUsuario">Seleccione el tipo de registro:</label>
-                        <select id="tipoUsuario" class="entrada" onchange="mostrarCampos()">
+                        <select id="tipoUsuario" class="entrada" onchange="redireccionarRegistro()">
                             <option value="">Seleccione</option>
                             <option value="natural">Persona Natural</option>
                             <option value="empresa">Empresa</option>
                         </select>
                     </div>
 
-                    <!-- Campos para Persona Natural -->
-                    <div id="camposNatural" style="display: none;">
-                        <!-- Campos específicos para persona natural -->
-                        <div class="dos-forms">
-                            <div class="caja-entrada">
-                                <input type="text" class="entrada" id="nickname" placeholder="Nombres">
-                                <i class="bx bx-user"></i>
-                            </div>
-                            <div class="caja-entrada">
-                                <input type="text" class="entrada" id="lastname" placeholder="Apellidos">
-                                <i class="bx bx-user"></i>
-                            </div>
-                        </div>
-                        <div class="caja-entrada">
-                            <input type="email" class="entrada" id="email" placeholder="Correo Electrónico">
-                            <i class="bx bx-envelope"></i>
-                        </div>
-                        <div class="caja-entrada">
-                            <label for="rut">Subir RUT (PDF)</label>
-                            <input type="file" class="entrada" id="rut" placeholder="Subir RUT">
-                        </div>
-                          <div class="caja-entrada" id="botonesRegistro">
-                            <button type="button" class="boton-enviar" id="boton-natural" onclick="registrarPersonaNatural()" >Registrarse como Persona Natural</button>
-                        </div>
-                    </div>
-
                     <!-- Campos para Empresa -->
                     <div id="camposEmpresa" style="display: none;">
-                        <!-- Campos específicos para empresa -->
                         <div class="caja-entrada">
                             <input type="text" class="entrada" id="razon_social" placeholder="Razón Social">
                             <i class="bx bx-buildings"></i>
@@ -92,12 +65,10 @@
                             <i class="bx bx-id-card"></i>
                         </div>
 
-                    <!-- Botones separados para enviar -->
-                    <div class="caja-entrada" id="botonesRegistro">
-                        <button type="button" class="boton-enviar" id="boton-empresa" onclick="registrarEmpresa()" >Registrarse como Empresa</button>
+                        <div class="caja-entrada" id="botonesRegistro">
+                            <button type="button" class="boton-enviar" id="boton-empresa" onclick="registrarEmpresa()">Registrarse como Empresa</button>
+                        </div>
                     </div>
-                    </div>
-
 
                     <div class="dos-columnas">
                         <div class="dos">
@@ -110,5 +81,17 @@
     </div>
 
     <script src="../public/js/register.js"></script>
+    <script>
+        function redireccionarRegistro() {
+            const tipoUsuario = document.getElementById("tipoUsuario").value;
+            if (tipoUsuario === "natural") {
+                // Redirige a registrol.html para el registro de personas naturales
+                window.location.href = "./registrol.html";
+            } else if (tipoUsuario === "empresa") {
+                // Muestra el formulario de empresa en la misma página
+                document.getElementById("camposEmpresa").style.display = "block";
+            }
+        }
+    </script>
 </body>
 </html>

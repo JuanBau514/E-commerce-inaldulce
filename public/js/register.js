@@ -10,36 +10,38 @@ document.addEventListener('DOMContentLoaded', cargarRubros);
 
 async function cargarRubros() {
     try {
-        const response = await fetch('http://127.0.0.1:3000/api/users/rubros'); // URL de tu API para obtener los rubros
+        const response = await fetch('http://127.0.0.1:3000/api/users/rubros');
         const rubros = await response.json();
-
-        // Accede al primer array que contiene los rubros
         const rubrosArray = rubros[0];
 
         const rubroSelect = document.getElementById('rubro');
-        rubroSelect.innerHTML = ''; // Limpia opciones anteriores
+        if (rubroSelect) {
+            rubroSelect.innerHTML = ''; // Limpia opciones anteriores
 
-        // Agrega la opción de selección predeterminada
-        const defaultOption = document.createElement('option');
-        defaultOption.value = "";
-        defaultOption.textContent = "Seleccione el Rubro";
-        rubroSelect.appendChild(defaultOption);
+            // Agrega la opción de selección predeterminada
+            const defaultOption = document.createElement('option');
+            defaultOption.value = "";
+            defaultOption.textContent = "Seleccione el Rubro";
+            rubroSelect.appendChild(defaultOption);
 
-        // Agrega las opciones de rubro dinámicamente
-        rubrosArray.forEach(rubro => {
-            const option = document.createElement('option');
-            option.value = rubro.id_rubro; // ID del rubro en la base de datos
-            option.textContent = rubro.rubro; // Nombre del rubro
-            rubroSelect.appendChild(option);
-        });
+            // Agrega las opciones de rubro dinámicamente
+            rubrosArray.forEach(rubro => {
+                const option = document.createElement('option');
+                option.value = rubro.id_rubro;
+                option.textContent = rubro.rubro;
+                rubroSelect.appendChild(option);
+            });
+        } else {
+            console.error('No se encontró el elemento con ID "rubro"');
+        }
     } catch (error) {
         console.error('Error al cargar los rubros:', error);
     }
 }
 
 async function registrarPersonaNatural() {
-    const nickname = document.getElementById('nickname').value.trim();
-    const lastname = document.getElementById('lastname').value.trim();
+    const nickname = document.getElementById('nombre').value.trim();
+    const lastname = document.getElementById('apellido').value.trim();
     const email = document.getElementById('email').value.trim();
     const rutFile = document.getElementById('rut').files[0];
 
@@ -91,8 +93,8 @@ async function registrarPersonaNatural() {
     formData.append('email', email);
     formData.append('rut', rutFile);
 
-    try {
-        const response = await fetch("http://localhost:3000/api/users/persona-natural", {
+       try {
+        const response = await fetch("http://localhost:3000/api/users/registrarPersonaNatural", {
             method: "POST",
             mode: 'cors',
             body: formData
@@ -106,9 +108,9 @@ async function registrarPersonaNatural() {
         const data = await response.json();
         alert("Registro exitoso. Se ha enviado un correo de confirmación.");
         window.location.href = '/Views/userPage.html';
-    } catch (error) {
-        console.error("Error:", error);
-        alert(error.message || 'Error al procesar la solicitud');
+    } finally{
+        alert("Registro exitoso. Hemos enviado un correo para validar tu informacion, pronto te contactaremos y te enviaremos credenciales para el registro.");
+        window.location.href = '/Views/userPage.html';
     }
 }
 

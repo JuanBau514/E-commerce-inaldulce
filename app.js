@@ -9,6 +9,9 @@ const xlsx = require('xlsx');
 const app = express();
 const port = 3000;
 
+// Rutas
+app.use('/api/users', userRoutes);
+
 const corsOptions = {
     origin: '*',  // Permitir todos los orígenes para pruebas
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -84,9 +87,6 @@ app.use((err, req, res, next) => {
 // Middleware para parsear el cuerpo de las solicitudes
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-// Rutas
-app.use('/api/users', userRoutes);
 
 // Inicia el servidor
 app.listen(port, () => {

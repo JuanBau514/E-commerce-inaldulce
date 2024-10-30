@@ -37,21 +37,16 @@ async function handleExcel(nickname, lastname, email, rutFile) {
     xlsx.writeFile(workbook, filePath);
 }
 
-
 exports.createPersonaNatural = async (req, res) => {
     try {
         const { nickname, lastname, email } = req.body;
         const rutFile = req.file;
 
-        // Verificación de datos
         if (!nickname || !lastname || !email || !rutFile) {
             return res.status(400).json({ message: "Todos los campos son obligatorios." });
         }
 
-        // Manejo del archivo Excel
-        await handleExcel(nickname, lastname, email, rutFile);
-
-        // Configuración del transportador de email
+        // Configuración de nodemailer
         const transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
             port: 465,
@@ -62,15 +57,15 @@ exports.createPersonaNatural = async (req, res) => {
             }
         });
 
-        // Configuración del correo
+        // Detalles del correo
         const mailOptions = {
             from: process.env.EMAIL,
-            to: 'tecnicoinaldulces@gmail.com',
+            to: 'tecnicoinaldulces@gmail.com', // Reemplaza con el correo de destino
             subject: 'Nuevo Registro de Persona Natural',
             html: `
                 <h1>Nuevo Registro de Persona Natural</h1>
                 <ul>
-                    <li><strong>Nickname:</strong> ${nickname}</li>
+                    <li><strong>Nombre:</strong> ${nickname}</li>
                     <li><strong>Apellido:</strong> ${lastname}</li>
                     <li><strong>Email:</strong> ${email}</li>
                     <li><strong>Fecha de Registro:</strong> ${new Date().toLocaleString()}</li>
@@ -85,18 +80,13 @@ exports.createPersonaNatural = async (req, res) => {
             ]
         };
 
-        // Enviar el correo y manejar la respuesta
+        // Enviar el correo
         await transporter.sendMail(mailOptions);
-        res.status(200).json({ 
-            message: "Registro exitoso. Se ha enviado un correo de confirmación."
-        });
+        res.status(200).json({ message: "Registro exitoso. Se ha enviado un correo de confirmación." });
 
     } catch (error) {
         console.error("Error al enviar correo:", error);
-        res.status(500).json({ 
-            message: "Error al procesar el registro. Por favor, intente nuevamente.",
-            error: error.message 
-        });
+        res.status(500).json({ message: "Error al procesar el registro. Por favor, intente nuevamente." });
     }
 };
 
