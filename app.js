@@ -8,13 +8,23 @@ const fs = require('fs');
 const xlsx = require('xlsx'); 
 const app = express();
 const port = 3000;
+
 const corsOptions = {
-    origin: '*',  // Permitir todos los orígenes para pruebas
+    origin: 'http://127.0.0.1:5501',  // Permitir el origen específico
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
     optionsSuccessStatus: 200
 };
+
+// Aplicar CORS antes de las rutas
 app.use(cors(corsOptions));
+
+// Middleware para analizar JSON y datos de formularios
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Rutas
+app.use('/api/users', userRoutes);
 
 // Configurar multer para manejar archivos
 const storage = multer.diskStorage({
@@ -35,59 +45,13 @@ app.post('/api/users/persona-natural', upload.single('rut'), (req, res) => {
 
     // Validación simple
     if (!nickname || !lastname || !email) {
-        return res.status(400).json({ message: 'Todos los campos son obligatorios' });
+        return res.status(400).json({ message: 'Faltan datos' });
     }
 
-    // Ruta del archivo Excel
-    const excelPath = path.join(__dirname, 'registro_persona_natural.xlsx');
-
-    // Crear o abrir el archivo Excel
-    let workbook;
-    if (fs.existsSync(excelPath)) {
-        workbook = xlsx.readFile(excelPath);
-    } else {
-        workbook = xlsx.utils.book_new();
-        const worksheet = xlsx.utils.json_to_sheet([]);
-        xlsx.utils.book_append_sheet(workbook, worksheet, 'PersonasNaturales');
-    }
-
-    const worksheet = workbook.Sheets['PersonasNaturales'];
-    const data = xlsx.utils.sheet_to_json(worksheet);
-    data.push({ nickname, lastname, email, archivo: req.file.filename });
-
-    const newWorksheet = xlsx.utils.json_to_sheet(data);
-    workbook.Sheets['PersonasNaturales'] = newWorksheet;
-    xlsx.writeFile(workbook, excelPath);
-
-    res.status(201).json({ message: 'Registro de persona natural exitoso y archivo guardado' });
+    // Aquí iría la lógica para manejar el registro
+    res.status(200).json({ message: 'Registro exitoso' });
 });
 
-// Health check endpoint
-app.get('/api/health', (req, res) => {
-    res.status(200).json({ 
-        status: 'ok',
-        timestamp: new Date(),
-        server: 'running'
-    });
-});
-
-// Middleware para manejar errores al final de las rutas
-app.use((err, req, res, next) => {
-    console.error('Error:', err);
-    res.status(err.status || 500).json({
-        status: 'error',
-        message: err.message || 'Error interno del servidor'
-    });
-});
-
-// Middleware para parsear el cuerpo de las solicitudes
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-// Rutas
-app.use('/api/users', userRoutes);
-
-// Inicia el servidor
 app.listen(port, () => {
-    console.log(`Servidor iniciado en el puerto ${port}`);
+    console.log(`Servidor corriendo en el puerto ${port}`);
 });

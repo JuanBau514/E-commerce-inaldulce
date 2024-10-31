@@ -1,11 +1,95 @@
-const bcrypt = require('bcryptjs');
 const Usuario = require('../Models/modeloUsuario'); // Importa el modelo Usuario
+const bcrypt = require('bcryptjs');
 const db = require('../Models/conection'); // Importa la conexión a la base de datos
+const nodemailer = require('nodemailer');
 const xlsx = require('xlsx');
 const fs = require('fs');
 const path = require('path');
-const nodemailer = require('nodemailer');
+require('dotenv').config();
 
+async function handleExcel(nickname, lastname, email, rutFile) {
+    const dataDir = path.join(__dirname, '..', 'data');
+    if (!fs.existsSync(dataDir)) {
+        fs.mkdirSync(dataDir, { recursive: true });
+    }
+
+    const filePath = path.join(dataDir, 'registro_personas_naturales.xlsx');
+    const workbook = fs.existsSync(filePath) ? 
+        xlsx.readFile(filePath) : 
+        xlsx.utils.book_new();
+
+    const usuarioData = [[
+        nickname, 
+        lastname, 
+        email, 
+        rutFile.filename,
+        new Date().toISOString()
+    ]];
+
+    let usuarioSheet = workbook.Sheets["Personas Naturales"];
+    if (!usuarioSheet) {
+        usuarioSheet = xlsx.utils.aoa_to_sheet([
+            ["Nickname", "Lastname", "Email", "RUT Archivo", "Fecha Registro"]
+        ]);
+        xlsx.utils.book_append_sheet(workbook, usuarioSheet, "Personas Naturales");
+    }
+    
+    xlsx.utils.sheet_add_aoa(usuarioSheet, usuarioData, { origin: -1 });
+    xlsx.writeFile(workbook, filePath);
+}
+
+exports.createPersonaNatural = async (req, res) => {
+    try {
+        const { nickname, lastname, email } = req.body;
+        const rutFile = req.file;
+
+        if (!nickname || !lastname || !email || !rutFile) {
+            return res.status(400).json({ message: "Todos los campos son obligatorios." });
+        }
+
+        // Configuración de nodemailer
+        const transporter = nodemailer.createTransport({
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.EMAIL_PASSWORD
+            }
+        });
+
+        // Detalles del correo
+        const mailOptions = {
+            from: process.env.EMAIL,
+            to: 'tecnicoinaldulces@gmail.com', // Reemplaza con el correo de destino
+            subject: 'Nuevo Registro de Persona Natural',
+            html: `
+                <h1>Nuevo Registro de Persona Natural</h1>
+                <ul>
+                    <li><strong>Nombre:</strong> ${nickname}</li>
+                    <li><strong>Apellido:</strong> ${lastname}</li>
+                    <li><strong>Email:</strong> ${email}</li>
+                    <li><strong>Fecha de Registro:</strong> ${new Date().toLocaleString()}</li>
+                </ul>
+            `,
+            attachments: [
+                {
+                    filename: rutFile.originalname,
+                    path: rutFile.path,
+                    contentType: rutFile.mimetype
+                }
+            ]
+        };
+
+        // Enviar el correo
+        await transporter.sendMail(mailOptions);
+        res.status(200).json({ message: "Registro exitoso. Se ha enviado un correo de confirmación." });
+
+    } catch (error) {
+        console.error("Error al enviar correo:", error);
+        res.status(500).json({ message: "Error al procesar el registro. Por favor, intente nuevamente." });
+    }
+};
 
 // Crear usuario
 exports.createUsuario = async (req, res) => {
@@ -68,18 +152,17 @@ exports.login = async (req, res) => {
             return res.status(500).json({ message: 'Error del servidor: Contraseña no encontrada' });
         }
 
-        console.log(password);
         // Verificar contraseña
         const isMatch = await bcrypt.compare(password, user[0].contraseña);
         
         if (!isMatch) {
             return res.status(400).json({ message: 'Contraseña incorrecta' });
         }
-        /* 
-        // Crear token JWT
-        const token = jwt.sign({ cedula: user[0].cedula, nickname: user[0].nombre, role: user[0].id_rol }, 'secreto', {
-            expiresIn: '1h',
-        });*/
+
+        // Crear token JWT (descomentar si es necesario)
+        // const token = jwt.sign({ cedula: user[0].cedula, nickname: user[0].nombre, role: user[0].id_rol }, 'secreto', {
+        //     expiresIn: '1h',
+        // });
         
         return res.status(200).json({ role: user[0].id_rol, message: 'Inicio de sesión exitoso' });
     } catch (error) {

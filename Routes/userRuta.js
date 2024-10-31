@@ -2,8 +2,19 @@ const express = require('express');
 const usuarioController = require('../Controllers/usuarioController');
 const empresaController = require('../Controllers/empresaController');
 const rubroController = require('../Controllers/rubroController');
+const multer = require('multer');
+const upload = multer({ dest: '../uploads' }); // Directorio temporal para archivos
+
 
 const router = express.Router();
+
+
+// Ruta de registro
+router.post('/registrarPersonaNatural', upload.single('rut'), usuarioController.createPersonaNatural);
+
+//ruta para enviar correo de registro de empresa
+router.post('/enviar-correo', empresaController.enviarCorreo);
+
 
 // Rutas de usuarios
 router.post('/usuarios', usuarioController.createUsuario);
@@ -15,7 +26,7 @@ router.delete('/usuarios/:id', usuarioController.deleteUsuario);
 router.post('/login', usuarioController.login);
 
 // Rutas de empresas
-router.post('/empresas', empresaController.registerEmpresa);
+// router.post('/empresas', empresaController.registerEmpresa);
 router.get('/empresas', empresaController.getEmpresas);
 router.put('/empresas', empresaController.updateEmpresa);
 router.delete('/empresas/:id', empresaController.deleteEmpresa);
