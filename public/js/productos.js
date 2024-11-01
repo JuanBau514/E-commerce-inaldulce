@@ -4,6 +4,9 @@ y use una de las funciones de spinner_animation, ya sea mostrar o esconder
 */
 import { spinner_animation } from "./spinnerAnimation.js";
 
+const barraBusqueda = document.getElementById('busqueda')
+const botonBuscar = document.getElementById('botonBusqueda')
+
 function crearProducto(codigo_producto, nombre,descripcion,precio,cantidad_disponible,imagen_url='https://via.placeholder.com/150') {
     // Crear contenedor principal del producto
     const productoDiv = document.createElement("div");
@@ -43,7 +46,7 @@ function crearProducto(codigo_producto, nombre,descripcion,precio,cantidad_dispo
     const editarBtn = document.createElement("button");
     editarBtn.classList.add("producto__editar");
     editarBtn.textContent = "Editar";
-
+    
     /*Al presionar el boton editar, haré una petición post al servidor para guardar el codigo_producto del actual producto
      y así guardarlo en el servidor para mayor seguridad
     */
@@ -103,10 +106,40 @@ window.onload = async function() {
                 lista_productos.appendChild(nuevoProducto)
                 
             })
+
+            botonBuscar.addEventListener('click',(e)=>{
+                const codigo_buscar = (barraBusqueda.value).trim();   
+
+                let productoEncontrado = información.filter((producto)=>{
+                    if(producto.codigo_producto == codigo_buscar ){
+                        return producto;
+                    }
+                })
+                            
+                if(productoEncontrado.length > 0){
+                    lista_productos.innerHTML = ''
+                   productoEncontrado = crearProducto(productoEncontrado[0].codigo_producto,
+                        productoEncontrado[0].nombre,
+                        productoEncontrado[0].descripcion,
+                        productoEncontrado[0].precio,                    
+                        productoEncontrado[0].cantidad_disponible,
+                        productoEncontrado[0].url_imagen                    
+                    )                    
+                    lista_productos.appendChild(productoEncontrado)
+                    
+                }else{            
+                    alert("producto NO encontrado")
+                    window.location.href = '/Views/admin_productos/productos_ver.html';
+                    
+                }
+                
+            })
     
         })
 
         spinner_animation.hideSpinner(spinner)
+
+        
         
     } catch (error) {
         alert(`Hubo un error ${error}`)

@@ -106,21 +106,28 @@
         </header>
 
         <main>
+            
             <div class="page-header inicio">
                 <div>
                     <h1>Ver productos</h1>
                 </div>
-                <div class="header-actions">
-                    <button>
-                        <span class="las la-bell"></span>
-                        Exportar
-                    </button>
-                    <button>
-                        <span class="las la-tools"></span>
-                        Configuración
-                    </button>
-                </div>
+                
             </div>
+
+            <input type="number" id="busqueda" placeholder="Buscar por código" style="width: 100%; padding: 10px;">
+            <button id="botonBusqueda" style="display: flex; justify-content: center; 
+            
+                background-color: var(--color-main);
+                color: #fff;
+                border: none;
+                padding: 10px 15px;
+                border-radius: 5px;
+                cursor: pointer;
+                width: 100%;
+                font-weight: 600;
+            
+            ">Buscar</button>
+        
             <div class="listaProductos">
                 <h1 class="listaProductos__titulo">Productos Disponibles</h1>
                 <div class="listaProductos__opciones">

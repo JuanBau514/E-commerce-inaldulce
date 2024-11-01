@@ -56,6 +56,17 @@ exports.updateProducto = async (req,res) =>{
     
 }
 
+exports.deleteProducto = async (req,res) => {
+    const {codigo_producto} = req.body;
+    try {
+        await Producto.delete(codigo_producto)
+        res.status(200).json('Producto eliminado')
+    } catch (error) {
+        res.status(500).json('No se pudo eliminar el producto',error)
+    }
+    
+}
+
 exports.crearProducto = async (req,res) =>{
     
     try{
