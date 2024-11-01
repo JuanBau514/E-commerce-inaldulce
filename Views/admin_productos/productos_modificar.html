@@ -116,6 +116,7 @@
 
                 <div class="session-info">
                     <h2>Información del producto</h2>                    
+                    <p><strong>Codigo:</strong> <span id="producto-codigo"></span></p>
                     <p><strong>Nombre:</strong> <span id="producto-nombre"></span></p>
                     <p><strong>Precio:</strong> <span id="producto-precio"></span></p>
                     <p><strong>Descripcion:</strong> <span id="producto-descripcion"></span></p>
@@ -128,6 +129,10 @@
                 <div class="profile-container">
                     <h2>Modificar producto</h2>
                     <form>
+                        <div class="form-group">
+                            <label for="codigo-producto-formulario">codigo:</label>
+                            <input type="number" id="codigo-producto-formulario" name="codigo-producto-formulario" required>
+                        </div>
                         <div class="form-group">
                             <label for="nombre-producto-formulario">Nombre:</label>
                             <input type="text" id="nombre-producto-formulario" name="nombre-producto-formulario" required>

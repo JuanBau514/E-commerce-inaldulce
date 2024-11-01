@@ -35,12 +35,13 @@ exports.getProducto = async (req,res) =>{
 exports.updateProducto = async (req,res) =>{
     
     try{
-        const {nombre,descripcion,cantidad_disponible,precio,url_imagen} = req.body
+        const {codigo,nombre,descripcion,cantidad_disponible,precio,url_imagen} = req.body
         console.log('llegaron  los datos');
         console.log(`precio del producto actual ${precio}`);
         console.log(`Codigo del producto ${productoactual[0]}`)
         await Producto.update(
             productoactual[0],
+            codigo,
             nombre,
             descripcion,
             precio,

@@ -56,7 +56,7 @@ ADD CONSTRAINT fk_empresa_usuario
 FOREIGN KEY (nit_empresa) REFERENCES empresa(nit);
 
 CREATE TABLE producto (
-    codigo_producto INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    codigo_producto INT PRIMARY KEY NOT NULL,
     nombre VARCHAR(100) NOT NULL,
     descripcion TEXT,
     precio DECIMAL(10, 2) NOT NULL,

@@ -26,9 +26,9 @@ class Producto {
         return db.query(query, [codigo_producto]);
     }
 
-    static async update(codigo_producto, nombre, descripcion, precio, url_imagen, cantidad_disponible ) {
-        const query = 'UPDATE producto SET nombre = ?, descripcion = ?, precio = ?, url_imagen = ?, cantidad_disponible = ? WHERE codigo_producto = ?';
-        return db.query(query, [nombre, descripcion, precio, url_imagen, cantidad_disponible, codigo_producto]);
+    static async update(codigo_producto_viejo, codigo_producto_nuevo, nombre, descripcion, precio, url_imagen, cantidad_disponible ) {
+        const query = 'UPDATE producto SET codigo_producto = ?, nombre = ?, descripcion = ?, precio = ?, url_imagen = ?, cantidad_disponible = ? WHERE codigo_producto = ?';
+        return db.query(query, [codigo_producto_nuevo,nombre, descripcion, precio, url_imagen, cantidad_disponible, codigo_producto_viejo]);
     }
 
     static async getAll() {

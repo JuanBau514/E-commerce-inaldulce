@@ -23,6 +23,10 @@ function crearProducto(codigo_producto, nombre,descripcion,precio,cantidad_dispo
     nombreSpan.classList.add("producto__nombre");
     nombreSpan.textContent = nombre;
 
+    const codigoSpan = document.createElement("span");
+    codigoSpan.classList.add("producto__codigo");
+    codigoSpan.textContent = `Codigo : ${codigo_producto}`;
+
     const descripcionSpan = document.createElement("span");
     descripcionSpan.classList.add("producto__descripcion");
     descripcionSpan.textContent = descripcion;
@@ -56,6 +60,7 @@ function crearProducto(codigo_producto, nombre,descripcion,precio,cantidad_dispo
     // Agregar elementos al contenedor principal
     productoDiv.appendChild(imagenDiv);
     productoDiv.appendChild(nombreSpan);
+    productoDiv.appendChild(codigoSpan);
     productoDiv.appendChild(descripcionSpan);
     productoDiv.appendChild(precioSpan);
     productoDiv.appendChild(cantidadSpan);
