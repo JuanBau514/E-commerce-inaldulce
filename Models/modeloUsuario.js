@@ -8,7 +8,7 @@ class Usuario {
         this.apellido = apellido;
         this.correo = correo;
         this.telefono = telefono;
-        this.id_genero = id_genero; // Permite que sea null
+        this.id_genero = id_genero;
         this.id_rol = id_rol;
         this.nit_empresa = nit_empresa;
     }
@@ -33,10 +33,32 @@ class Usuario {
         }
     
         static async findByCedula(cedula) {
+        try {
+            console.log('Ejecutando consulta para cédula:', cedula);
+            
             const query = 'SELECT * FROM usuario WHERE cedula = ?';
             const [rows] = await db.query(query, [cedula]);
-            return rows.length ? rows[0] : null;
+            
+            console.log('Resultado de la consulta:', rows);
+
+            // Si no hay resultados, retornar null
+            if (!rows || rows.length === 0) {
+                console.log('No se encontraron resultados');
+                return null;
+            }
+
+            // Retornar el primer resultado
+            const userData = rows[0];
+            console.log('Usuario encontrado:', userData);
+            
+            return userData;
+
+        } catch (error) {
+            console.error('Error en findByCedula:', error);
+            throw new Error(`Error al buscar usuario por cédula: ${error.message}`);
         }
+    }
+
         static async delete(cedula) {
             const query = 'DELETE FROM usuario WHERE cedula = ?';
             return db.query(query, cedula);

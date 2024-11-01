@@ -38,6 +38,59 @@ async function handleExcel(nickname, lastname, email, rutFile) {
     xlsx.writeFile(workbook, filePath);
 }
 
+// Obtener usuario por cédula
+exports.getUsuarioByCedula = async (req, res) => {
+    try {
+        const { cedula } = req.params;
+
+        // Validar que la cédula existe y tiene un formato válido
+        if (!cedula) {
+            console.log('Cédula no proporcionada');
+            return res.status(400).json({ 
+                success: false,
+                message: 'Cédula no proporcionada' 
+            });
+        }
+
+        // Validar que la cédula solo contiene números
+        if (!/^\d+$/.test(cedula)) {
+            console.log('Formato de cédula inválido');
+            return res.status(400).json({ 
+                success: false,
+                message: 'Formato de cédula inválido' 
+            });
+        }
+
+        console.log(`Buscando usuario con cédula: ${cedula}`);
+        const usuario = await Usuario.findByCedula(cedula);
+
+        // Log para debugging
+        console.log('Resultado de la búsqueda:', usuario);
+
+        if (!usuario) {
+            console.log(`No se encontró usuario con cédula: ${cedula}`);
+            return res.status(404).json({ 
+                success: false,
+                message: 'Usuario no encontrado' 
+            });
+        }
+
+        // Si todo está bien, devolver el usuario
+        return res.status(200).json({
+            success: true,
+            data: usuario
+        });
+
+    } catch (error) {
+        console.error('Error al obtener usuario:', error);
+        return res.status(500).json({ 
+            success: false,
+            message: 'Error al obtener usuario',
+            error: process.env.NODE_ENV === 'development' ? error.message : 'Error interno del servidor'
+        });
+    }
+};
+
 exports.createPersonaNatural = async (req, res) => {
     try {
         const { nickname, lastname, email } = req.body;
@@ -116,9 +169,24 @@ exports.getUsuarios = async (req, res) => {
 // Actualizar usuario
 exports.updateUsuario = async (req, res) => {
     try {
-        const { id, cedula, nombre, apellido, correo, contraseña, id_genero, id_rol, nit_empresa } = req.body;
-        const usuario = new Usuario(cedula, nombre, apellido, correo, contraseña, id_genero, id_rol, nit_empresa);
-        usuario.id = id;
+        const { cedula, nombre, apellido, correo, telefono, id_genero, nit_empresa, contrasenaNueva } = req.body;
+        const usuario = await Usuario.findByCedula(cedula);
+        
+        if (!usuario) {
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+
+        usuario.nombre = nombre;
+        usuario.apellido = apellido;
+        usuario.correo = correo;
+        usuario.telefono = telefono;
+        usuario.id_genero = id_genero;
+        usuario.nit_empresa = nit_empresa;
+
+        if (contrasenaNueva) {
+            usuario.contraseña = await bcrypt.hash(contrasenaNueva, 10);
+        }
+
         await usuario.update();
         res.status(200).json({ message: 'Usuario actualizado con éxito' });
     } catch (error) {
@@ -164,7 +232,7 @@ exports.login = async (req, res) => {
         //     expiresIn: '1h',
         // });
         
-        return res.status(200).json({ role: user[0].id_rol, message: 'Inicio de sesión exitoso' });
+        return res.status(200).json({ cedula:user[0].cedula , role: user[0].id_rol, message: 'Inicio de sesión exitoso' });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: 'Error del servidor' });
