@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../public/css/dashboard.css">
     <link rel="stylesheet" href="../../public/css/productos.css">
+    <link rel="stylesheet" href="../../public/css/spinner.css">
     <title>Perfil del administrador</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/line-awesome/dist/line-awesome/css/line-awesome.min.css">
 
@@ -128,85 +129,7 @@
                     <button>Opción 2</button>
                 </div>
                 <div class="listaProductos__productos">
-                    <div class="producto" id="producto1">
-                        <div>
-                            <img src="../../Sources/img/masmelosPrueba2.jpg" alt="" class="producto__imagen">
-                        </div>
-                        <span class="producto__nombre">
-                            Masmellow #1
-                        </span>
-                        <span class="producto__descripcion">
-                            Rico masmellow sabor a fresa
-                        </span>
-                        <span class="producto__precio">
-                            $3500
-                        </span>
-                        <span class="producto__cantidadDisponible">
-                            39 disponibles
-                        </span>
-                        <button class="producto__editar" onclick="editarProducto('producto1')">Editar</button>
 
-                    </div>
-            
-                    <div class="producto" id="producto2">
-                        <div>
-                            <img src="https://via.placeholder.com/150" alt="" class="producto__imagen">
-                        </div>
-                        <span class="producto__nombre">
-                            Masmellow #1
-                        </span>
-                        <span class="producto__descripcion">
-                            Rico masmellow sabor a fresa
-                        </span>
-                        <span class="producto__precio">
-                            $3500
-                        </span>
-                        <span class="producto__cantidadDisponible">
-                            39 disponibles
-                        </span>
-                        <button class="producto__editar" onclick="editarProducto('producto1')">Editar</button>
-
-                    </div>
-            
-                    <div class="producto" id="producto3">
-                        <div>
-                            <img src="../../Sources/img/masmelosPrueba.png" alt="" class="producto__imagen">
-                        </div>
-                        <span class="producto__nombre">
-                            Masmellow #1
-                        </span>
-                        <span class="producto__descripcion">
-                            Rico masmellow sabor a fresa
-                        </span>
-                        <span class="producto__precio">
-                            $3500
-                        </span>
-                        <span class="producto__cantidadDisponible">
-                            39 disponibles
-                        </span>
-                        <button class="producto__editar" onclick="editarProducto('producto1')">Editar</button>
-
-                    </div>
-            
-                    <div class="producto" id="producto4">
-                        <div>
-                            <img src="https://via.placeholder.com/150" alt="" class="producto__imagen">
-                        </div>
-                        <span class="producto__nombre">
-                            Masmellow #1
-                        </span>
-                        <span class="producto__descripcion">
-                            Rico masmellow sabor a fresa
-                        </span>
-                        <span class="producto__precio">
-                            $3500
-                        </span>
-                        <span class="producto__cantidadDisponible">
-                            39 disponibles
-                        </span>
-                        <button class="producto__editar" onclick="editarProducto('producto1')">Editar</button>
-
-                    </div>
                     <!-- Puedes repetir esta estructura para más productos -->
                 </div>
                 <div class="paginacion">
@@ -217,7 +140,8 @@
             </div>
         </main>
     </div>
+    <div class="spinner"></div>
     <script src="../../public/js/dashboard.js"></script>
-    <script src="../../public/js/perfil.js"></script>
+    <script type="module" src="../../public/js/productos.js"></script>
 </body>
 </html>

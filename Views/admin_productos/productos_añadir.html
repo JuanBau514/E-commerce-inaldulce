@@ -116,21 +116,27 @@
                     <h2>Añadir Producto</h2>
                     <form>
                         <div class="form-group">
-                            <label for="name-product">Nombre:</label>
-                            <input type="text" id="name-product" name="name-product" required>
+                            <label for="nombre-producto-formulario">Nombre:</label>
+                            <input type="text" id="nombre-producto-formulario" name="nombre-producto-formulario" required>
                         </div>
                         <div class="form-group">
-                            <label for="price-product">precio:</label>
-                            <input type="text" id="price-product" name="price-product" required>
+                            <label for="precio-producto-formulario">precio:</label>
+                            <input type="number" id="precio-producto-formulario" name="precio-producto-formulario" required>
                         </div>
                         <div class="form-group">
-                            <label for="product-description">descripcion:</label>
-                            <input type="text" id="product-description" name="product-description" required>
+                            <label for="descripcion-producto-formulario">descripcion:</label>
+                            <input type="text" id="descripcion-producto-formulario" name="descripcion-producto-formulario" required>
                         </div>
                         <div class="form-group">
-                            <label for="product-image">Imagen del producto:</label>
-                            <input type="file" id="product-image" name="product-image" accept="image/*" required>
+                            <label for="cantidad-producto-formulario">Cantidad disponible:</label>
+                            <input type="number" id="cantidad-producto-formulario" name="cantidad-producto-formulario" required>
                         </div>
+                        <div class="form-group">
+                            <label for="imagen-producto-formulario">Imagen del producto:</label>
+                            <input type="file" id="imagen-producto-formulario" name="imagen-producto-formulario" accept="image/*" >
+                            <img src="  " id="previa" width="400">
+                        </div>
+                        
                         <button type="submit" id="boton-enviar" class="boton-enviar">Guardar Cambios</button>
                     </form>
                 </div>     
@@ -138,5 +144,6 @@
         </main>
     </div>
     <script src="../../public/js/dashboard.js"></script>
+    <script type="module" src="../../public/js/agregarProductos.js"></script>
 </body>
 </html>

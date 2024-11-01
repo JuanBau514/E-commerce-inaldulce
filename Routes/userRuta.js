@@ -1,6 +1,7 @@
 const express = require('express');
 const usuarioController = require('../Controllers/usuarioController');
 const empresaController = require('../Controllers/empresaController');
+const productoController = require('../Controllers/productoController');
 const rubroController = require('../Controllers/rubroController');
 const multer = require('multer');
 const upload = multer({ dest: '../uploads' }); // Directorio temporal para archivos
@@ -22,6 +23,13 @@ router.get('/usuarios', usuarioController.getUsuarios);
 router.put('/usuarios', usuarioController.updateUsuario);
 router.delete('/usuarios/:id', usuarioController.deleteUsuario);
 
+// Rutas para productos
+router.get('/productos',productoController.getProductos)
+router.put('/productos',productoController.updateProducto)
+router.post('/productos',productoController.crearProducto)
+router.post('/establecerProductoParaEdicion',productoController.asignarProductoEditar)
+router.get('/productoUnidad',productoController.getProducto)
+
 // Ruta de login
 router.post('/login', usuarioController.login);
 
@@ -35,3 +43,4 @@ router.delete('/empresas/:id', empresaController.deleteEmpresa);
 router.get('/rubros', rubroController.getRubros);
 
 module.exports = router;
+

@@ -60,7 +60,7 @@ CREATE TABLE producto (
     nombre VARCHAR(100) NOT NULL,
     descripcion TEXT,
     precio DECIMAL(10, 2) NOT NULL,
-    url_imagen VARCHAR(2083),
+    url_imagen TEXT NULL,
     cantidad_disponible INT
 );
 
