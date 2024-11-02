@@ -35,18 +35,18 @@ exports.getProducto = async (req,res) =>{
 exports.updateProducto = async (req,res) =>{
     
     try{
-        const {codigo,nombre,descripcion,cantidad_disponible,precio,url_imagen} = req.body
+        const {nombre,descripcion,cantidad_disponible,precio,url_imagen,id_estado} = req.body
         console.log('llegaron  los datos');
         console.log(`precio del producto actual ${precio}`);
         console.log(`Codigo del producto ${productoactual[0]}`)
         await Producto.update(
             productoactual[0],
-            codigo,
             nombre,
             descripcion,
             precio,
             url_imagen,
-            cantidad_disponible
+            cantidad_disponible,
+            id_estado
         );
         productoactual.pop();
         res.status(200,json('Producto actualziado correctamente'))
@@ -70,8 +70,9 @@ exports.deleteProducto = async (req,res) => {
 exports.crearProducto = async (req,res) =>{
     
     try{
-        const {nombre,descripcion,cantidad_disponible,precio,url_imagen} = req.body
+        const {codigo_producto,nombre,descripcion,cantidad_disponible,precio,url_imagen} = req.body
         await Producto.create(            
+            codigo_producto,
             nombre,
             descripcion,
             precio,

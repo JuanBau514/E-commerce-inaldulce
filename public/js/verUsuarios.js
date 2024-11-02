@@ -1,3 +1,7 @@
+const barraBusqueda = document.getElementById('busqueda')
+const botonBuscar = document.getElementById('botonBusqueda')
+const tablaUsuarios = document.getElementById('tabla_usuarios').getElementsByTagName('tbody')[0]
+
 const creaFila = (id,nombre,apellido,correo,genero,id_rol,nit_empresa,razon_social) =>{
     
     if(!nit_empresa || !razon_social){
@@ -24,7 +28,7 @@ const creaFila = (id,nombre,apellido,correo,genero,id_rol,nit_empresa,razon_soci
 
 
 const agregarUsuariosTabla = (usuarios)=>{
-    const tablaUsuarios = document.getElementById('tabla_usuarios').getElementsByTagName('tbody')[0]
+    
     usuarios.forEach((usuario)=>{
         
         const nuevaFila = creaFila(
@@ -50,6 +54,42 @@ window.onload = function() {
         data.json().then((usuarios)=>{            
             agregarUsuariosTabla(usuarios[0])
             
+            botonBuscar.addEventListener('click',(e)=>{
+                const cedula_buscar = (barraBusqueda.value).trim();   
+
+                let usuarioEncontrado = usuarios[0].filter((usuario)=>{
+                    if(usuario.cedula == cedula_buscar ){
+                        return usuario;
+                    }
+                })
+                            
+                if(usuarioEncontrado.length > 0){
+                    tablaUsuarios.innerHTML =''
+                   usuarioEncontrado = creaFila(
+                        usuarioEncontrado[0].cedula,
+                        usuarioEncontrado[0].nombre,
+                        usuarioEncontrado[0].apellido,
+                        usuarioEncontrado[0].correo,                    
+                        usuarioEncontrado[0].genero,
+                        usuarioEncontrado[0].rol,
+                        usuarioEncontrado[0].nit_empresa,                    
+                        usuarioEncontrado[0].razon_social,
+                    )                    
+                    
+                    tablaUsuarios.innerHTML =''
+                    tablaUsuarios.appendChild(usuarioEncontrado);
+                    
+                }else{            
+                    alert("usuario NO encontrado")
+                    window.location.href = '/Views/admin_usuarios/usuarios_ver.html';
+                    
+                }
+                
+            })
+    
         });
+
+        
     })
 }
+
