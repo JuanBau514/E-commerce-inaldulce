@@ -12,14 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Recuperar datos del usuario desde localStorage
-    const usuario = localStorage.getItem("token");
-    console.log(usuario);
-
-    // Actualizar el nombre y el rol en la página
-    if (usuario) {
-        document.querySelector('.sidebar-user h3').innerText = `${usuario.nombre} ${usuario.apellido}`;
-        document.querySelector('.info-p h4').innerText = `${usuario.nombre} ${usuario.apellido}`;
-        document.querySelector('.info-p small').innerText = usuario.rol === 2 ? "Administrador" : "Usuario";
-    }
+    const cedulaUsuario = localStorage.getItem('cedula');
+    console.log(cedulaUsuario);
 
 });
