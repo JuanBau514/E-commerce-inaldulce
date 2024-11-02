@@ -21,10 +21,14 @@ class Usuario {
         return await db.query(query);
     }
 
-    static async create({ cedula,nickname, lastname, email, password, id_genero, id_rol }) {
-        const query = 'INSERT INTO usuario (cedula,nombre, apellido, correo, contraseña, id_genero, id_rol) VALUES (?,?, ?, ?, ?, ?, ?)';
-        return db.query(query, [cedula,nickname, lastname, email, password, id_genero, id_rol]);
-    }
+    // modeloUsuario.js - Actualizar el método create
+        static async create({ cedula, nombre, apellido, correo, contraseña, id_genero, id_rol }) {
+            const query = `
+                INSERT INTO usuario (cedula, nombre, apellido, correo, contraseña, id_genero, id_rol) 
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            `;
+            return db.query(query, [cedula, nombre, apellido, correo, contraseña, id_genero, id_rol]);
+        }
     
         static async findByEmail(correo) {
             const query = 'SELECT * FROM usuario WHERE correo = ?';

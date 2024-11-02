@@ -82,40 +82,43 @@ window.onload = function() {
     ponerInformacion(cedulaUsuario);
 
     form.addEventListener('submit', async function(event) {
-        event.preventDefault();
-        
-        try {
-            const userData = {
-                cedula: inputid.value,
-                nombre: inputNombre.value,
-                apellido: inputApellido.value,
-                correo: inputCorreo.value,
-                telefono: inputTelefono.value,
-                id_genero: parseInt(inputGenero.value),
-                nit_empresa: inputNitEmpresa.value || null,
-                contrasenaNueva: inputContrasenaNueva.value || undefined
-            };
+    event.preventDefault();
+    
+    try {
+        const userData = {
+            cedula: inputid.value,
+            nombre: inputNombre.value,
+            apellido: inputApellido.value,
+            correo: inputCorreo.value,
+            telefono: inputTelefono.value,
+            id_genero: parseInt(inputGenero.value),
+            nit_empresa: inputNitEmpresa.value || null,
+            contrasenaNueva: inputContrasenaNueva.value || undefined
+        };
 
-            const response = await fetch('http://localhost:3000/api/users/usuarios', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(userData)
-            });
+        console.log('Enviando datos:', userData);
 
-            if (!response.ok) {
-                throw new Error('Error al actualizar los datos');
-            }
+        const response = await fetch('http://localhost:3000/api/users/usuarios', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+        });
 
-            const result = await response.json();
-            alert(result.message || 'Cambios guardados con éxito');
-            
-            ponerInformacion(userData.cedula);
-            
-        } catch (error) {
-            console.error('Error al guardar los cambios:', error);
-            alert('Hubo un problema al guardar los cambios: ' + error.message);
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.message || 'Error al actualizar los datos');
         }
-    });
+
+        alert('Cambios guardados con éxito');
+        await ponerInformacion(userData.cedula);
+        
+    } catch (error) {
+        console.error('Error detallado:', error);
+        alert('Error al guardar los cambios: ' + error.message);
+    }
+});
+    
 };

@@ -170,27 +170,69 @@ exports.getUsuarios = async (req, res) => {
 exports.updateUsuario = async (req, res) => {
     try {
         const { cedula, nombre, apellido, correo, telefono, id_genero, nit_empresa, contrasenaNueva } = req.body;
+        
+        // Validación de campos requeridos
+        if (!cedula || !nombre || !apellido || !correo) {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'Faltan campos requeridos' 
+            });
+        }
+
+        console.log('Actualizando usuario:', { cedula, nombre, apellido, correo });
+        
         const usuario = await Usuario.findByCedula(cedula);
         
         if (!usuario) {
-            return res.status(404).json({ message: 'Usuario no encontrado' });
+            return res.status(404).json({ 
+                success: false, 
+                message: 'Usuario no encontrado' 
+            });
         }
 
-        usuario.nombre = nombre;
-        usuario.apellido = apellido;
-        usuario.correo = correo;
-        usuario.telefono = telefono;
-        usuario.id_genero = id_genero;
-        usuario.nit_empresa = nit_empresa;
+        let queryParams = [
+            nombre,
+            apellido,
+            correo,
+            telefono || null,
+            id_genero || usuario.id_genero,
+            nit_empresa || null
+        ];
 
+        let query = `
+            UPDATE usuario 
+            SET nombre = ?, 
+                apellido = ?, 
+                correo = ?, 
+                telefono = ?,
+                id_genero = ?,
+                nit_empresa = ?
+        `;
+
+        // Si hay contraseña nueva, agregarla a la actualización
         if (contrasenaNueva) {
-            usuario.contraseña = await bcrypt.hash(contrasenaNueva, 10);
+            const hashedPassword = await bcrypt.hash(contrasenaNueva, 10);
+            query += `, contraseña = ?`;
+            queryParams.push(hashedPassword);
         }
 
-        await usuario.update();
-        res.status(200).json({ message: 'Usuario actualizado con éxito' });
+        query += ` WHERE cedula = ?`;
+        queryParams.push(cedula);
+
+        await db.query(query, queryParams);
+
+        res.status(200).json({ 
+            success: true,
+            message: 'Usuario actualizado con éxito' 
+        });
+
     } catch (error) {
-        res.status(500).json({ error: 'Error al actualizar usuario' });
+        console.error('Error en updateUsuario:', error);
+        res.status(500).json({ 
+            success: false,
+            message: 'Error al actualizar usuario',
+            error: process.env.NODE_ENV === 'development' ? error.message : 'Error interno'
+        });
     }
 };
 
@@ -236,5 +278,46 @@ exports.login = async (req, res) => {
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: 'Error del servidor' });
+    }
+};
+
+exports.createAdmin = async (req, res) => {
+    try {
+        const { cedula, nombre, apellido, correo, contraseña, id_genero, id_rol } = req.body;
+
+        // Validar datos requeridos
+        if (!cedula || !nombre || !apellido || !correo || !contraseña || !id_rol) {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'Todos los campos son requeridos' 
+            });
+        }
+
+        // Encriptar contraseña
+        const hashedPassword = await bcrypt.hash(contraseña, 10);
+
+        // Crear usuario
+        await Usuario.create({
+            cedula,
+            nombre,
+            apellido,
+            correo,
+            contraseña: hashedPassword,
+            id_genero,
+            id_rol
+        });
+
+        res.status(201).json({ 
+            success: true, 
+            message: 'Usuario creado exitosamente' 
+        });
+
+    } catch (error) {
+        console.error('Error en createAdmin:', error);
+        res.status(500).json({ 
+            success: false, 
+            message: 'Error al crear usuario',
+            error: process.env.NODE_ENV === 'development' ? error.message : 'Error interno'
+        });
     }
 };

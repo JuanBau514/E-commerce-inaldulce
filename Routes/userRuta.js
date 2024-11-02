@@ -17,6 +17,7 @@ router.post('/enviar-correo', empresaController.enviarCorreo);
 router.post('/usuarios', usuarioController.createUsuario);
 router.get('/usuarios', usuarioController.getUsuarios);
 router.put('/usuarios', usuarioController.updateUsuario);
+router.post('/createAdmin', usuarioController.createAdmin);
 router.delete('/usuarios/:id', usuarioController.deleteUsuario);
 // Obtener usuario por cédula
 router.get('/usuarios/:cedula', usuarioController.getUsuarioByCedula); // Asegúrate de que esta ruta esté correctamente definida
