@@ -55,13 +55,20 @@ ALTER TABLE usuario
 ADD CONSTRAINT fk_empresa_usuario
 FOREIGN KEY (nit_empresa) REFERENCES empresa(nit);
 
+CREATE TABLE estado ( 
+   id_estado INT PRIMARY KEY NOT NULL, 
+   estado VARCHAR(100) 
+) 
+
 CREATE TABLE producto (
     codigo_producto INT PRIMARY KEY NOT NULL,
     nombre VARCHAR(100) NOT NULL,
     descripcion TEXT,
     precio DECIMAL(10, 2) NOT NULL,
     url_imagen TEXT NULL,
-    cantidad_disponible INT
+    cantidad_disponible INT,
+    id_estado INT, 
+   FOREIGN KEY (id_estado) REFERENCES estado(id_estado) 
 );
 
 CREATE TABLE ciudad(
@@ -130,11 +137,15 @@ INSERT INTO usuario (cedula,nombre, apellido, id_genero, correo, contraseña, id
 (11118,'Anacleta', 'Hernández', 2, 'anacleta@example.com', 'contraseña6',2)
 ;
 
-INSERT INTO producto (nombre, descripcion, precio, url_imagen, cantidad_disponible) VALUES
-('Masmellow A', 'Masmellow A sabor a AA', 3200, '', 20),
-('Masmellow B', 'Masmellow A sabor a BB', 6400, '', 50),
-('Masmellow C', 'Masmellow A sabor a CC', 7600, '', 30),
-('Masmellow D', 'Masmellow A sabor a DD', 8500, '', 10);
+INSERT INTO estado (id_estado,estado) VALUES
+(1,'activo'),
+(2,'suspendido');
+
+INSERT INTO producto (nombre, descripcion, precio, url_imagen, cantidad_disponible,id_estado) VALUES
+('Masmellow A', 'Masmellow A sabor a AA', 3200, '', 20,1),
+('Masmellow B', 'Masmellow A sabor a BB', 6400, '', 50,1),
+('Masmellow C', 'Masmellow A sabor a CC', 7600, '', 30,1),
+('Masmellow D', 'Masmellow A sabor a DD', 8500, '', 10,1);
 
 INSERT INTO ciudad (id_ciudad, nombre) VALUES
 (1, 'Bogota'),
