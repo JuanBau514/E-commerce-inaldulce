@@ -7,7 +7,7 @@ import { spinner_animation } from "./spinnerAnimation.js";
 const barraBusqueda = document.getElementById('busqueda')
 const botonBuscar = document.getElementById('botonBusqueda')
 
-function crearProducto(codigo_producto, nombre,descripcion,precio,cantidad_disponible,imagen_url='https://via.placeholder.com/150') {
+function crearProducto(codigo_producto, nombre,descripcion,precio,cantidad_disponible,estado,imagen_url='https://via.placeholder.com/150') {
     // Crear contenedor principal del producto
     const productoDiv = document.createElement("div");
     productoDiv.classList.add("producto");
@@ -42,6 +42,12 @@ function crearProducto(codigo_producto, nombre,descripcion,precio,cantidad_dispo
     cantidadSpan.classList.add("producto__cantidadDisponible");
     cantidadSpan.textContent = `${cantidad_disponible} disponibles`;
 
+    const estadoSpan = document.createElement("span");
+    estadoSpan.classList.add("producto__estado");
+    estadoSpan.textContent = `${estado}`;
+    estadoSpan.style = (estado == 'Activo') ? 'color:green; font-weight:bold;' : 'color:red; font-weight:bold;';
+    
+
     // Crear botón de editar
     const editarBtn = document.createElement("button");
     editarBtn.classList.add("producto__editar");
@@ -66,6 +72,7 @@ function crearProducto(codigo_producto, nombre,descripcion,precio,cantidad_dispo
     productoDiv.appendChild(codigoSpan);
     productoDiv.appendChild(descripcionSpan);
     productoDiv.appendChild(precioSpan);
+    productoDiv.appendChild(estadoSpan);
     productoDiv.appendChild(cantidadSpan);
     productoDiv.appendChild(editarBtn);
 
@@ -94,12 +101,17 @@ window.onload = async function() {
             información.forEach((producto)=>{                
             
                 producto.url_imagen = (producto.url_imagen === "" || producto.url_imagen === null || producto.url_imagen === undefined) ? undefined : producto.url_imagen;
-            
-                const nuevoProducto = crearProducto(producto.codigo_producto,
+                
+                producto.id_estado = (producto.id_estado==1) ? 'Activo' : 'Suspendido'
+                console.log(producto.id_estado);
+
+                const nuevoProducto = crearProducto(
+                    producto.codigo_producto,
                     producto.nombre,
                     producto.descripcion,
                     producto.precio,                    
                     producto.cantidad_disponible,
+                    producto.id_estado,
                     producto.url_imagen,
                 )
         
@@ -123,6 +135,7 @@ window.onload = async function() {
                         productoEncontrado[0].descripcion,
                         productoEncontrado[0].precio,                    
                         productoEncontrado[0].cantidad_disponible,
+                        productoEncontrado[0].id_estado,
                         productoEncontrado[0].url_imagen                    
                     )                    
                     lista_productos.appendChild(productoEncontrado)

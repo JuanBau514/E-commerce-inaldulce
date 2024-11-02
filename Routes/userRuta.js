@@ -29,6 +29,7 @@ router.post('/productos', productoController.crearProducto);
 router.post('/establecerProductoParaEdicion', productoController.asignarProductoEditar);
 router.get('/productoUnidad', productoController.getProducto);
 router.delete('/productos', productoController.deleteProducto);
+
 // Ruta de login
 router.post('/login', usuarioController.login);
 
