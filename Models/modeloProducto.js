@@ -10,9 +10,9 @@ class Producto {
         this.cantidad_disponible = cantidad_disponible;
     }
 
-    static async create(codigo_producto,nombre, descripcion, precio, url_imagen, cantidad_disponible) {
-        const query = 'INSERT INTO producto (codigo_producto,nombre, descripcion, precio, url_imagen, cantidad_disponible) VALUES (?,?, ?, ?, ?, ?)';
-        return db.query(query, [codigo_producto, nombre, descripcion, precio, url_imagen, cantidad_disponible]);
+    static async create(codigo_producto,nombre, descripcion, precio, url_imagen, cantidad_disponible,estado) {
+        const query = 'INSERT INTO producto (codigo_producto,nombre, descripcion, precio, url_imagen, cantidad_disponible,id_estado) VALUES (?,?, ?, ?, ?, ?, ?)';
+        return db.query(query, [codigo_producto, nombre, descripcion, precio, url_imagen, cantidad_disponible,estado]);
     }
 
     static async findByCode(codigo_producto) {

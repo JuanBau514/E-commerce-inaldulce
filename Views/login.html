@@ -23,20 +23,29 @@
                     <i class="bx bx-lock-alt"></i>
                 </div>
                 <div class="caja-entrada">
+                    <input type="checkbox" id="show-password" onclick="togglePasswordVisibility()"> Mostrar Contraseña
+                    <input type="checkbox" id="login-check" onclick="rememberMe()">
+                    <label for="login-check"> Recuérdame</label>
+                </div>
+                <div class="caja-entrada">
                     <input type="submit" class="boton-enviar" id="boton-enviar" value="Iniciar Sesión">
                 </div>
                 <div class="dos-columnas">
-                    <div class="uno">
-                        <input type="checkbox" id="login-check">
-                        <label for="login-check"> Recuérdame</label>
-                    </div>
-                    <div class="dos">
-                        <label><a href="#">¿Olvidaste tu Contraseña?</a></label>
-                    </div>
+
                 </div>
             </div>
         </div>
     </div>
     <script src="../public/js/login.js"></script>
+    <script>
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById('password');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+            } else {
+                passwordInput.type = 'password';
+            }
+        }
+    </script>
 </body>
 </html>
