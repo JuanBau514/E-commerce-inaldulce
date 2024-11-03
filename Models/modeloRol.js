@@ -4,7 +4,7 @@ const db = require('./conection');
 class Rol {
     static async getAll() {
         try {
-            const query = 'SELECT * FROM roles ORDER BY id_rol';
+            const query = 'SELECT * FROM rol ORDER BY id_rol';
             const [roles] = await db.query(query);
             return roles;
         } catch (error) {

@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/public/css/dashboard.css">
-    <title>Estudiante Dashboard</title>
+    <link rel="stylesheet" href="../../public/css/dashboard.css">
+    <link rel="stylesheet" href="../../public/css/peticiones.css">
+    <title>Perfil del administrador</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/line-awesome/dist/line-awesome/css/line-awesome.min.css">
 
 </head>
@@ -13,7 +14,7 @@
 <body>
 
     <!-- Sidebar o menu lateral -->
-    <div class="sidebar">
+      <div class="sidebar">
         <div class="sidebar-brand">
             <div class="brand-flex">
                 <img src="../../Sources/img/marca.png" width="30px" alt="logo">
@@ -52,7 +53,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="./admin_usuarios/index.html">
+                        <a href="./index.html">
                             <span class="las la-users-cog"></span> 
                             <span>Administrar Usuarios</span>
                         </a>
@@ -79,6 +80,7 @@
             </div>
         </div>
     </div>
+
     <!-- Contenido principal -->
 
     <div class="main-content">
@@ -100,77 +102,43 @@
             </div>
 
         </header>
-
+        
         <main>
-            <div class="page-header inicio">
-                <div>
-                    <h1>GESTION DE USUARIOS</h1>
+            <section class="solicitudes-container">
+                <h1>Solicitudes de Homologación</h1>
+                <div class="upload-section">
+                    <button>Elegir archivo</button>
+                    <span>No se eligió ningún archivo</span>
                 </div>
-            </div>
-            <div class="cards botonesOpciones">
-                <a class="card-single ver_usuarios" href="./usuarios_ver.html">        
-                    <div class="card-flex">
-                        <div class="card-info">
-                            <div class="card-head">
-                                <h3>VER USUARIOS</h3>                                
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                
 
-                <a class="card-single crear_usuarios" href="./añadirAdmin.html">        
-                    <div class="card-flex">
-                        <div class="card-info">
-                            <div class="card-head">
-                                <h3>CREAR USUARIOS</h3>                                
-                            </div>
-                        </div>
-                    </div>
-                </a>
+                <div class="solicitud-card aprobado">
+                    <p class="nombre">TATIANA ANDREA AREVALO GAITAN</p>
+                    <p class="estado"><span class="status-dot aprobado"></span>Estado: Aprobado</p>
+                    <p class="info">Carrera: Ingeniería en Telemática</p>
+                    <p class="codigo">Código: 201820103150</p>
+                    <p class="email">tarevalog@udistrital.edu.co</p>
+                </div>
 
-                <a class="card-single editar_usuarios" href="#">        
-                    <div class="card-flex">
-                        <div class="card-info">
-                            <div class="card-head">
-                                <h3>EDITAR USUARIOS</h3>                                
-                            </div>
-                        </div>
-                    </div>
-                </a>
+                <div class="solicitud-card rechazado">
+                    <p class="nombre">ALEJANDRO RODRIGUEZ MUÑOZ</p>
+                    <p class="estado"><span class="status-dot rechazado"></span>Estado: Rechazado</p>
+                    <p class="info">Carrera: Ingeniería en Telemática</p>
+                    <p class="codigo">Código: 201822339315</p>
+                    <p class="email">armuñoz@udistrital.edu.co</p>
+                </div>
 
-                <a class="card-single editar_usuarios" href="./peticiones.html">        
-                    <div class="card-flex">
-                        <div class="card-info">
-                            <div class="card-head">
-                                <h3>PETICIONES</h3>                                
-                            </div>
-                        </div>
-                    </div>
-                </a>
+                <div class="solicitud-card espera">
+                    <p class="nombre">DEYVID JULIAN ALMANZA RAMIREZ</p>
+                    <p class="estado"><span class="status-dot espera"></span>Estado: En Espera</p>
+                    <p class="info">Carrera: Ingeniería en Telemática</p>
+                    <p class="codigo">Código: 201725699749</p>
+                    <p class="email">jalmanza@udistrital.edu.co</p>
+                </div>
 
-                 <a class="card-single editar_usuarios" href="#">        
-                    <div class="card-flex">
-                        <div class="card-info">
-                            <div class="card-head">
-                                <h3>VER EMPRESAS</h3>                                
-                            </div>
-                        </div>
-                    </div>
-                </a>
+                <!-- Agregar más tarjetas de solicitud aquí -->
+            </section>
+    </main>
 
-                 <a class="card-single editar_usuarios" href="#">        
-                    <div class="card-flex">
-                        <div class="card-info">
-                            <div class="card-head">
-                                <h3>EDITAR EMPRESAS</h3>                                
-                            </div>
-                        </div>
-                    </div>
-                </a>
-
-            </div>
-        </main>
     </div>
     <script src="../../public/js/dashboard.js"></script>
 </body>

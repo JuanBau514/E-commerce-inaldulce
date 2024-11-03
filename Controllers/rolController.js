@@ -1,5 +1,4 @@
-// controllers/rolesController.js
-const Rol = require('.');
+const Rol = require('../Models/modeloRol');
 
 exports.getRoles = async (req, res) => {
     try {

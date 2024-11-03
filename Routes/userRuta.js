@@ -3,6 +3,7 @@ const usuarioController = require('../Controllers/usuarioController');
 const empresaController = require('../Controllers/empresaController');
 const productoController = require('../Controllers/productoController');
 const rubroController = require('../Controllers/rubroController');
+const rolesController = require('../Controllers/rolController');
 const multer = require('multer');
 const upload = multer({ dest: '../uploads' }); // Directorio temporal para archivos
 
@@ -21,6 +22,9 @@ router.post('/createAdmin', usuarioController.createAdmin);
 router.delete('/usuarios/:id', usuarioController.deleteUsuario);
 // Obtener usuario por cédula
 router.get('/usuarios/:cedula', usuarioController.getUsuarioByCedula); // Asegúrate de que esta ruta esté correctamente definida
+
+// Rutas de roles
+router.get('/roles', rolesController.getRoles);
 
 // Rutas para productos
 router.get('/productos', productoController.getProductos);

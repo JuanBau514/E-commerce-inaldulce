@@ -1,4 +1,37 @@
+// Función para cargar roles desde la API
+async function cargarRoles() {
+    try {
+        const response = await fetch('http://localhost:3000/api/users/roles');
+        const data = await response.json();
+        
+        if (data.success) {
+            const selectRol = document.getElementById('rol');
+            selectRol.innerHTML = ''; // Limpiar opciones existentes
+            
+            // Agregar opción por defecto
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.textContent = 'Seleccione un rol';
+            selectRol.appendChild(defaultOption);
+            
+            // Agregar roles desde la base de datos
+            data.data.forEach(rol => {
+                const option = document.createElement('option');
+                option.value = rol.id_rol;
+                option.textContent = rol.rol;
+                selectRol.appendChild(option);
+            });
+        }
+    } catch (error) {
+        console.error('Error al cargar roles:', error);
+        alert('Error al cargar los roles');
+    }
+}
+
+// Añadir al DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function() {
+    cargarRoles(); // Cargar roles al iniciar la página
+
     const form = document.querySelector('form');
     
     form.addEventListener('submit', async function(e) {
