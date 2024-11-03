@@ -23,6 +23,9 @@
                     <i class="bx bx-lock-alt"></i>
                 </div>
                 <div class="caja-entrada">
+                    <input type="checkbox" id="show-password" onclick="togglePasswordVisibility()"> Mostrar Contraseña
+                </div>
+                <div class="caja-entrada">
                     <input type="submit" class="boton-enviar" id="boton-enviar" value="Iniciar Sesión">
                 </div>
                 <div class="dos-columnas">
@@ -38,5 +41,15 @@
         </div>
     </div>
     <script src="../public/js/login.js"></script>
+    <script>
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById('password');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+            } else {
+                passwordInput.type = 'password';
+            }
+        }
+    </script>
 </body>
 </html>
