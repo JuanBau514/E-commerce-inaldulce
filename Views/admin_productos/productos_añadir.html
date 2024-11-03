@@ -114,6 +114,10 @@
                     <h2>Añadir Producto</h2>
                     <form>
                         <div class="form-group">
+                            <label for="codigo-producto-formulario">Codigo:</label>
+                            <input type="number" id="codigo-producto-formulario" name="codigo-producto-formulario" required>
+                        </div>
+                        <div class="form-group">
                             <label for="nombre-producto-formulario">Nombre:</label>
                             <input type="text" id="nombre-producto-formulario" name="nombre-producto-formulario" required>
                         </div>
@@ -128,6 +132,14 @@
                         <div class="form-group">
                             <label for="cantidad-producto-formulario">Cantidad disponible:</label>
                             <input type="number" id="cantidad-producto-formulario" name="cantidad-producto-formulario" required>
+                        </div>
+                        <div class="form-group"> 
+                            <label for="estado-producto-formulario" style="display: block;">Estado</label>
+                            <input type="radio" name="estado-producto-formulario" value="1" id="activo" required>
+                            <label for="activo" style="display:contents;">Activo</label><br>
+                        
+                            <input type="radio" name="estado-producto-formulario" value="2" id="suspendido">
+                            <label for="suspendido" style="display:contents;">Suspendido</label><br>
                         </div>
                         <div class="form-group">
                             <label for="imagen-producto-formulario">Imagen del producto:</label>
