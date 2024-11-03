@@ -106,11 +106,10 @@ async function registrarPersonaNatural() {
         }
 
         const data = await response.json();
-        alert("Registro exitoso. Se ha enviado un correo de confirmación.");
-        window.location.href = '/Views/userPage.html';
-    } finally{
         alert("Registro exitoso. Hemos enviado un correo para validar tu informacion, pronto te contactaremos y te enviaremos credenciales para el registro.");
         window.location.href = '/Views/userPage.html';
+    } finally{
+         window.location.href = '/Views/userPage.html';
     }
 }
 
