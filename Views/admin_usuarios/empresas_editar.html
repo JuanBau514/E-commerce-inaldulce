@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/public/css/dashboard.css">
-    <title>Estudiante Dashboard</title>
+    <link rel="stylesheet" href="../../public/css/dashboard.css">
+    <link rel="stylesheet" href="../../public/css/productos.css">
+    <link rel="stylesheet" href="../../public/css/perfil.css">
+    <link rel="stylesheet" href="../../public/css/spinner.css">
+    <title>Editar Usuario</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/line-awesome/dist/line-awesome/css/line-awesome.min.css">
 
 </head>
-
 <body>
 
     <!-- Sidebar o menu lateral -->
-    <div class="sidebar">
+     <div class="sidebar">
         <div class="sidebar-brand">
             <div class="brand-flex">
                 <img src="../../Sources/img/marca.png" width="30px" alt="logo">
@@ -52,7 +53,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="./admin_usuarios/index.html">
+                        <a href="./index.html">
                             <span class="las la-users-cog"></span> 
                             <span>Administrar Usuarios</span>
                         </a>
@@ -79,10 +80,8 @@
             </div>
         </div>
     </div>
-    <!-- Contenido principal -->
 
-    <div class="main-content">
-        <header>
+     <header>
             <div class="menu-toggle">
                 <label for="nav-toggle">
                     <span class="las la-bars"></span>
@@ -98,69 +97,36 @@
                     <small>Administrador</small>
                 </div>
             </div>
+
         </header>
 
+    <div class="main-content">
+        <header>
+            <h1>Editar Usuario</h1>
+        </header>
         <main>
-            <div class="page-header inicio">
-                <div>
-                    <h1>GESTION DE USUARIOS</h1>
-                </div>
-            </div>
-            <div class="cards botonesOpciones">
-                <a class="card-single ver_usuarios" href="./usuarios_ver.html">        
-                    <div class="card-flex">
-                        <div class="card-info">
-                            <div class="card-head">
-                                <h3>VER USUARIOS</h3>                                
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                
-
-                <a class="card-single crear_usuarios" href="./añadirAdmin.html">        
-                    <div class="card-flex">
-                        <div class="card-info">
-                            <div class="card-head">
-                                <h3>CREAR USUARIOS</h3>                                
-                            </div>
-                        </div>
-                    </div>
-                </a>
-
-                <a class="card-single editar_usuarios" href="./peticiones.html">        
-                    <div class="card-flex">
-                        <div class="card-info">
-                            <div class="card-head">
-                                <h3>PETICIONES</h3>                                
-                            </div>
-                        </div>
-                    </div>
-                </a>
-
-                 <a class="card-single editar_usuarios" href="#">        
-                    <div class="card-flex">
-                        <div class="card-info">
-                            <div class="card-head">
-                                <h3>VER EMPRESAS</h3>                                
-                            </div>
-                        </div>
-                    </div>
-                </a>
-
-                 <a class="card-single editar_usuarios" href="#">        
-                    <div class="card-flex">
-                        <div class="card-info">
-                            <div class="card-head">
-                                <h3>CREAR EMPRESAS</h3>                                
-                            </div>
-                        </div>
-                    </div>
-                </a>
-
-            </div>
+            <form id="formEditarUsuario">
+                <input type="hidden" id="usuarioId">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+                <label for="apellido">Apellido:</label>
+                <input type="text" id="apellido" name="apellido" required>
+                <label for="correo">Correo:</label>
+                <input type="email" id="correo" name="correo" required>
+                <label for="genero">Género:</label>
+                <input type="text" id="genero" name="genero" required>
+                <label for="rol">Rol:</label>
+                <input type="text" id="rol" name="rol" required>
+                <label for="nit_empresa">Nit Empresa:</label>
+                <input type="text" id="nit_empresa" name="nit_empresa">
+                <label for="razon_social">Razón Social:</label>
+                <input type="text" id="razon_social" name="razon_social">
+                <button type="submit">Guardar Cambios</button>
+            </form>
         </main>
     </div>
+    <script src="/public/js/editarUsuario.js"></script>
     <script src="../../public/js/dashboard.js"></script>
+    <script type="module" src="../../public/js/agregarProductos.js"></script>
 </body>
 </html>
