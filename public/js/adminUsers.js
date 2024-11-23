@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (response.ok) {
                 alert('Usuario creado exitosamente');
                 form.reset();
-                window.location.href = '/Views/admin/index.html'; // Redirigir a la lista de usuarios
+                window.location.href = '/Views/admin_usuarios/usuarios_ver.html'; 
             } else {
                 alert(data.message || 'Error al crear usuario');
             }

@@ -52,7 +52,10 @@ const agregarUsuariosTabla = (usuarios) => {
                 if (response.ok) {
                     e.target.closest('tr').remove();
                     alert('Usuario eliminado con éxito');
-                } else {
+                } else if (response.status ===500){
+                     alert('No se puede eliminar el usuario porque está asociado como representante de una empresa. Verifique la empresa.');
+                } 
+                else {
                     alert('Error al eliminar el usuario');
                 }
             } catch (error) {
