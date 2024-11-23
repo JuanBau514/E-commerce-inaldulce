@@ -250,9 +250,10 @@ exports.getEmpresas = async (req, res) => {
     try {
         connection = await db.getConnection();
         const query = `
-            SELECT e.*, u.nombre as nombre_representante, u.apellido as apellido_representante 
+            SELECT e.*, u.nombre as nombre_representante, u.apellido as apellido_representante, r.rubro as rubro
             FROM empresa e 
             LEFT JOIN usuario u ON e.cedula_representante_legal = u.cedula
+            LEFT JOIN rubro r ON e.id_rubro = r.id_rubro
         `;
         const [empresas] = await connection.query(query);
         
