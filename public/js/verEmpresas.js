@@ -34,6 +34,7 @@ async function agregarEmpresa() {
 async function editarEmpresa(nit) {
     // Lógica para editar una empresa
     alert('Editar empresa con NIT: ' + nit);
+    window.location.href = '/Views/admin_usuarios/empresas_editar.html';
 }
 
 async function eliminarEmpresa(nit) {
