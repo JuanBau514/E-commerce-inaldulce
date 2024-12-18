@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/css//userPerfil.css">
+    <link rel="stylesheet" href="../public/css/mainPage.css"> <!-- CSS -->
+    <title>Perfil del Administrador</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/line-awesome/dist/line-awesome/css/line-awesome.min.css">
+</head>
+
+<body>
+
+    <header>
+    <div class="header-top">
+        <div class="logo">
+            <a href="#"><img src="../Sources/img/logo empresa 2.png" alt="Logo"></a>
+        </div>
+        <div class="iconos">
+            <a href="../Views/login.html" class="icon"><i class="bx bx-user"></i></a>
+            <a href="#" class="icon"><i class="bx bx-search"></i></a>
+            <a href="#" class="icon"><i class="bx bx-cart"></i></a>
+        </div>
+    </div>
+    
+    <div class="header-bottom">
+        <nav class="navbar">
+            <ul>
+                <li><a href="./userPage.html">Inicio</a></li>
+                <li class="dropdown-btn"><a href="#productos">Productos &#9662;</a>
+                    <ul class="dropdown">
+                        <li><a href="#productos">Golosinas</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown-btn"><a href="#service">Servicio Técnico &#9662;</a>
+                    <ul class="dropdown">
+                        <li><a href="#acerca">Acerca de</a></li>
+                        <li><a href="#faq">Preguntas Frecuentes</a></li>
+                        <li><a href="#contactanos">Contáctanos</a></li>
+                        
+                    </ul>
+                </li>
+                
+                <li><a href="https://forms.office.com/r/56RvPHhKdy">Solicitudes y peticiones </a></li>
+                <li><a href="#terminos">Terminos y condiciones</a></li>
+
+                <div id="seccion-usuario" style="display: none">
+                    <a href="./userPerfil.html" class="icon"> Perfil <i class="bx bx-user"></i></a>                
+                </div>
+
+            </ul>
+        </nav>
+    </div>
+</header>
+
+    <main class="main-content">
+        <section class="page-header">
+            <h1>Perfil</h1>
+        </section>
+
+        <section class="profile-section">
+            <div class="session-info">
+                <h2>Información de la Sesión</h2>
+                <p><strong>Cédula:</strong> <span id="profile-cedula">123456789</span></p>
+                <p><strong>Nombre:</strong> <span id="profile-name">Juan</span></p>
+                <p><strong>Apellido:</strong> <span id="profile-lastName">Pérez</span></p>
+                <p><strong>Correo:</strong> <span id="profile-email">juan.perez@example.com</span></p>
+                <p><strong>Teléfono:</strong> <span id="profile-phone">+123456789</span></p>
+                <p><strong>Género:</strong> <span id="profile-gender">Masculino</span></p>
+                <p><strong>Rol:</strong> <span id="profile-role">Administrador</span></p>
+                <p><strong>NIT Empresa:</strong> <span id="profile-nit">1234567890</span></p>
+            </div>
+
+            <div class="edit-profile">
+                <h2>Editar Perfil</h2>
+                <form id="profile-form">
+                    <div class="form-group">
+                        <label for="cedula">Cédula:</label>
+                        <input type="text" id="cedula" name="cedula" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="first-name">Nombre:</label>
+                        <input type="text" id="first-name" name="first-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="last-name">Apellido:</label>
+                        <input type="text" id="last-name" name="last-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Correo:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Teléfono:</label>
+                        <input type="text" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Género:</label>
+                        <select id="gender" name="gender">
+                            <option value="1">Masculino</option>
+                            <option value="2">Femenino</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="nit_empresa">NIT Empresa:</label>
+                        <input type="text" id="nit_empresa" name="nit_empresa">
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword">Contraseña nueva:</label>
+                        <input type="password" id="newPassword" name="password">
+                    </div>
+                    <button type="submit" id="GuardaCambiosBtn">Guardar Cambios</button>
+                </form>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>

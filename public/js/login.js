@@ -23,6 +23,8 @@ document.querySelector('.boton-enviar').addEventListener('click', async function
                 if (response.ok) {
                     // Guarda la cédula en localStorage
                     localStorage.setItem('cedula', result.cedula);
+                    // Guarda el estado de sesión iniciada en localStorage
+                    localStorage.setItem('sesionIniciada', 'true');
 
                     // Verifica el rol del usuario
                     if (result.role === 1) {  // Asegúrate de que este es el rol de Administrador
@@ -31,17 +33,14 @@ document.querySelector('.boton-enviar').addEventListener('click', async function
                         window.location.href = '/Views/userPage.html';
                     }
                 } else {
-                    alert(result.message);
+                    alert('Error en el inicio de sesión: ' + result.message);
                 }
-
             } catch (error) {
-                console.error('Error en la solicitud:', error.message);
-                alert('Error al iniciar sesión', error.message);
+                console.error('Error:', error);
+                alert('Error en el inicio de sesión. Por favor, intenta nuevamente.');
             }
         } else {
-            alert('Por favor, completa todos los campos.');
+            alert('Por favor, ingresa tu correo electrónico y contraseña.');
         }
-    } else {
-        console.error('No se pudo encontrar los campos de email o contraseña');
     }
 });

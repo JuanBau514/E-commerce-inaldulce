@@ -6,6 +6,21 @@ function mostrarCampos() {
     camposEmpresa.style.display = tipoUsuario === 'empresa' ? 'block' : 'none';
 }
 
+  document.addEventListener('DOMContentLoaded', function() {
+        // Verificar si hay una sesión iniciada en el local storage
+        const sesionIniciada = localStorage.getItem('sesionIniciada');
+
+        if (sesionIniciada === 'true') {
+            // Mostrar la sección de usuario si hay una sesión iniciada
+            document.getElementById('seccion-usuario').style.display = 'block';
+            // Ocultar el enlace de login
+            const loginLink = document.querySelector('a[href="../Views/login.html"]');
+            if (loginLink) {
+                loginLink.style.display = 'none';
+            }
+        }
+    });
+
 document.addEventListener('DOMContentLoaded', cargarRubros);
 
 async function cargarRubros() {
