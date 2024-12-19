@@ -35,7 +35,7 @@ body {
 
 .main-content {
     max-width: 900px;
-    margin: 20rem auto;
+    margin:15rem auto;
     background: white;
     padding: 2rem;
     border-radius: 8px;
@@ -47,9 +47,10 @@ body {
     margin-bottom: 2rem;
 }
 
-.profile-section {
+.profile-section, .session-timer-section {
     display: flex;
     justify-content: center;
+    margin-bottom: 2rem;
 }
 
 .card {

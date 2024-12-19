@@ -1,11 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     cargarPerfil();
-
-    const form = document.getElementById('profile-form');
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
-        actualizarPerfil();
-    });
+    iniciarTemporizador();
 });
 
 function cargarPerfil() {
@@ -13,8 +8,7 @@ function cargarPerfil() {
 
     console.log('Cédula obtenida del local storage:', cedula); // Log para depuración
 
-        fetch(`http://localhost:3000/api/users/usuarios/${cedula}`)
-
+    fetch(`http://localhost:3000/api/users/usuarios/${cedula}`)
         .then(response => response.json())
         .then(data => {
             console.log('Respuesta de la API:', data); // Log para depuración
@@ -29,24 +23,53 @@ function cargarPerfil() {
                 document.getElementById('profile-gender').textContent = perfil.id_genero;
                 document.getElementById('profile-role').textContent = perfil.id_rol;
                 document.getElementById('profile-nit').textContent = perfil.nit_empresa;
-
-                // Rellenar el formulario con los datos del perfil
-                document.getElementById('cedula').value = perfil.cedula;
-                document.getElementById('first-name').value = perfil.nombre;
-                document.getElementById('last-name').value = perfil.apellido;
-                document.getElementById('email').value = perfil.correo;
-                document.getElementById('phone').value = perfil.telefono;
-                document.getElementById('gender').value = perfil.id_genero;
-                document.getElementById('role').value = perfil.id_rol;
-                document.getElementById('nit').value = perfil.nit_empresa;
             } else {
                 alert('Error al cargar el perfil: ' + data.message);
             }
         })
         .catch(error => {
             console.error('Error:', error);
+            alert('Error al cargar el perfil. Por favor, intenta nuevamente.');
         });
-} 
+}
+
+function iniciarTemporizador() {
+    let tiempoInactividad = 0;
+    let tiempoActividad = 0;
+    const limiteInactividad = 3600; // 1 hora en segundos
+
+    function actualizarTemporizador() {
+        tiempoInactividad++;
+        tiempoActividad++;
+        const horas = Math.floor(tiempoActividad / 3600);
+        const minutos = Math.floor((tiempoActividad % 3600) / 60);
+        const segundos = tiempoActividad % 60;
+
+        document.getElementById('session-timer').textContent = 
+            `${String(horas).padStart(2, '0')}:${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`;
+
+        if (tiempoInactividad >= limiteInactividad) {
+            cerrarSesion();
+        }
+    }
+
+    function resetearTemporizador() {
+        tiempoInactividad = 0;
+    }
+
+    function cerrarSesion() {
+        alert('Tu sesión ha expirado por inactividad.');
+        localStorage.removeItem('cedula');
+        localStorage.removeItem('sesionIniciada');
+        window.location.href = '/Views/login.html';
+    }
+
+    document.addEventListener('mousemove', resetearTemporizador);
+    document.addEventListener('keypress', resetearTemporizador);
+
+    setInterval(actualizarTemporizador, 1000);
+}
+
 /*
 
 function actualizarPerfil() {

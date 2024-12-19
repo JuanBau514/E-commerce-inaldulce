@@ -342,14 +342,15 @@ html::-webkit-scrollbar-thumb {
     justify-content: center;
     background: #ff69b4; /* Rosado */
     color: #fff; /* Blanco */
-    padding: 10px 20px;
+    padding: 10px 40px;
     border-radius: 0.5rem;
 }
 
 .contenedor-productos .caja-productos .btn:hover {
     background: var(--main-color); /* Rosado */
-    color: #000000;
+    color: #ffffff;
     border-radius: 0.5rem;
+    padding: .1rem 0.51rem;
 }
 
 /* Section Reseñas */
