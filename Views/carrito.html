@@ -1,25 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../public/css//userPerfil.css">
+    <title>Carrito de Compras</title>
     <link rel="stylesheet" href="../public/css/mainPage.css"> <!-- CSS -->
-    <title>Perfil del Administrador</title>
+    <link rel="stylesheet" href="../public/css/cart.css">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-
 </head>
-
 <body>
-
     <header>
     <div class="header-top">
         <div class="logo">
             <a href="#"><img src="../Sources/img/logo empresa 2.png" alt="Logo"></a>
         </div>
         <div class="iconos">
-          <a href="../Views/carrito.html" class="icon"><i class="bx bx-cart"></i></a>
+             <a href="../Views/carrito.html" class="icon"><i class="bx bx-cart"></i></a>
         </div>
     </div>
     
@@ -53,42 +49,28 @@
     </div>
 </header>
 
-<main class="main-content">
+
+      <main class="main-content">
         <section class="page-header">
-            <h1>Perfil</h1>
+            <h1>Carrito de Compras</h1>
         </section>
 
-        <section class="profile-section">
+        <section class="cart-section">
             <div class="card">
                 <div class="card-header">
-                    <h2>Información de la Sesión</h2>
+                    <h2>Productos en el Carrito</h2>
                 </div>
-                <div class="card-body">
-                    <p><i class="bx bx-id-card"></i> <strong>Cédula: </strong>  <span id="profile-cedula"></span></p>
-                    <p><i class="bx bx-user"></i> <strong>Nombre:</strong> <span id="profile-name"></span></p>
-                    <p><i class="bx bx-user"></i> <strong>Apellido:</strong> <span id="profile-lastName"></span></p>
-                    <p><i class="bx bx-envelope"></i> <strong>Correo:</strong> <span id="profile-email"></span></p>
-                    <p><i class="bx bx-phone"></i> <strong>Teléfono:</strong> <span id="profile-phone"></span></p>
-                    <p><i class="bx bx-male-female"></i> <strong>Género:</strong> <span id="profile-gender"></span></p>
-                    <p><i class="bx bx-user-circle"></i> <strong>Rol:</strong> <span id="profile-role"></span></p>
-                    <p><i class="bx bx-building"></i> <strong>NIT Empresa:</strong> <span id="profile-nit"></span></p>
+                <div class="card-body" id="cart-items">
+                    <!-- Los productos del carrito se mostrarán aquí -->
                 </div>
-            </div>
-        </section>
-
-         <section class="session-timer-section">
-            <div class="card">
-                <div class="card-header">
-                    <h2>Tiempo de Sesión</h2>
-                </div>
-                <div class="card-body">
-                    <p><i class="bx bx-time"></i> <strong>Tiempo de Actividad en la plataforma: </strong> <span id="session-timer">00:00:00</span></p>
+                <div class="card-footer">
+                    <h3>Total: $<span id="cart-total">0</span></h3>
+                    <button id="checkout-button" class="btn">Proceder al Pago</button>
                 </div>
             </div>
         </section>
     </main>
 
+    <script src="../public/js/cart.js"></script>
 </body>
-    <script src="../public/js/userperfil.js"></script>
-
 </html>

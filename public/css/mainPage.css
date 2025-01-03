@@ -126,6 +126,16 @@ ul li ul.dropdown {
     text-decoration: none;
 }
 
+.add-to-cart{
+    display: inline-block;
+    padding: 2px 18px;
+    background-color: #d069ff; /* Rosado */
+    color: #fff; /* Blanco */
+    border-radius: 0.5rem;
+    font-weight: 500;
+    border: none;
+}
+
 .icon:hover {
     color: #ffb6c1; /* Rosado claro */
 }
