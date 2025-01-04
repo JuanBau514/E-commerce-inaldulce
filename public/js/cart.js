@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const cartTotalElement = document.getElementById('cart-total');
     const checkoutButton = document.getElementById('checkout-button');
 
-
     // Cargar el carrito desde el local storage
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
@@ -49,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Event listener para agregar productos al carrito
-    document.querySelectorAll('.add-to-cart').forEach(button => {
+    document.querySelectorAll('.btn-add-to-cart').forEach(button => {
         button.addEventListener('click', function() {
             const id = parseInt(this.getAttribute('data-id'));
             const name = this.getAttribute('data-name');
@@ -70,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Event listener para el botón de checkout
     checkoutButton.addEventListener('click', function() {
         alert('Procediendo al pago...');
-        // lógica para el proceso de pago
+        // Aquí puedes añadir la lógica para el proceso de pago
     });
 
     // Inicializar el carrito en el DOM
