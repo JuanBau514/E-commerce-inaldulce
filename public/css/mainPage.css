@@ -136,6 +136,29 @@ ul li ul.dropdown {
     border: none;
 }
 
+.btn-add-to-cart {
+    padding: 12px 20px;
+    margin: 10px 5px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #FF6F61; /* Color principal del botón */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-add-to-cart:hover, .btn-buy-now:hover {
+    background-color: #E05B4F; /* Color al pasar el mouse */
+    transform: translateY(-3px); /* Efecto de elevación */
+}
+
+.btn-add-to-cart:active, .btn-buy-now:active {
+    background-color: #C94A41; /* Color al hacer clic */
+    transform: translateY(0); /* Restaura posición */
+}
+
 .icon:hover {
     color: #ffb6c1; /* Rosado claro */
 }

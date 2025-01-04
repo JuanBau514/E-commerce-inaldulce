@@ -8,24 +8,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Función para actualizar el carrito en el DOM
     function updateCart() {
-        cartItemsContainer.innerHTML = '';
-        let total = 0;
+        if (cartItemsContainer) {
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
 
-        cart.forEach(item => {
-            const itemElement = document.createElement('div');
-            itemElement.classList.add('cart-item');
-            itemElement.innerHTML = `
-                <img src="${item.image}" alt="${item.name}">
-                <p>${item.name}</p>
-                <p>$${item.price}</p>
-                <p>Cantidad: ${item.quantity}</p>
-                <button class="remove-from-cart" data-id="${item.id}"><i class="bx bx-trash"></i></button>
-            `;
-            cartItemsContainer.appendChild(itemElement);
-            total += item.price * item.quantity;
-        });
+            cart.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.classList.add('cart-item');
+                itemElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <p>${item.name}</p>
+                    <p>$${item.price}</p>
+                    <p>Cantidad: ${item.quantity}</p>
+                    <button class="remove-from-cart" data-id="${item.id}"><i class="bx bx-trash"></i></button>
+                `;
+                cartItemsContainer.appendChild(itemElement);
+                total += item.price * item.quantity;
+            });
 
-        cartTotalElement.textContent = total;
+            cartTotalElement.textContent = total;
+        }
     }
 
     // Función para agregar un producto al carrito
@@ -59,18 +61,22 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Event listener para eliminar productos del carrito
-    cartItemsContainer.addEventListener('click', function(event) {
-        if (event.target.classList.contains('remove-from-cart') || event.target.closest('.remove-from-cart')) {
-            const id = parseInt(event.target.closest('.remove-from-cart').getAttribute('data-id'));
-            removeFromCart(id);
-        }
-    });
+    if (cartItemsContainer) {
+        cartItemsContainer.addEventListener('click', function(event) {
+            if (event.target.classList.contains('remove-from-cart') || event.target.closest('.remove-from-cart')) {
+                const id = parseInt(event.target.closest('.remove-from-cart').getAttribute('data-id'));
+                removeFromCart(id);
+            }
+        });
+    }
 
     // Event listener para el botón de checkout
-    checkoutButton.addEventListener('click', function() {
-        alert('Procediendo al pago...');
-        // Aquí puedes añadir la lógica para el proceso de pago
-    });
+    if (checkoutButton) {
+        checkoutButton.addEventListener('click', function() {
+            alert('Procediendo al pago...');
+            // Aquí puedes añadir la lógica para el proceso de pago
+        });
+    }
 
     // Inicializar el carrito en el DOM
     updateCart();
