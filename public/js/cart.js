@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const cartItemsContainer = document.getElementById('cart-items');
     const cartTotalElement = document.getElementById('cart-total');
     const checkoutButton = document.getElementById('checkout-button');
+    const logoutButton = document.getElementById('logout');
 
     // Cargar el carrito desde el local storage
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -40,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         localStorage.setItem('cart', JSON.stringify(cart));
         updateCart();
+        toggleLogoutButton();
     }
 
     // Función para eliminar un producto del carrito
@@ -47,6 +49,26 @@ document.addEventListener('DOMContentLoaded', function() {
         cart = cart.filter(item => item.id !== id);
         localStorage.setItem('cart', JSON.stringify(cart));
         updateCart();
+        toggleLogoutButton();
+    }
+
+    // Función para cerrar sesión
+    function logout() {
+        localStorage.clear();
+        if (cartItemsContainer) {
+            cartItemsContainer.innerHTML = '';
+        }
+        alert('Has cerrado sesión.');
+        window.location.href = './login.html'; // Redirigir a la página de login
+    }
+
+    // Función para mostrar u ocultar el botón de "Cerrar sesión"
+    function toggleLogoutButton() {
+        if (localStorage.length > 0) {
+            logoutButton.style.display = 'block';
+        } else {
+            logoutButton.style.display = 'none';
+        }
     }
 
     // Event listener para agregar productos al carrito
@@ -74,10 +96,16 @@ document.addEventListener('DOMContentLoaded', function() {
     if (checkoutButton) {
         checkoutButton.addEventListener('click', function() {
             alert('Procediendo al pago...');
-            // Aquí puedes añadir la lógica para el proceso de pago
+            // lógica para el proceso de pago
         });
+    }
+
+    // Event listener para el botón de logout
+    if (logoutButton) {
+        logoutButton.addEventListener('click', logout);
     }
 
     // Inicializar el carrito en el DOM
     updateCart();
+    toggleLogoutButton(); // Verificar el estado del botón de "Cerrar sesión" al cargar la página
 });
