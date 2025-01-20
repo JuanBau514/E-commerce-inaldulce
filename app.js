@@ -10,7 +10,7 @@ const app = express();
 const port = 3000;
 
 const corsOptions = {
-    origin: 'http://127.0.0.1:5501',  // Permitir el origen específico
+    origin: ['http://127.0.0.1:5501', 'https://e-commerce-inaldulce.onrender.com'],  // Permitir el origen específico
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
     optionsSuccessStatus: 200
@@ -25,6 +25,38 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
 // Rutas
 app.use('/api/users', userRoutes);
+
+'use strict';
+
+// Middleware para evitar servir archivos estáticos en rutas de la API
+app.use((req, res, next) => {
+    if (req.path.startsWith('/api')) {
+        return next();
+    }
+    next();
+});
+
+// Middleware para manejar rutas no coincidentes y servir el archivo HTML principal
+app.use((req, res, next) => {
+    if (/(.ico|.js|.css|.jpg|.png|.map)$/i.test(req.path)) {
+        return next();
+    } else {
+        res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+        res.header('Expires', '-1');
+        res.header('Pragma', 'no-cache');
+        res.sendFile(path.join(__dirname, 'Views', 'userPage.html'));
+    }
+});
+
+// Servir archivos estáticos
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Iniciar el servidor
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+    console.log(`App listening on port ${PORT}`);
+    console.log('Press Ctrl+C to quit.');
+});
 
 // Configurar multer para manejar archivos
 const storage = multer.diskStorage({
