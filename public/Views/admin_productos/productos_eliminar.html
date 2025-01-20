@@ -4,16 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/dashboard.css">
-    <title>Estudiante Dashboard</title>
+    <link rel="stylesheet" href="../../css/dashboard.css">
+    <link rel="stylesheet" href="../../css/productos.css">
+    <link rel="stylesheet" href="../../css/perfil.css">
+    <link rel="stylesheet" href="../../css/spinner.css">
+    <title>Eliminar producto</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/line-awesome/dist/line-awesome/css/line-awesome.min.css">
 
 </head>
 
 <body>
 
-    <!-- Sidebar o menu lateral -->
- <div class="sidebar">
+    <div class="sidebar">
         <div class="sidebar-brand">
             <div class="brand-flex">
                 <img src="../../Sources/img/marca.png" width="30px" alt="logo">
@@ -52,7 +54,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="../admin_usuarios/index.html">
+                        <a href="./admin_usuarios/index.html">
                             <span class="las la-users-cog"></span> 
                             <span>Administrar Usuarios</span>
                         </a>
@@ -79,7 +81,6 @@
             </div>
         </div>
     </div>
-
     <!-- Contenido principal -->
 
     <div class="main-content">
@@ -105,43 +106,33 @@
         <main>
             <div class="page-header inicio">
                 <div>
-                    <h1>GESTIÓN DE INVENTARIOS</h1>                
+                    <h1>ELIMINAR PRODUCTOS</h1>                    
                 </div>
             </div>
-            <div class="cards botonesOpciones ver_productos">
-                <a class="card-single usuarios" href="./productos_ver.html">        
-                    <div class="card-flex">
-                        <div class="card-info">
-                            <div class="card-head">
-                                <h3>VER PRODUCTOS</h3>                                
-                            </div>
-                        </div>
-                    </div>
-                </a>
-
-                <a class="card-single agregar_productos" href="./productos_añadir.html">        
-                    <div class="card-flex">
-                        <div class="card-info">
-                            <div class="card-head">
-                                <h3>AGREGAR PRODUCTOS</h3>                                
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                
-
-                <a class="card-single eliminar_productos" href="./productos_eliminar.html">        
-                    <div class="card-flex">
-                        <div class="card-info">
-                            <div class="card-head">
-                                <h3>ELIMINAR PRODUCTOS</h3>                                
-                            </div>
-                        </div>
-                    </div>
-                </a>
+            <div class="contenedorProductos">                
+                <input type="number" id="busqueda" placeholder="Buscar por código" style="width: 100%; padding: 10px;">
+                <button id="botonBusqueda" style="display: flex; justify-content: center;">Buscar</button>
+                <table id="tabla_productos">
+                    <thead>
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                            <th>Descripcion</th>
+                            <th>Accion</th>                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
+            
         </main>
     </div>
+    <div class="spinner"></div>
     <script src="../../public/js/dashboard.js"></script>
+    <script src="../../public/js/eliminarProductos.js"></script>
 </body>
 </html>
+
