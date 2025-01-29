@@ -178,8 +178,8 @@ button:hover {
                     </select>
     
                     <!-- Botón para generar reporte -->
-                    <button onclick="generateReport()">Generar Reporte</button>
-                    <button>
+                    <button onclick="generateReport()" class="boton_generarReporte">Generar Reporte</button>
+                    <button class="exportarReporte">
                         <span class="las la-bell"></span>
                         Exportar
                     </button>                    
@@ -192,7 +192,7 @@ button:hover {
                             <div class="card-head">    
                                 <small>PRODUCTOS EN INVENTARIOS</small>
                             </div>
-                            <h2>10</h2>
+                            <h2 class="valor valor__inventarios">10</h2>
                             <small>PRODUCTOS EN STOCK</small>
                         </div>
                         <div class="card-chart danger">
@@ -208,7 +208,7 @@ button:hover {
                                 
                                 <small>NUMERO DE CLIENTES</small>
                             </div>
-                            <h2>75</h2>
+                            <h2 class="valor valor__clientes">75</h2>
                             <small>Clientes registrados</small>
                         </div>
                         <div class="card-chart success">
@@ -224,7 +224,7 @@ button:hover {
                                 
                                 <small>NUMERO DE ADMINISTRADORES</small>
                             </div>
-                            <h2>3</h2>
+                            <h2 class="valor__administradores">3</h2>
                             <small>Administradores registrados en la plataforma</small>
                         </div>
                         <div class="card-chart success">
@@ -240,7 +240,7 @@ button:hover {
                                 
                                 <small>PEDIDOS REALIZADOS EL ULTIMO MES</small>
                             </div>
-                            <h2>730</h2>
+                            <h2 class="valor valor__pedidos">730</h2>
                             <small>Ventas registradas en la plataforma</small>
                         </div>
                         <div class="card-chart warning">
@@ -260,5 +260,6 @@ button:hover {
     <script></script>
     <script src="../public/js/dashboard.js"></script>
     <script src="../public/js/select.js"></script>
+    <script src="../public/js/indicadores_gestion.js"></script>
 </body>
 </html>
