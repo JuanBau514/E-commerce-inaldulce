@@ -30,6 +30,13 @@ class Indicador{
 
         return resultados;
     }
+    static async generarReporte (mes,annio){
+        const queries = {
+            1:"SELECT COUNT(*) FROM factura WHERE YEAR(fecha) = ? AND MONTH(fecha)=?",
+            2:"SELECT FROM factura WHERE YEAR(fecha) = ? AND MONTH(fecha)=?"
+        }
+        
+    }
 }
 
 module.exports = Indicador;
